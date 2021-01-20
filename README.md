@@ -3,7 +3,7 @@ In order to use this Discord bot, you can either invite the already hosted bot t
 
 ### Invite Link
 A user with admin permissions within a server can click on this link in order to invite this bot to the server.
-[Ughy Name](insert fucking ebola link here "dumb name")
+[Erovar Adventure](https://discord.com/oauth2/authorize?client_id=797230767281405993&scope=bot&permissions=1544551543 "Invite Link")
 
 ### Build From Scratch
 Preliminaries:
