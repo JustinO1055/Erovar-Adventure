@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JustinO1055/Erovar-Adventure/issues"
   },
-  "homepage": "https://github.com/JustinO1055/Erovar-Adventure#readme"
+  "homepage": "https://github.com/JustinO1055/Erovar-Adventure#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
 }
