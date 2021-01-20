@@ -1,0 +1,9 @@
+{
+
+    "token": "INPUT TOKEN HERE",
+    "host": "INPUT SERVER HERE",
+    "user": "INPUT USERNAME HERE",
+    "password" : "INPUT DB PASSWORD HERE",
+    "database" : "INPUT DATABASE NAME"
+
+}
