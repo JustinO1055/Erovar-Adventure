@@ -23,7 +23,7 @@ client.on('message', message => {
         const command = args.shift().toLowerCase();
 
         if (command == 'ping'){
-            message.reply("pong");
+            message.reply("pog");
         }
 
     }
