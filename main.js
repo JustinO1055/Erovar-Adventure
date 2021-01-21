@@ -87,7 +87,10 @@ client.on('message', message => {
                 if (command === 'ping'){
                     // execture the command in the file ping.js
                     client.commands.get('ping').execute(message, args);
-                }
+                } else if (command === 'start'){
+		    // execute the command in the file start.js
+		    client.commands.get('start').execute(message, args);
+		}
             }
         });
 
