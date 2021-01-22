@@ -14,7 +14,7 @@ Preliminaries:
     * mariadb
     * mysql
 
-1. Clone the bot to your server by using **git clone "url"**
+1. Clone the bot to your server by using ```git clone https://github.com/JustinO1055/Erovar-Adventure.git```
 2. Go to the Discord Developer Portal Page [here](https://discord.com/developers/applications "Discord Developer Portal") and sign into your account.
 3. Click "New Application" in the top right corner.
 4. Give the bot a name. IE "Adventure Time"
