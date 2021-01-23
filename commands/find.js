@@ -1,3 +1,6 @@
+// include the json file that holds all of the items names and emoji codes
+const {items} = require('../items.json');
+
 module.exports={
     name: 'find',
     description: "Used in the first area to find resources",
@@ -37,13 +40,26 @@ module.exports={
             }
         }
 
-        //Generate a message to send to the user
-        var msg = "You found " + resourceAmount + " " + resource;
-        (resourceAmount > 1)?(msg += "'s."):(msg += ".");   //Determine if 's is needed
-        message.channel.send(msg);
+        // sql code to input the items into the databse
+        let sql = `UPDATE Inventory SET ${resource} = ${resource} + ${resourceAmount} WHERE id = '${message.author.id}'`;
+        // query the database
+        connection.query(sql, (err, rows) =>{
+            if(err) throw err;
+
+            // get the emoji code
+            var emoji = items[`${resource}`].emoji;
+
+            //Generate a message to send to the user
+            var msg = "You found " + resourceAmount + " " + resource;
+            if (resourceAmount > 1) {msg += "'s"} ;   //Determine if 's is needed
+            // append the emoji to the message
+            msg += ` ${emoji}`;
+            message.channel.send(msg);
+        }); 
     }
 }
 
+// function to generate a random Integer between two numbers
 function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };

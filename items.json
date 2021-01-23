@@ -1,6 +1,20 @@
 {
-
-    "inv":["pebble", "stone", "stick", "log"],
-    "invE":["<:pebble:801895841178451998>", "<:stone:801902761335586848>", "<:stick:801885407129370625>", "<:log:801917454481621002>"]
-
+    "items":{
+        "stick":{
+            "name": "stick",
+            "emoji": "<:stick:801885407129370625>"
+        },
+        "log":{
+            "name": "log",
+            "emoji": "<:log:801917454481621002>"
+        },
+        "pebble":{
+            "name": "pebble",
+            "emoji": "<:pebble:801895841178451998>"
+        },
+        "stone":{
+            "name": "stone",
+            "emoji": "<:stone:801902761335586848>"
+        }        
+    }
 }
