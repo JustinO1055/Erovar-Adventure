@@ -93,6 +93,9 @@ client.on('message', message => {
 		        }else if (command === 'find'){
                     // execute the command in the file find.js
                     client.commands.get('find').execute(message, args);
+		        }else if (command === 'inventory' || command === 'i'){
+                    // execute the command in the file inventory.js
+                    client.commands.get('inventory').execute(message, args);
 		        }
             }
         });
