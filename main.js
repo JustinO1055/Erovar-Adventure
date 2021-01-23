@@ -88,9 +88,12 @@ client.on('message', message => {
                     // execture the command in the file ping.js
                     client.commands.get('ping').execute(message, args);
                 } else if (command === 'start'){
-		    // execute the command in the file start.js
-		    client.commands.get('start').execute(message, args);
-		}
+                    // execute the command in the file start.js
+                    client.commands.get('start').execute(message, args);
+		        }else if (command === 'find'){
+                    // execute the command in the file find.js
+                    client.commands.get('find').execute(message, args);
+		        }
             }
         });
 
