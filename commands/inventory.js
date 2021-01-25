@@ -9,8 +9,10 @@ module.exports={
         //Check if the user mentioned someone else, meaning they want to check another users inventory
         if(message.mentions.members.size > 0){
             id = message.mentions.users.first().id;
+            username = message.mentions.users.first().username;
         } else {
             id = message.author.id;
+            username = message.author.username;
         }
 
         //Get the users inventory
@@ -20,7 +22,7 @@ module.exports={
 
             //Check if the user has an inventory
             if(rows.length < 1){
-                message.channel.send("You better start the journey first. Type 'Adv Start'")
+                message.channel.send(`${username} has not started their adventure in Erovar!`)
             } else {
                 const User = client.users.cache.get(rows[0].id); // Getting the user by ID.
 
