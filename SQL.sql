@@ -1,6 +1,8 @@
 CREATE TABLE Users (
   id varchar(20) NOT NULL,
   xp int(10) DEFAULT 0,
+  area int DEFAULT 0,
+  max_area int DEFAULT 0,
   admin int(11) DEFAULT 0,
   PRIMARY KEY (id)
 ) engine = 'innoDB';
