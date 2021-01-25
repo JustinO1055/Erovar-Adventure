@@ -96,6 +96,9 @@ client.on('message', message => {
 		        }else if (command === 'inventory' || command === 'i'){
                     // execute the command in the file inventory.js
                     client.commands.get('inventory').execute(message, args);
+		        }else if (command === 'craft'){
+                    // execute the command in the file craft.js
+                    client.commands.get('craft').execute(message, args);
 		        }
             }
         });
