@@ -1,0 +1,71 @@
+{
+    "items":{
+        "log":{
+            "item1":{
+                "itemname": "stick",
+                "quantity": "15"
+            }
+        },
+        "stone":{
+            "item1":{
+                "itemname": "pebble",
+                "quantity": "15"
+            }
+        }
+
+    },
+    "equipment":{
+        "basicsword":{
+            "item1":{
+                "itemname": "stick",
+                "quantity": "5"
+            },
+            "item2":{
+                "itemname": "log",
+                "quantity": "1"
+            },
+            "item3":{
+                "itemname": "stone",
+                "quantity": "2"
+            }
+        },
+        "basicshield":{
+            "item1":{
+                "itemname": "stick",
+                "quantity": "10"
+            },
+            "item2":{
+                "itemname": "log",
+                "quantity": "2"
+            }
+        },
+        "stoneaxe":{
+            "item1":{
+                "itemname": "stick",
+                "quantity": "2"
+            },
+            "item2":{
+                "itemname": "log",
+                "quantity": "1"
+            },
+            "item3":{
+                "itemname": "stone",
+                "quantity": "1"
+            }
+        },
+        "stonepickaxe":{
+            "item1":{
+                "itemname": "stick",
+                "quantity": "2"
+            },
+            "item2":{
+                "itemname": "log",
+                "quantity": "1"
+            },
+            "item3":{
+                "itemname": "stone",
+                "quantity": "1"
+            }
+        }
+    }
+}
