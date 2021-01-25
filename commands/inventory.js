@@ -27,19 +27,23 @@ module.exports={
                 const User = client.users.cache.get(rows[0].id); // Getting the user by ID.
 
                 //Generate and array of the users inventory.
-                var messy = "";
+                var intentory = "";
                 for(i in items){
                     //Only show items that have user has at least one of
                     if(rows[0][items[i]['name']] > 0)
-                        messy += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][items[i]['name']]} \n`;
+                        intentory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][items[i]['name']]} \n`;
                 }
+
+                //Check if the players inventory is empty and add a message if it is
+                if(intentory == "")
+                    intentory = "Your inventory is empty :slight_frown:";
 
                 //Create the embed to output
                 const inventoryEmbed = new Discord.MessageEmbed()
                     .setColor('#0a008c')
                     .setAuthor(User.username + '\'s Inventory', User.avatarURL())
                     .addFields(
-                        { name: 'items', value: messy},
+                        { name: 'Items', value: intentory},
                     )
                 //Send Embed
                 message.channel.send(inventoryEmbed);
