@@ -99,6 +99,9 @@ client.on('message', message => {
 		        }else if (command === 'craft'){
                     // execute the command in the file craft.js
                     client.commands.get('craft').execute(message, args);
+		        }else if (command === 'recipes'){
+                    // execute the command in the file craft.js
+                    client.commands.get('recipes').execute(message, args);
 		        }
             }
         });
