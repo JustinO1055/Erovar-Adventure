@@ -15,23 +15,26 @@ module.exports={
             return;
         }
 
+        //Generate the list of recipes
         var list = "";
         for(r in RECIPES[category]){
             list += `${items[r]['emoji']} ${r} ➜  `;
+
             for(i in RECIPES[category][r]){
-                list += `${RECIPES[category][r][i]['quantity']} ${items[RECIPES[category][r][i]['itemname']]['emoji']} ${RECIPES[category][r][i]['itemname']}`;
+                list += `${RECIPES[category][r][i]['quantity']} ${items[RECIPES[category][r][i]['itemname']]['emoji']} ${RECIPES[category][r][i]['itemname']} + `;
             }
+            list = list.slice(0, -2);
             list += "\n";
         }
 
-            //Create the embed to output
-            const recipesEmbed = new Discord.MessageEmbed()
-                .setColor('#0a008c')
-                .setAuthor(`${category.charAt(0).toUpperCase() + category.slice(1)} recipes`)
-                .setDescription(list)
+        //Create the embed to output
+        const recipesEmbed = new Discord.MessageEmbed()
+            .setColor('#0a008c')
+            .setAuthor(`${category.charAt(0).toUpperCase() + category.slice(1)} recipes`)
+            .setDescription(list)
 
-            //Send Embed
-            message.channel.send(recipesEmbed);
+        //Send Embed
+        message.channel.send(recipesEmbed);
 
     }
 }
