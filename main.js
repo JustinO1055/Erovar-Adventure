@@ -100,8 +100,11 @@ client.on('message', message => {
                     // execute the command in the file craft.js
                     client.commands.get('craft').execute(message, args);
 		        }else if (command === 'recipes'){
-                    // execute the command in the file craft.js
+                    // execute the command in the file recipes.js
                     client.commands.get('recipes').execute(message, args);
+		        }else if (command === 'profile' || command === 'p'){
+                    // execute the command in the file profile.js
+                    client.commands.get('profile').execute(message, args);
 		        }
             }
         });
