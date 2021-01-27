@@ -12,9 +12,16 @@ module.exports={
             message.channel.send(`${message.author}, the proper use of this command is \`adv craft [item]\` \nYou can see the recipes with \`adv recipes\``);
             return;
         }
-           
-        let recipe = "";
 
+        // test the second argument, see if it is equipment
+        if(args[1] === "sword" || args[1] === "shield" || args[1] === "armor" || args[1] === "pickaxe" || args[1] === "axe"){
+            // combine the args into one string
+            args[0] = args[0].concat(' ', args[1]);
+        }
+           
+        // set the recipe string to empty string
+        let recipe = "";
+        
         // to be used to decide if its equipment or an item, since equipment can only be crafted once
         let itemType = "";
 
@@ -46,6 +53,11 @@ module.exports={
                 message.channel.send(`Soemthing went wrong`)
             } else {
                 var craftable = true;
+
+                // TO DO
+                // Ensure that the user does not already have that piece of equipment
+                // Prep a different query based upon item vs equpiment. Equipment is stored in users table, inventory is stored in inventory table
+                // figure out the type of equipment from args[1]
 
                 //variable to store the error message that the user does not have enough materials and showing what they are missing.
                 var error = ""; 

@@ -15,7 +15,7 @@
 
     },
     "equipment":{
-        "basicsword":{
+        "basic sword":{
             "item1":{
                 "itemname": "stick",
                 "quantity": "5"
@@ -29,7 +29,7 @@
                 "quantity": "2"
             }
         },
-        "basicshield":{
+        "basic shield":{
             "item1":{
                 "itemname": "stick",
                 "quantity": "10"
@@ -39,7 +39,7 @@
                 "quantity": "2"
             }
         },
-        "stoneaxe":{
+        "stone axe":{
             "item1":{
                 "itemname": "stick",
                 "quantity": "2"
@@ -53,7 +53,7 @@
                 "quantity": "1"
             }
         },
-        "stonepickaxe":{
+        "stone pickaxe":{
             "item1":{
                 "itemname": "stick",
                 "quantity": "2"
