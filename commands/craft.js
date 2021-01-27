@@ -54,11 +54,6 @@ module.exports={
             } else {
                 var craftable = true;
 
-                // TO DO
-                // Ensure that the user does not already have that piece of equipment
-                // Prep a different query based upon item vs equpiment. Equipment is stored in users table, inventory is stored in inventory table
-                // figure out the type of equipment from args[1]
-
                 //variable to store the error message that the user does not have enough materials and showing what they are missing.
                 var error = ""; 
                 var sql2 = `UPDATE Inventory SET `;
@@ -76,20 +71,53 @@ module.exports={
                         sql2 += `${itemName} = ${itemName} - ${quantity}, `;                
                     }
                 }
-                // append the item and the user to the sql query
-                sql2 += `${item} = ${item} + 1 WHERE id = '${message.author.id}'`;
                 
                 //If the user has the required items, create query to remove those items from inventory and add the craft item
                 if(craftable){
-                    message.channel.send(`You have craft a ${item} ` + getEmoji(item));
-                    connection.query(sql2);
-                    return;
+                    // if equipment, check if the user already has the equipment
+                    if(itemType == "equipment"){
+                        let sql3 = `SELECT ${args[1]} FROM Users WHERE id = '${message.author.id}'`;
+                        console.log(sql3);
+                        connection.query(sql3, (err, rows2) =>{
+                            if(err) throw err;
+                            // if the user has already has the equipment
+                            if(rows2[0][args[1]] != "NONE") {
+                                message.channel.send(`${message.author}, You already have a ${args[1]}. You must sell this equipment before crafting a new one. \nIt can be sold using \`adv sell ${args[1]}\``);
+                                return;
+                            // user does not have this equipment
+                            } else {
+
+                                // finish removing the items required for crafting from the database
+                                // remove extra comma
+                                sql2 = sql2.slice(0, -2);
+                                sql2 += ` WHERE id = '${message.author.id}'`;
+                                //prep the sql query to add the equipment into the users table
+                                sql4 = `UPDATE Users SET ${args[1]} = '${item}' WHERE id = '${message.author.id}'`;
+                                // query the database
+                                message.channel.send(`You have craft a ${item} ` + getEmoji(item));
+                                connection.query(sql2);
+                                connection.query(sql4);
+
+                            }
+                        });
+                    //if the item crafted is not equipment
+                    } else{
+                        // append the item and the user to the sql query
+                        sql2 += `${item} = ${item} + 1 WHERE id = '${message.author.id}'`;
+                        message.channel.send(`You have craft a ${item} ` + getEmoji(item));
+                        connection.query(sql2);
+                        return;
+
+                    }
+                    
+
                 } else{
                     message.channel.send(`${message.author}, You do not have enough items to craft this. \n` + error + `\nYou can see the recipes with \`adv recipes\``);
                     return;
                 }
             }
         });
+
     }
 }
 
