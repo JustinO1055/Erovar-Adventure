@@ -110,17 +110,13 @@ module.exports={
                     //if the item crafted is not equipment
                     } else{
                         // append the item and the user to the sql query
-<<<<<<< HEAD
                         sql2 += `${item} = ${item} + ${amount} WHERE id = '${message.author.id}'`;
                         if(amount == 1){
                             message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
                         } else {
                             message.channel.send(`You have crafted ${amount} ${item}'s ` + getEmoji(item));
                         }
-=======
-                        sql2 += `${item} = ${item} + 1 WHERE id = '${message.author.id}'`;
-                        message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
->>>>>>> 4b28c2771a5136064c2119510e9c9b12dac05b45
+
                         connection.query(sql2);
                         return;
 
