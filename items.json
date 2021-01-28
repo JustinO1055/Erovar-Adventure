@@ -2,35 +2,43 @@
     "items":{
         "stick":{
             "name": "stick",
-            "emoji": "<:stick:801885407129370625>"
+            "emoji": "<:stick:801885407129370625>",
+            "value": 10
         },
         "log":{
             "name": "log",
-            "emoji": "<:log:801917454481621002>"
+            "emoji": "<:log:801917454481621002>",
+			"value": 150
         },
         "pebble":{
             "name": "pebble",
-            "emoji": "<:pebble:801895841178451998>"
+            "emoji": "<:pebble:801895841178451998>",
+            "value": 5
         },
         "stone":{
             "name": "stone",
-            "emoji": "<:stone:801902761335586848>"
+            "emoji": "<:stone:801902761335586848>",
+            "value": 75
         },
         "basic sword":{
             "name": "basicsword",
-            "emoji": "<:basicsword:802738529372602409>"
+            "emoji": "<:basicsword:802738529372602409>",
+            "value": 350
         },
         "basic shield":{
             "name": "basicshield",
-            "emoji": "<:basicshield:803356283188150324>"
+            "emoji": "<:basicshield:803356283188150324>",
+            "value": 400
         },
         "stone axe":{
             "name": "stoneaxe",
-            "emoji": "<:stoneaxe:803360811010752552>"
+            "emoji": "<:stoneaxe:803360811010752552>",
+            "value": 245
         },
         "stone pickaxe":{
             "name": "stonepickaxe",
-            "emoji": "<:stonepickaxe:802738529444692010>"
+            "emoji": "<:stonepickaxe:802738529444692010>",
+            "value": 245
         }
     }
 }
