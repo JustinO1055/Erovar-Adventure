@@ -7,6 +7,8 @@ module.exports={
     description: "Used to craft items within the game",
     execute(message, args){
 
+        var amount = 1;
+
         //Check if the player has supplied an item to craft and give a message if they do no use the command correctly
         if(args.length < 1){
             message.channel.send(`${message.author}, the proper use of this command is \`adv craft [item]\` \nYou can see the recipes with \`adv recipes\``);
@@ -17,8 +19,12 @@ module.exports={
         if(args[1] === "sword" || args[1] === "shield" || args[1] === "armor" || args[1] === "pickaxe" || args[1] === "axe"){
             // combine the args into one string
             args[0] = args[0].concat(' ', args[1]);
+        // otherwise check if args[1] is set, if it is, pass it to get value function to see how many items to be crafted
+        } else { 
+            if(typeof args[1] != 'undefined')
+                amount = calcAmount(args[1]);
         }
-           
+
         // set the recipe string to empty string
         let recipe = "";
         
@@ -60,8 +66,9 @@ module.exports={
                 //Check if the player has the required items to craft the item
                 for(i in recipe){
                     var itemName = recipe[i]['itemname'];
-                    var quantity = recipe[i]['quantity'];
-                    if(rows[0][recipe[i]['itemname']] < recipe[i]['quantity']){
+                    // multiple the quantity by the amount to be made
+                    var quantity = parseInt(recipe[i]['quantity']) * amount;
+                    if(rows[0][recipe[i]['itemname']] < quantity){
                         //error += `${rows[0][recipe[i]['itemname']]}/ ${recipe[i]['quantity']} ${recipe[i]['itemname']} ` + getEmoji(recipe[i]['itemname']) + ` :x:`;
                         error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + getEmoji(itemName) + `${itemName} :x:\n`;
                         craftable = false;
@@ -103,8 +110,12 @@ module.exports={
                     //if the item crafted is not equipment
                     } else{
                         // append the item and the user to the sql query
-                        sql2 += `${item} = ${item} + 1 WHERE id = '${message.author.id}'`;
-                        message.channel.send(`You have craft a ${item} ` + getEmoji(item));
+                        sql2 += `${item} = ${item} + ${amount} WHERE id = '${message.author.id}'`;
+                        if(amount == 1){
+                            message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
+                        } else {
+                            message.channel.send(`You have crafted ${amount} ${item}'s ` + getEmoji(item));
+                        }
                         connection.query(sql2);
                         return;
 
@@ -131,4 +142,49 @@ function getEmoji(item){
             return (items[i].emoji);
     }
 
+}
+
+function calcAmount(input){
+    // regex for finding if the user has valid input
+    var regex = /\d+(\.\d+)?[kmb]?$/;
+
+    //test the input based off the regex
+    // if its valid, continue to pasre the input.
+    if(regex.test(input)){
+
+        // set the multiplier value for the k m b modifier
+        var multiplier = 1;
+
+        // figure out if there is a letter
+        var isLetter = /[kmb]/i;
+        var letter = input.match(isLetter);
+        // if letter found, store its value
+        if(letter != null){
+            // figure out which letter
+            // store its multiplier
+            switch(letter[0]){
+                case 'k':
+                    multiplier = 1000;
+                    break;
+                case 'm':
+                    multiplier = 1000000;
+                    break;
+                case 'b':
+                    multiplier = 1000000000;
+                    break;
+            }
+            // remove the k b or m
+            input = input.replace(letter[0], '');
+        }
+
+        // convert the input to float
+        input = parseFloat(input);
+        // convert to int after multiplying
+        var value = parseInt(input * multiplier);
+        return value;
+
+    // otherwise return -1 (error)
+    } else {
+        return -1;
+    }
 }
