@@ -50,9 +50,9 @@ client.on('message', message => {
     // if the message matches the set prefix (adv ) and passes the regex, execute the given command
     if(regExPrefix.test(message.content)){
 
-        // split the message by removing the prefix, split the words by using the delimiter " "
-        const args = message.content.substring(4).split(/ +/);
-        const command = args.shift().toLowerCase();
+        // split the message by removing the prefix, split the words by using the delimiter " ", turn all arguments to lower case
+        const args = message.content.substring(4).split(/ +/).map(a => a.toLowerCase());
+        const command = args.shift();
 
         // if user is on cooldown, Print a message and return.
         // do not execute their command
