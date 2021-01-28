@@ -94,7 +94,7 @@ module.exports={
                                 //prep the sql query to add the equipment into the users table
                                 sql4 = `UPDATE Users SET ${args[1]} = '${item}' WHERE id = '${message.author.id}'`;
                                 // query the database
-                                message.channel.send(`You have craft a ${item} ` + getEmoji(item));
+                                message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
                                 connection.query(sql2);
                                 connection.query(sql4);
 
@@ -104,7 +104,7 @@ module.exports={
                     } else{
                         // append the item and the user to the sql query
                         sql2 += `${item} = ${item} + 1 WHERE id = '${message.author.id}'`;
-                        message.channel.send(`You have craft a ${item} ` + getEmoji(item));
+                        message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
                         connection.query(sql2);
                         return;
 
