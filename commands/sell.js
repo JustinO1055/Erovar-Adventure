@@ -43,12 +43,31 @@ module.exports={
             connection.query(sql1, (err, rows) =>{
                 if(rows[0][args[1]] != 'NONE'){
                     //Have a check to ensure user want to sell equipment
-                    /******************* ADD CODE HERE *************************/
+                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no' || m.content.toLowerCase() == 'y' || m.content.toLowerCase() == 'n');
+                    message.channel.send(`Are you sure you want to sell ${args[0]}? \`Yes/No\``).then(() => {
+                        message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time'] })
+                            .then(mes => {
+                                //Convert message to lowercase
+                                var command = mes.first().content.toLowerCase();
+            
+                                //If the user enters y or yes sell equipment
+                                if (command == 'yes' || command == 'y') {
+                                    //Create query to remove equipment sold
+                                    sqlUpdate2 = `UPDATE Users SET ${args[1]} = 'NONE' WHERE id = ${message.author.id}`;
+                                    
+                                    //Sell equipment
+                                    sell(amount, args[0], itemValue, sqlUpdate2, message.author.id, message.channel.id)
+                                } else if (command == 'no' || command == 'n') {
+                                    message.channel.send(`${message.author}, ${args[0]} ${items[args[0]]['emoji']} not sold.`);
+                                }
+                            })
+                                //If the user doesnt enter a valid response, output not sold message
+                                .catch(collected => {
+                                    message.channel.send(`${message.author}, ${args[0]} ${items[args[0]]['emoji']} not sold.`);
+                            });
+                        });
 
-                    //Create query to remove equipment sold
-                    sqlUpdate2 = `UPDATE Users SET ${args[1]} = 'NONE' WHERE id = ${message.author.id}`;
-
-                    sell(amount, args[0], itemValue, sqlUpdate2, message.author.id, message.channel.id)
+                    
                 } else{
                     message.channel.send(`${message.author}, You do not have a ${args[0]} to sell.`);
                 }
