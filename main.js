@@ -105,9 +105,12 @@ client.on('message', message => {
 		        }else if (command === 'profile' || command === 'p'){
                     // execute the command in the file profile.js
                     client.commands.get('profile').execute(message, args);
-		        }else if (command === 'sell' || command === 'p'){
+		        }else if (command === 'sell'){
                     // execute the command in the file sell.js
                     client.commands.get('sell').execute(message, args);
+		        }else if (command === 'area'){
+                    // execute the command in the file area.js
+                    client.commands.get('area').execute(message, args);
 		        }
             }
         });
