@@ -25,3 +25,11 @@ CREATE TABLE Inventory (
   CHECK(pebble >= 0 AND stone >=0 AND stick >= 0 AND log >= 0)
   
 ) engine = "innoDB";
+
+CREATE TABLE Cooldown(
+
+  id VARCHAR(20) PRIMARY KEY,
+  cd_gather DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
+  FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
+
+) engine = "innoDB";
