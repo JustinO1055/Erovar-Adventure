@@ -1,5 +1,5 @@
 // include the json file that holds all of the items names and emoji codes
-const {items} = require('../items.json');
+const {items} = require('../jsons/items.json');
 
 //Include the js file that contains the resourceDrop class
 var resourceDrop = require('../classes/resourceDrop.js');

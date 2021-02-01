@@ -1,0 +1,9 @@
+{
+    "commands":{
+        "gather":{
+            "name": "gather",
+            "message": "Find",
+            "cooldown": 2
+        }
+    }
+}

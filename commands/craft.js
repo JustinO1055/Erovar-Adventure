@@ -1,6 +1,6 @@
 //include the json file that holds all of the crafting recipes and items used to craft
-const RECIPES = require('../recipes.json');
-const {items} = require('../items.json');
+const RECIPES = require('../jsons/recipes.json');
+const {items} = require('../jsons/items.json');
 
 module.exports={
     name: 'craft',

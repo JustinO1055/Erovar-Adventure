@@ -1,4 +1,4 @@
-const {items} = require('../items.json');
+const {items} = require('../jsons/items.json');
 
 module.exports={
     name: 'sell',

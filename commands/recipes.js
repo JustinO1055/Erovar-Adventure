@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const RECIPES = require('../recipes.json');
-const {items} = require('../items.json');
+const RECIPES = require('../jsons/recipes.json');
+const {items} = require('../jsons/items.json');
 
 module.exports={
     name: 'recipes',
