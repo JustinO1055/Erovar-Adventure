@@ -1,36 +1,59 @@
+const Discord = require('discord.js');
+const {commands} = require('../jsons/cooldown.json');
+
 module.exports={
     name: 'cooldown',
     description: "Show current cooldowns",
     execute(message, args){
         //Check if the user mentioned someone else, meaning they want to check another users cooldowns
         if(message.mentions.members.size > 0){
-            id = message.mentions.users.first().id;
-            username = message.mentions.users.first().username;
+            user = message.mentions.users.first();
         } else {
-            id = message.author.id;
-            username = message.author.username;
+            user = message.author;
         }
 
         //Get the users inventory
-        let sql = `SELECT cd_gather FROM Cooldown WHERE id = '${id}'`;
+        let sql = `SELECT cd_gather FROM Cooldown WHERE id = '${user.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
-            //Check if the user has an inventory
+            //Check if the user has started their adventure
             if(rows.length < 1){
-                message.channel.send(`${username} has not started their adventure in Erovar!`)
+                message.channel.send(`${user.username} has not started their adventure in Erovar!`)
             } else {
-                for (let i = 0; i < rows.length; i++) {
+                for (cd in commands) {
+                    //Declare output message
+                    msg = "";
+
                     // get the last command time
-                    var last = rows[i]
+                    var last = rows[0][commands[cd]['name']];
                     // get current time
                     var today = new Date();
-                    // get difference in time from now to last sent
-                    var diff = Math.abs(today - last);
-                    console.log(last);
+                    // get difference in time from now to last sent and subract the cooldown of the command by that
+                    var diff = commands[cd]['cooldown'] * 60000 - (today - last);
+                    
+                    //If message is not on cooldown still, put message for how much time is left.
+                    if(diff >= 0){
+                        msg += `:clock1: --- \`${commands[cd]['message']}\` **${msToMinutesandSeconds(diff)}**\n`;
+                    } else{
+                        msg += `:white_check_mark: --- \`${commands[cd]['message']}\`\n`;
+                    }
                 }
-                
+                //Create the embed to output
+                const cooldownEmbed = new Discord.MessageEmbed()
+                    .setColor('#0a008c')
+                    .setAuthor(user.username + '\'s Cooldowns', user.avatarURL())
+                    .setDescription(msg)
+
+                //Send Embed
+                message.channel.send(cooldownEmbed);
             }
         });
     }
 }
+
+function msToMinutesandSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return (seconds == 60 ? (minutes+1) + "m 0s" : minutes + "m " + seconds + "s");
+  }

@@ -1,7 +1,7 @@
 {
     "commands":{
         "gather":{
-            "name": "gather",
+            "name": "cd_gather",
             "message": "Find",
             "cooldown": 2
         }
