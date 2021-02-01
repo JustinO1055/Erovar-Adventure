@@ -2,17 +2,17 @@ const Discord = require('discord.js');
 const {commands} = require('../jsons/cooldown.json');
 
 module.exports={
-    name: 'cooldown',
-    description: "Show current cooldowns",
+    name: 'ready',
+    description: "Show commands that are ready to be used",
     execute(message, args){
-        //Check if the user mentioned someone else, meaning they want to check another users cooldowns
+        //Check if the user mentioned someone else, meaning they want to check another users ready commands
         if(message.mentions.members.size > 0){
             user = message.mentions.users.first();
         } else {
             user = message.author;
         }
 
-        //Get the users cooldowns
+        //Get the users ready commands
         let sql = `SELECT cd_gather FROM Cooldown WHERE id = '${user.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
@@ -33,16 +33,18 @@ module.exports={
                     var diff = commands[cd]['cooldown'] * 60000 - (today - last);
                     
                     //If message is not on cooldown still, put message for how much time is left.
-                    if(diff >= 0){
-                        msg += `:clock1: --- \`${commands[cd]['message']}\` **${msToMinutesandSeconds(diff)}**\n`;
-                    } else{
+                    if(diff < 0){
                         msg += `:white_check_mark: --- \`${commands[cd]['message']}\`\n`;
                     }
+                }
+
+                if(msg === ""){
+                    msg = "All commands are currently on cooldown.";
                 }
                 //Create the embed to output
                 const cooldownEmbed = new Discord.MessageEmbed()
                     .setColor('#0a008c')
-                    .setAuthor(user.username + '\'s Cooldowns', user.avatarURL())
+                    .setAuthor(user.username + '\'s Ready   ', user.avatarURL())
                     .setDescription(msg)
 
                 //Send Embed

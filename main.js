@@ -114,7 +114,10 @@ client.on('message', message => {
 		        }else if (command === 'cooldown' || command === 'cd'){
                     // execute the command in the file cooldown.js
                     client.commands.get('cooldown').execute(message, args);
-		        }
+		        }else if (command === 'ready' || command === 'rd'){
+                // execute the command in the file ready.js
+                    client.commands.get('ready').execute(message, args);
+                }
             }
         });
 
