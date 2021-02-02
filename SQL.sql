@@ -10,6 +10,10 @@ CREATE TABLE Users (
   armor VARCHAR(20) DEFAULT 'NONE',
   pickaxe VARCHAR(20) DEFAULT 'NONE',
   axe VARCHAR(20) DEFAULT 'NONE',
+  max_hp INT DEFAULT 100,
+  hp INT DEFAULT 100,
+  attack INT DEFAULT 1,
+  DEFENCE INT DEFAULT 1,
   PRIMARY KEY (id),
   CHECK(area >= 0 AND gold >= 0) 
 ) engine = 'innoDB';

@@ -1,0 +1,48 @@
+{
+    "area0": {
+        "hunt": {
+            "greensnake": {
+                "name": "Green Snake",
+                "emoji": "<:greensnake:805497538475982889>",
+                "attack": "0 - 3",
+                "defence": "0 - 2",
+                "hp": "5 - 10"
+            },
+            "seagull":{
+                "name": "Cute Seagull",
+                "emoji": "<:seagull:806232602913669162>",
+                "attack": "0 - 2",
+                "defence": "0 - 2",
+                "hp": "4 - 8"
+            },
+            "wasp":{
+                "name": "Killer Wasp",
+                "emoji": "<:wasp:805520776311865465>",
+                "attack": "0 - 2",
+                "defence": "0 - 3",
+                "hp": "5 - 10"
+            }
+        },
+        "adv": {
+            "blackbat":{
+                "name": "Spooky Bat",
+                "emoji": "<:blackbat:806232602854948884>",
+                "attack": "0 - 5",
+                "defence": "0 - 5",
+                "hp": "7 - 13"
+            }
+        },
+        "boss":{
+            "brownbear":{
+                "name": "Brown Bear",
+                "emoji": "<:brownbear:806229086153605150>",
+                "attack": "2 - 8",
+                "defence": "2 - 8",
+                "hp": "10 - 120"
+
+            }
+        }
+    },
+    "area1": {},
+    "area2": {}
+}
