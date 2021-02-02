@@ -119,6 +119,8 @@ client.on('message', message => {
                     client.commands.get('ready').execute(message, args);
                 } else if (command === 'disassemble' || command === 'diss' || command === 'da'){
                     client.commands.get('disassemble').execute(message, args);
+                } else if (command === 'help' || command === 'h'){
+                    client.commands.get('help').execute(message, args);
                 }
             }
         });
