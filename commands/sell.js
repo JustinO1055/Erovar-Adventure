@@ -12,6 +12,7 @@ module.exports={
 
         //Set euqipment to false by default
         equipment = false;
+        var specific = false;
         amount = 1;
 
         // test the second argument, see if it is equipment
@@ -19,27 +20,31 @@ module.exports={
             // combine the args into one string
             args[0] = args[0].concat(' ', args[1]);
             equipment = true;
+        }else if(args[0] === "sword" || args[0] === "shield" || args[0] === "armor" || args[0] === "pickaxe" || args[0] === "axe"){
+            specific = true;
         } else { 
             if(typeof args[1] != 'undefined')
                 amount = calcAmount(args[1]);
         }
 
-        //Check to ensure the player supplied a valid item and get the items value
-        for(i in items){
-            if(i == args[0])
-                //Get item value
-                itemValue = items[i]['value'];
-        }
+        if (!specific){        
+            //Check to ensure the player supplied a valid item and get the items value
+            for(i in items){
+                if(i == args[0])
+                    //Get item value
+                    itemValue = items[i]['value'];
+            }
 
-        //Check if the user typed a valid item to craft, and if not give a message
-        if(typeof itemValue == 'undefined' || itemValue == ""){
-            message.channel.send(`${message.author}, Cannot find the item you are trying to sell.`);
-            return;
+            //Check if the user typed a valid item to craft, and if not give a message
+            if(typeof itemValue == 'undefined' || itemValue == ""){
+                message.channel.send(`${message.author}, Cannot find the item you are trying to sell.`);
+                return;
+            }
         }
 
         if(equipment){
             //Check to see if the user has the required equipment to sell
-            sql1 = `SELECT ${args[1]} FROM Users WHERE id = ${message.author.id}`;
+            sql1 = `SELECT ${args[1]} FROM Users WHERE id = '${message.author.id}'`;
             connection.query(sql1, (err, rows) =>{
                 if(rows[0][args[1]] != 'NONE'){
                     //Have a check to ensure user want to sell equipment
@@ -72,7 +77,51 @@ module.exports={
                     message.channel.send(`${message.author}, You do not have a ${args[0]} to sell.`);
                 }
             });
-        }else{
+        } else if (specific){            
+            //Check to see if the user has the required equipment to sell
+            sql1 = `SELECT ${args[0]} FROM Users WHERE id = ${message.author.id}`;
+            connection.query(sql1, (err, rows) =>{
+                if(rows[0][args[0]] != 'NONE'){
+
+                    // get the value of the item
+                    for(i in items){
+                        if(i == rows[0][args[0]])
+                            //Get item value
+                            itemValue = items[i]['value'];
+                    }
+
+                    //Have a check to ensure user want to sell equipment
+                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no' || m.content.toLowerCase() == 'y' || m.content.toLowerCase() == 'n');
+                    message.channel.send(`Are you sure you want to sell ${rows[0][args[0]]}? \`Yes/No\``).then(() => {
+                        message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time'] })
+                            .then(mes => {
+                                //Convert message to lowercase
+                                var command = mes.first().content.toLowerCase();
+            
+                                //If the user enters y or yes sell equipment
+                                if (command == 'yes' || command == 'y') {
+                                    //Create query to remove equipment sold
+                                    sqlUpdate2 = `UPDATE Users SET ${args[0]} = 'NONE' WHERE id = ${message.author.id}`;
+                                    
+                                    //Sell equipment
+                                    sell(amount, rows[0][args[0]], itemValue, sqlUpdate2, message.author.id, message.channel.id);
+                                } else if (command == 'no' || command == 'n') {
+                                    message.channel.send(`${message.author}, ${rows[0][args[0]]} ${items[rows[0][args[0]]]['emoji']} not sold.`);
+                                }
+                            })
+                                //If the user doesnt enter a valid response, output not sold message
+                                .catch(collected => {
+                                    message.channel.send(`${message.author}, ${rows[0][args[0]]} ${items[rows[0][args[0]]]['emoji']} not sold.`);
+                            });
+                        });
+
+                    
+                } else{
+                    message.channel.send(`${message.author}, You do not have a ${rows[0][args[0]]} to sell.`);
+                }
+            });
+
+        } else {
             //Check to see if the user has the required items to sell
             sql1 = `SELECT ${args[0]} FROM Inventory WHERE id = ${message.author.id}`;
             connection.query(sql1, (err, rows) =>{
@@ -106,6 +155,8 @@ function sell(amount, item, itemValue, queary, author, channelID){
                 output += `${amount} ${item}'s `;
             output += `${items[item]['emoji']} for ${itemValue * amount} gold.`;
     
+        console.log(output);
+
             //Output sold message
             const channel = client.channels.cache.get(channelID);
             channel.send(output);
