@@ -121,6 +121,8 @@ client.on('message', message => {
                     client.commands.get('disassemble').execute(message, args);
                 } else if (command === 'help' || command === 'h'){
                     client.commands.get('help').execute(message, args);
+                }  else if (command === 'battle'){
+                    client.commands.get('battle').execute(message, args);
                 }
             }
         });

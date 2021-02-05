@@ -4,10 +4,12 @@
 module.exports = class dropTable {
     resources = [];
 
+    // adds the resource to the drop table list
     addResource(resourceDrop) {
         this.resources.push(resourceDrop);
     } 
 
+    // function to compute the sum of the probability chance of each resource in the list
     probabliltySum() {
         var probSum = 0;
         this.resources.forEach(element => {
