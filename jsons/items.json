@@ -23,12 +23,14 @@
         "basic sword":{
             "name": "basicsword",
             "emoji": "<:basicsword:806232602491093013>",
-            "value": 350
+            "value": 350,
+            "attack": 69
         },
         "basic shield":{
             "name": "basicshield",
             "emoji": "<:basicshield:803356283188150324>",
-            "value": 400
+            "value": 400,
+            "defense": 69
         },
         "stone axe":{
             "name": "stoneaxe",
