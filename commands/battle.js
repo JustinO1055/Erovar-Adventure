@@ -11,7 +11,7 @@ var monsterEncounter = require('../classes/monsterEncounter.js');
 module.exports={
     name: 'battle',
     description: "Used in order for the player to go on a short mission to fight an enemy. 1 minute cooldown on this command.",
-    execute(message, args){
+    execute(message, args) {
 
         //TODO: begin with cooldown check. add later after initial testing cuz it will get in our way
 
@@ -54,8 +54,6 @@ module.exports={
 
             // set the stats for the monster for the embed
             let encounterStats = `**HP**: ${monster[3]}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
-
-
             
             // create the embed to send
             const encounterEmbed = new Discord.MessageEmbed()
@@ -63,10 +61,31 @@ module.exports={
             .setTitle('Battle')
             .addFields(
                 { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
-                { name: `Wild ${monster[0]}'s ${monster[4]} stats`, value: encounterStats, inline: true}
+                { name: `Wild ${monster[0]}'s ${monster[4]} stats`, value: encounterStats, inline: true},
+                { name: "Action:", value: "What are you going to do?\n\`fight\` to fight the monster.\n\`run\` to run away from the monster."}
             );
             
-            message.channel.send(encounterEmbed);
+            // set up listening for response
+            let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'fight' || m.content.toLowerCase() == 'run');
+            message.channel.send(encounterEmbed).then(() => {
+                message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time'] })
+                    .then(mes => {
+                        //Convert message to lowercase
+                        var command = mes.first().content.toLowerCase();
+                     
+                        if(command == "fight"){
+                            message.channel.send("I DO A BIG ATTACK");
+                        } else {
+                            message.channel.send("AHHHHHHHHH IM SCARED");
+                        }
+
+
+                    })
+                    //If the user doesnt enter a valid response, monster attacks
+                    .catch(collected => {
+                        message.channel.send(`Monster does a big attack`);
+                    });
+                });
 
         });
 
