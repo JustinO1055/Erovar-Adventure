@@ -58,7 +58,14 @@ module.exports={
                                 //If the user enters y or yes sell equipment
                                 if (command == 'yes' || command == 'y') {
                                     //Create query to remove equipment sold
-                                    sqlUpdate2 = `UPDATE Users SET ${args[1]} = 'NONE' WHERE id = ${message.author.id}`;
+                                    let sqlUpdate2 = `UPDATE Users SET ${args[1]} = 'NONE'`;                   
+                                    // if it is sword, shield, or armor
+                                    // update the users attack and defense
+                                    if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
+                                        stats = getStats(args[0]);
+                                        sqlUpdate2 += `, attack = attack - ${stats[0]}, defence = defence - ${stats[1]}`;
+                                    }
+                                    sqlUpdate2 += ` WHERE id = ${message.author.id}`;
                                     
                                     //Sell equipment
                                     sell(amount, args[0], itemValue, sqlUpdate2, message.author.id, message.channel.id)
@@ -101,7 +108,14 @@ module.exports={
                                 //If the user enters y or yes sell equipment
                                 if (command == 'yes' || command == 'y') {
                                     //Create query to remove equipment sold
-                                    sqlUpdate2 = `UPDATE Users SET ${args[0]} = 'NONE' WHERE id = ${message.author.id}`;
+                                    let sqlUpdate2 = `UPDATE Users SET ${args[0]} = 'NONE'`;                   
+                                    // if it is sword, shield, or armor
+                                    // update the users attack and defense
+                                    if(args[0] == 'sword' || args[0] == 'shield' || args[0] == 'armor'){
+                                        stats = getStats(rows[0][args[0]]);
+                                        sqlUpdate2 += `, attack = attack - ${stats[0]}, defence = defence - ${stats[1]}`;
+                                    }
+                                    sqlUpdate2 += ` WHERE id = ${message.author.id}`;
                                     
                                     //Sell equipment
                                     sell(amount, rows[0][args[0]], itemValue, sqlUpdate2, message.author.id, message.channel.id);
@@ -155,8 +169,6 @@ function sell(amount, item, itemValue, queary, author, channelID){
                 output += `${amount} ${item}'s `;
             output += `${items[item]['emoji']} for ${itemValue * amount} gold.`;
     
-        console.log(output);
-
             //Output sold message
             const channel = client.channels.cache.get(channelID);
             channel.send(output);
@@ -204,5 +216,18 @@ function calcAmount(input){
     // otherwise return -1 (error)
     } else {
         return -1;
+    }
+}
+
+//function to get the stats for an item
+function getStats(item){
+
+    // traverse the items json file to find the item requested
+    for(i in items){
+        if(i == item){
+            let stats = [items[i].attack,items[i].defence];
+            // return the stats id
+            return stats;
+        }
     }
 }

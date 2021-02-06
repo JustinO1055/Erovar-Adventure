@@ -105,11 +105,18 @@ module.exports={
                                 sql2 = sql2.slice(0, -2);
                                 sql2 += ` WHERE id = '${message.author.id}'`;
                                 //prep the sql query to add the equipment into the users table
-                                sql4 = `UPDATE Users SET ${args[1]} = '${item}' WHERE id = '${message.author.id}'`;
+                                let sql4 = `UPDATE Users SET ${args[1]} = '${item}'`;
+                                // if it is sword, shield, or armor
+                                // update the users attack and defense
+                                if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
+                                    let stats = getStats(item);
+                                    sql4 += `, attack = attack + ${stats[0]}, defence = defence + ${stats[1]}`;
+                                }
+                                sql4 += ` WHERE id = '${message.author.id}'`;
                                 // query the database
                                 message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
-                                connection.query(sql2);
                                 connection.query(sql4);
+                                connection.query(sql2);
 
                             }
                         });
@@ -149,6 +156,19 @@ function getEmoji(item){
             return (items[i].emoji);
     }
 
+}
+
+//function to get the stats for an item
+function getStats(item){
+
+    // traverse the items json file to find the item requested
+    for(i in items){
+        if(i == item){
+            let stats = [items[i].attack,items[i].defence];
+            // return the stats id
+            return stats;
+        }
+    }
 }
 
 function calcAmount(input){

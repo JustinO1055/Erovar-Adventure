@@ -1,3 +1,6 @@
+// to allow for embeds
+const Discord = require('discord.js');
+
 // include the json file that holds all of the monsters names, emoji codes and information
 const MONSTERS = require('../jsons/monsters.json');
 
@@ -13,7 +16,7 @@ module.exports={
         //TODO: begin with cooldown check. add later after initial testing cuz it will get in our way
 
         // get the users area
-        let sql1 = `SELECT area FROM Users WHERE id = '${message.author.id}'`;
+        let sql1 = `SELECT area, hp, max_hp, attack, defence FROM Users WHERE id = '${message.author.id}'`;
         connection.query(sql1, (err, rows) =>{
 
             // create a new monster encounter table
@@ -35,11 +38,35 @@ module.exports={
             }
 
             //Determine which monster is encountered
+            // returns as array
+            // 0 = name
+            // 1 = attack
+            // 2 = defence
+            // 3 = hp
+            // 4 = emoji code
             let monster = monsterEncounterTable.determineHit();
             // prep message to send, could directly send, want it to be sent right before embed
             let encounterMsg = `A wild ${monster[4]} has appeared!`;
             message.channel.send(encounterMsg);
 
+            //set the stats for the user for the embed
+            let userStats = `**HP**: ${rows[0].hp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
+
+            // set the stats for the monster for the embed
+            let encounterStats = `**HP**: ${monster[3]}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+
+
+            
+            // create the embed to send
+            const encounterEmbed = new Discord.MessageEmbed()
+            .setColor('#FF0000')
+            .setTitle('Battle')
+            .addFields(
+                { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
+                { name: `Wild ${monster[0]}'s ${monster[4]} stats`, value: encounterStats, inline: true}
+            );
+            
+            message.channel.send(encounterEmbed);
 
         });
 
