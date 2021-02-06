@@ -10,6 +10,8 @@
                 "maxdefence": 2,
                 "minhp": 5,
                 "maxhp": 10,
+                "minxp": 25,
+                "maxxp": 100,
                 "encounter": 1
             },
             "seagull":{
@@ -21,6 +23,8 @@
                 "maxdefence": 2,
                 "minhp": 4,
                 "maxhp": 8,
+                "minxp": 25,
+                "maxxp": 100,
                 "encounter": 1
             },
             "wasp":{
@@ -32,6 +36,8 @@
                 "maxdefence": 3,
                 "minhp": 5,
                 "maxhp": 10,
+                "minxp": 50,
+                "maxxp": 100,
                 "encounter": 2
             }
         },
@@ -44,7 +50,10 @@
                 "mindefence": 0,
                 "maxdefence": 5,
                 "minhp": 7,
-                "maxhp": 13
+                "maxhp": 13,
+                "minxp": 75,
+                "maxxp": 200,
+                "encounter": 1
             }
         },
         "boss":{

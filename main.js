@@ -61,7 +61,7 @@ client.on('message', message => {
         }
 
         // preform SQL query to see if user exists
-        let sql = `SELECT * FROM Users WHERE id = '${message.author.id}'`;
+        let sql = `SELECT admin FROM Users WHERE id = '${message.author.id}'`;
         // query the database
         connection.query(sql, (err, rows) =>{
 
@@ -79,15 +79,18 @@ client.on('message', message => {
             // execute their command
             } else {
 
-                // want to add admin access to bypass this later
+                // allow for admin only commands to be run
+                if(rows[0].admin == 1){
+                    if (command === 'ping'){
+                        // execture the command in the file ping.js
+                        client.commands.get('ping').execute(message, args);
+                    }
+                }
                 //add a cooldown to the author of the message.
                 cooldown.add(message.author.id);
 
                 // if else conditions for each commanc, if command matches, execute the command in the given file
-                if (command === 'ping'){
-                    // execture the command in the file ping.js
-                    client.commands.get('ping').execute(message, args);
-                } else if (command === 'start'){
+                if (command === 'start'){
                     // execute the command in the file start.js
                     client.commands.get('start').execute(message, args);
 		        }else if (command === 'find'){

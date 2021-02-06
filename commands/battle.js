@@ -34,6 +34,8 @@ module.exports={
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['maxdefence'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['minhp'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['maxhp'],
+                    MONSTERS[`area${rows[0].area}`]['battle'][m]['minxp'],
+                    MONSTERS[`area${rows[0].area}`]['battle'][m]['maxxp'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji']));
             }
 
@@ -44,6 +46,7 @@ module.exports={
             // 2 = defence
             // 3 = hp
             // 4 = emoji code
+            // 5 = xp for winning
             let monster = monsterEncounterTable.determineHit();
             // prep message to send, could directly send, want it to be sent right before embed
             let encounterMsg = `A wild ${monster[4]} has appeared!`;
@@ -74,7 +77,7 @@ module.exports={
                         var command = mes.first().content.toLowerCase();
                      
                         if(command == "fight"){
-                            message.channel.send("I DO A BIG ATTACK");
+                            message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
                             message.channel.send("AHHHHHHHHH IM SCARED");
                         }

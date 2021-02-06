@@ -22,7 +22,7 @@ module.exports = class monsterEncounter {
         var randomNum  = randomInteger(1, this.encounterSum());
 
         //Used while going through each probability
-        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji;
+        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp;
 
         //Find which monster is encountered
         for(let element of this.monsters){
@@ -34,11 +34,12 @@ module.exports = class monsterEncounter {
                 monsterDef = randomInteger(element.defence[0], element.defence[1]);
                 monsterHP = randomInteger(element.hp[0], element.hp[1]);
                 monsterEmoji = element.emoji;
+                monsterxp = randomInteger(element.xp[0], element.xp[1]);
                 break;
             }
         }
         // return the monster and its stats
-        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji];
+        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp];
     }
 
 };
