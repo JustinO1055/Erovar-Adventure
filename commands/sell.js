@@ -20,8 +20,13 @@ module.exports={
             // combine the args into one string
             args[0] = args[0].concat(' ', args[1]);
             equipment = true;
-        }else if(args[0] === "sword" || args[0] === "shield" || args[0] === "armor" || args[0] === "pickaxe" || args[0] === "axe"){
+        } else if(args[0] === "sword" || args[0] === "shield" || args[0] === "armor" || args[0] === "pickaxe" || args[0] === "axe"){
             specific = true;
+        // if the second argument is potion, combine the two and calc the amount
+        } else if (args[1] === "potion"){
+            args[0] = args[0].concat(args[1]);
+            if(typeof args[2] != 'undefined')
+                amount = calcAmount(args[2]);
         } else { 
             if(typeof args[1] != 'undefined')
                 amount = calcAmount(args[1]);

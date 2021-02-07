@@ -43,6 +43,17 @@
             "name": "stonepickaxe",
             "emoji": "<:stonepickaxe:806232602969243668>",
             "value": 245
+        },
+        "healthpotion":{
+            "name": "Health Potion",
+            "emoji": "<:healthpotion:808098747585658921>",
+            "value": 75
+        }
+    },
+    "consumables":{
+        "healthpotion":{
+            "name": "Health Potion",
+            "emoji" : "<:healthpotion:808098747585658921>"
         }
     }
 }

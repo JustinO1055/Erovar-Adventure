@@ -37,3 +37,11 @@ CREATE TABLE Cooldown(
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 
 ) engine = "innoDB";
+
+CREATE TABLE Consumables(
+  
+  id VARCHAR(20) PRIMARY KEY,
+  healthpotion INT DEFAULT 0,
+  FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
+
+) engine = "innoDB";

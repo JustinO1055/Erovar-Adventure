@@ -4,6 +4,11 @@
             "name": "cd_gather",
             "message": "Find",
             "cooldown": 2
+        },
+        "sleep":{
+            "name": "cd_sleep",
+            "message": "Sleep",
+            "cooldown": 960
         }
     }
 }

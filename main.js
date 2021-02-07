@@ -121,11 +121,20 @@ client.on('message', message => {
                 // execute the command in the file ready.js
                     client.commands.get('ready').execute(message, args);
                 } else if (command === 'disassemble' || command === 'diss' || command === 'da'){
+                    // execute the command in the file disassemble.js
                     client.commands.get('disassemble').execute(message, args);
                 } else if (command === 'help' || command === 'h'){
+                    // execute the command in the file help.js
                     client.commands.get('help').execute(message, args);
                 }  else if (command === 'battle'){
+                    // execute the command in the file battle.js
                     client.commands.get('battle').execute(message, args);
+                }  else if (command === 'sleep'){
+                    // execute the command in the file sleep.js
+                    client.commands.get('sleep').execute(message, args);
+                }  else if (command === 'heal'){
+                    // execute the command in the file heal.js
+                    client.commands.get('heal').execute(message, args);
                 }
             }
         });

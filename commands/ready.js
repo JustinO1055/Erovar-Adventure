@@ -17,13 +17,14 @@ module.exports={
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
+            //Declare output message
+            msg = "";
+            
             //Check if the user has started their adventure
             if(rows.length < 1){
                 message.channel.send(`${user.username} has not started their adventure in Erovar!`)
             } else {
                 for (cd in commands) {
-                    //Declare output message
-                    msg = "";
 
                     // get the last command time
                     var last = rows[0][commands[cd]['name']];
