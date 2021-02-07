@@ -71,7 +71,7 @@ module.exports={
             // set up listening for response
             let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'fight' || m.content.toLowerCase() == 'run');
             message.channel.send(encounterEmbed).then(() => {
-                message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time'] })
+                message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] })
                     .then(mes => {
                         //Convert message to lowercase
                         var command = mes.first().content.toLowerCase();
@@ -79,14 +79,16 @@ module.exports={
                         if(command == "fight"){
                             message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
-                            message.channel.send("AHHHHHHHHH IM SCARED");
+                            if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
+                                message.channel.send("AHHHHHHHHH IM SCARED");
                         }
 
 
                     })
                     //If the user doesnt enter a valid response, monster attacks
                     .catch(collected => {
-                        message.channel.send(`Monster does a big attack`);
+                        if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
+                            message.channel.send(`Monster does a big attack`);
                     });
                 });
 
@@ -94,3 +96,32 @@ module.exports={
 
     }
 }
+
+// function to generate a random Integer between two numbers
+function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+// function to decide if the user can successfully get away
+function failEscape(monsterName, monsterEmoji, author, channelID){
+
+    // compute a random number between 1 and 10
+    // if it is between 1 and 10, escape failed, and user loses half of their HP
+    if(randomInteger(1,10) <= 1){
+
+        // create sql statement
+        let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${author}'`;
+        // query the db
+        connection.query(sql);
+
+        // print message 
+        const channel = client.channels.cache.get(channelID);
+        channel.send(`As you were running away, the ${monsterEmoji} got an attack in doing half of your hp!.`);
+        
+        return true;
+
+    }
+
+    return false;
+
+};
