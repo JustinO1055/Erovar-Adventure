@@ -64,7 +64,7 @@ module.exports={
             .setTitle('Battle')
             .addFields(
                 { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
-                { name: `Wild ${monster[0]}'s ${monster[4]} stats`, value: encounterStats, inline: true},
+                { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true},
                 { name: "Action:", value: "What are you going to do?\n\`fight\` to fight the monster.\n\`run\` to run away from the monster."}
             );
             
@@ -75,9 +75,31 @@ module.exports={
                     .then(mes => {
                         //Convert message to lowercase
                         var command = mes.first().content.toLowerCase();
-                     
+
                         if(command == "fight"){
-                            message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
+                            //Calculate Monsters new hp
+                            monsterCurrentHp = calculateDamage(rows[0].attack, monster[2], monster[3]);
+
+                            //Update the Monsters stat on the embed
+                            encounterStats = `**HP**: ${monsterCurrentHp}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+                            encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
+
+                            //Calculate players new hp
+                            playerCurrentHp = calculateDamage(monster[1], rows[0].defence, rows[0].max_hp);
+
+                            //Update the Platers stat on the embed
+                            userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
+                            encounterPlayer = { name: `${message.author.username}'s Stats:`, value: userStats, inline: true }
+
+                            encounter = [encounterPlayer, encounterMonster];
+
+                            //Update Embed
+                            encounterEmbed.spliceFields(0, 2, encounter);
+
+                             //Send new embed
+                             message.channel.send(encounterEmbed);
+                            
+                            //message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
                             if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
                                 message.channel.send("AHHHHHHHHH IM SCARED");
@@ -125,3 +147,21 @@ function failEscape(monsterName, monsterEmoji, author, channelID){
     return false;
 
 };
+
+function calculateDamage(att, def, hp){
+    //Calculate the damage to be dealt
+    //Difference of Attackers attack stat and defenders defence stat multiplied by 5
+    if(att > def)
+        attackDamage = (att - def) * 5;
+    else
+        return hp;
+
+    //Calculate the health after damage
+    //If damage is greater than current health, set hp to 0
+    if(attackDamage > hp)
+        hp = 0
+    else
+        hp -= attackDamage;
+
+    return hp;
+}
