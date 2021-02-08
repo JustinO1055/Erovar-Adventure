@@ -55,5 +55,13 @@
             "name": "Health Potion",
             "emoji" : "<:healthpotion:808098747585658921>"
         }
+    },
+    "shop":{
+        "healthpotion":{
+            "name": "Health Potion",
+            "emoji" : "<:healthpotion:808098747585658921>",
+            "cost": 150,
+            "description": "Use this potion with `adv heal` to fully heal your hp."
+        }
     }
 }

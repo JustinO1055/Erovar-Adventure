@@ -34,14 +34,7 @@ CREATE TABLE Cooldown(
 
   id VARCHAR(20) PRIMARY KEY,
   cd_gather DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
-  FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
-
-) engine = "innoDB";
-
-CREATE TABLE Consumables(
-  
-  id VARCHAR(20) PRIMARY KEY,
-  healthpotion INT DEFAULT 0,
+  cd_sleep DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 
 ) engine = "innoDB";

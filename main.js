@@ -135,6 +135,9 @@ client.on('message', message => {
                 }  else if (command === 'heal'){
                     // execute the command in the file heal.js
                     client.commands.get('heal').execute(message, args);
+                }  else if (command === 'shop'){
+                    // execute the command in the file shop.js
+                    client.commands.get('shop').execute(message, args);
                 }
             }
         });
