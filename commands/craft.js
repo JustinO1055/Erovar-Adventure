@@ -90,7 +90,6 @@ module.exports={
                     // if equipment, check if the user already has the equipment
                     if(itemType == "equipment"){
                         let sql3 = `SELECT ${args[1]} FROM Users WHERE id = '${message.author.id}'`;
-                        console.log(sql3);
                         connection.query(sql3, (err, rows2) =>{
                             if(err) throw err;
                             // if the user has already has the equipment

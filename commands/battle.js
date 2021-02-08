@@ -8,6 +8,9 @@ const MONSTERS = require('../jsons/monsters.json');
 var monsterStats = require('../classes/monsterStats.js');
 var monsterEncounter = require('../classes/monsterEncounter.js');
 
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
+
 module.exports={
     name: 'battle',
     description: "Used in order for the player to go on a short mission to fight an enemy. 1 minute cooldown on this command.",
@@ -85,19 +88,40 @@ module.exports={
                             encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
 
                             //Calculate players new hp
-                            playerCurrentHp = calculateDamage(monster[1], rows[0].defence, rows[0].max_hp);
+                            playerCurrentHp = calculateDamage(monster[1], rows[0].defence, rows[0].hp);
 
                             //Update the Platers stat on the embed
                             userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
                             encounterPlayer = { name: `${message.author.username}'s Stats:`, value: userStats, inline: true }
 
-                            encounter = [encounterPlayer, encounterMonster];
+                            //Determine result
+                            if(playerCurrentHp == 0){
+                                result = `The wild ${monster[0]} ${monster[4]} has beat you.`
+                            } else if(monsterCurrentHp == 0){
+                                result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} xp from the battle!`
+                                sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp}, xp = xp + ${monster[5]} WHERE id = '${message.author.id}'`;
+                                connection.query(sqlEncounterResult);
+                            } else{
+                                result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
+                                sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp} WHERE id = '${message.author.id}'`;
+                                connection.query(sqlEncounterResult);
+                            }
+
+                            //Create result to add to embed
+                            encounterResult = { name: "Result:", value: result}
+
+                            //Store all updated values to add to embed
+                            encounter = [encounterPlayer, encounterMonster, encounterResult];
 
                             //Update Embed
-                            encounterEmbed.spliceFields(0, 2, encounter);
+                            encounterEmbed.spliceFields(0, 3, encounter);
 
-                             //Send new embed
-                             message.channel.send(encounterEmbed);
+                            //Send new embed
+                            message.channel.send(encounterEmbed);
+
+                            //If the player died, call playerDeath function
+                            if(playerCurrentHp == 0)
+                                functions.playerDeath(message);
                             
                             //message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
