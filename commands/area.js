@@ -21,7 +21,7 @@ module.exports={
 
             // if the max area for the player is less than the area trying to go to, print error and return
             if(rows[0].max_area < args[0]){
-                message.channel.send(`${message.author}, You have not unlocked this area yet. Your max area is ${rows[0].maxarea}.\nUse \`adv help\` for help.`);
+                message.channel.send(`${message.author}, You have not unlocked this area yet. Your max area is ${rows[0].max_area}.\nUse \`adv help\` for help.`);
                 return;
             } else if(args[0] == rows[0].area){
                 message.channel.send(`${message.author}, You are already in this area!\nUse \`adv help\` for help.`);
