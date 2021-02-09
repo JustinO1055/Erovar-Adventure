@@ -13,7 +13,7 @@ module.exports={
         }
 
         //Get the users ready commands
-        let sql = `SELECT cd_gather FROM Cooldown WHERE id = '${user.id}'`;
+        let sql = `SELECT * FROM Cooldown WHERE id = '${user.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
@@ -32,7 +32,7 @@ module.exports={
                     var today = new Date();
                     // get difference in time from now to last sent and subract the cooldown of the command by that
                     var diff = commands[cd]['cooldown'] * 60000 - (today - last);
-                    
+
                     //If message is not on cooldown still, put message for how much time is left.
                     if(diff < 0){
                         msg += `:white_check_mark: --- \`${commands[cd]['message']}\`\n`;

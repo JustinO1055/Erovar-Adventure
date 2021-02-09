@@ -27,6 +27,12 @@ module.exports={
         if(typeof args[2] != 'undefined')
             amount = functions.calcAmount(args[2]);
 
+        // if the amount is -1 (set for error.) Return and print an error
+        if(amount === -1){
+            message.channel.send(`${message.author}, The amount to buy is invalid. Please give a number to buy. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv buy [item] 5k\`. \nType \`adv help\` for help`);
+            return;
+        } 
+
         // preform the look up on the item
         for(s in shop){
             if(s == item)

@@ -35,6 +35,12 @@ module.exports={
                 amount = functions.calcAmount(args[1]);
         }
 
+        // if the amount is -1 (set for error.) Return and print an error
+        if(amount === -1){
+            message.channel.send(`${message.author}, The amount to sell is invalid. Please give a number to sell. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv sell [item] 5k\`. \nType \`adv help\` for help`);
+            return;
+        } 
+
         if (!specific){        
             //Check to ensure the player supplied a valid item and get the items value
             for(i in items){
