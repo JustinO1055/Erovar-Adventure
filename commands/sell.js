@@ -40,7 +40,7 @@ module.exports={
                     itemValue = items[i]['value'];
             }
 
-            //Check if the user typed a valid item to craft, and if not give a message
+            //Check if the user typed a valid item to sell, and if not give a message
             if(typeof itemValue == 'undefined' || itemValue == ""){
                 message.channel.send(`${message.author}, Cannot find the item you are trying to sell.`);
                 return;

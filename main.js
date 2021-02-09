@@ -138,6 +138,9 @@ client.on('message', message => {
                 }  else if (command === 'shop'){
                     // execute the command in the file shop.js
                     client.commands.get('shop').execute(message, args);
+                }  else if (command === 'buy'){
+                    // execute the command in the file buy.js
+                    client.commands.get('buy').execute(message, args);
                 }
             }
         });
