@@ -19,7 +19,7 @@ module.exports={
         //TODO: begin with cooldown check. add later after initial testing cuz it will get in our way
 
         // get the users area
-        let sql1 = `SELECT area, hp, max_hp, attack, defence FROM Users WHERE id = '${message.author.id}'`;
+        let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
         connection.query(sql1, (err, rows) =>{
 
             // create a new monster encounter table
@@ -99,8 +99,6 @@ module.exports={
                                 result = `The wild ${monster[0]} ${monster[4]} has beat you.`
                             } else if(monsterCurrentHp == 0){
                                 result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} xp from the battle!`
-                                sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp}, xp = xp + ${monster[5]} WHERE id = '${message.author.id}'`;
-                                connection.query(sqlEncounterResult);
                             } else{
                                 result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
                                 sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp} WHERE id = '${message.author.id}'`;
@@ -122,6 +120,8 @@ module.exports={
                             //If the player died, call playerDeath function
                             if(playerCurrentHp == 0)
                                 functions.playerDeath(message);
+                            else if(monsterCurrentHp == 0)
+                                functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp);
                             
                             //message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
@@ -132,10 +132,10 @@ module.exports={
 
                     })
                     //If the user doesnt enter a valid response, monster attacks
-                    .catch(collected => {
+                    /* .catch(collected => {
                         if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
                             message.channel.send(`Monster does a big attack`);
-                    });
+                    }) */;
                 });
 
         });

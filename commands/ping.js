@@ -1,3 +1,5 @@
+var functions = require('../functions.js');
+
 module.exports={
     name: 'ping',
     description: "Ping Pong :). Used to ensure bot is online",
