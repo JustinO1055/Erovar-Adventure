@@ -49,7 +49,7 @@ module.exports={
                         connection.query(sql3);
                         return;
                     } else {
-                        message.channel.send('You tried to sleep... As your eyes were closing, you realized you already had full HP and decided to stay awake instead.\nType \`adv help\` for help`');
+                        message.channel.send('You tried to sleep... As your eyes were closing, you realized you already had full HP and decided to stay awake instead.\nType \`adv help\` for help');
                         return;
                     }
 
