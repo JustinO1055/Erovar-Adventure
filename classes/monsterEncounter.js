@@ -1,4 +1,4 @@
-//Include the js file with functions, that includes the playerDeath function
+//Include the js file with functions, that includes the random function
 var functions = require('../functions.js');
 
 //Class for a drop table that used the resourceDrop
