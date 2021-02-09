@@ -16,10 +16,10 @@ module.exports = {
         //Create the embed to output
         const shopEmbed = new Discord.MessageEmbed()
         .setColor('#0a008c')
-        .setTitle("Shop Inventory")
+        .setTitle("Shop Stock")
         .addFields(
             { name: 'Help', value: 'You can buy items by using `adv buy [item]`'},
-            { name: 'Inventory', value: shopMsg},
+            { name: 'Stock', value: shopMsg},
         );
 
         // send the embed
