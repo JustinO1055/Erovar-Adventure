@@ -132,10 +132,10 @@ module.exports={
 
                     })
                     //If the user doesnt enter a valid response, monster attacks
-                    /* .catch(collected => {
+                    .catch(collected => {
                         if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
                             message.channel.send(`Monster does a big attack`);
-                    }) */;
+                    });
                 });
 
         });
@@ -143,17 +143,12 @@ module.exports={
     }
 }
 
-// function to generate a random Integer between two numbers
-function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 // function to decide if the user can successfully get away
 function failEscape(monsterName, monsterEmoji, author, channelID){
 
     // compute a random number between 1 and 10
     // if it is between 1 and 10, escape failed, and user loses half of their HP
-    if(randomInteger(1,10) <= 1){
+    if(functions.randomInteger(1,10) <= 1){
 
         // create sql statement
         let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${author}'`;
@@ -172,6 +167,7 @@ function failEscape(monsterName, monsterEmoji, author, channelID){
 
 };
 
+//Function to calculate damage done to an enitity
 function calculateDamage(att, def, hp){
     //Calculate the damage to be dealt
     //Difference of Attackers attack stat and defenders defence stat multiplied by 5

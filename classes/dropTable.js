@@ -1,4 +1,5 @@
-//var resourceDrop = require('./resourceDrop.js');
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
 
 //Class for a drop table that used the resourceDrop
 module.exports = class dropTable {
@@ -20,7 +21,7 @@ module.exports = class dropTable {
 
     determineHit() {
         //Generate random number for determining which item will be recieved
-        var randomNum  = randomInteger(1, this.probabliltySum());
+        var randomNum  = functions.randomInteger(1, this.probabliltySum());
 
         //Used while going through each probability
         var runningValue = 0, resource, resourceAmount;
@@ -30,15 +31,10 @@ module.exports = class dropTable {
             runningValue += element.probability;
             if(randomNum < runningValue){
                 resource = element.name;
-                resourceAmount = randomInteger(element.quanity[0], element.quanity[1]);
+                resourceAmount = functions.randomInteger(element.quanity[0], element.quanity[1]);
                 break;
             }
         }
         return [resource, resourceAmount];
     }
-};
-
-// function to generate a random Integer between two numbers
-function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 };

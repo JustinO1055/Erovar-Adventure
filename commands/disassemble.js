@@ -1,7 +1,9 @@
 //include the json file that holds all of the crafting recipes and items used to craft
 const RECIPES = require('../jsons/recipes.json');
 const {items} = require('../jsons/items.json');
-const { createConnection } = require('net');
+
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
 
 module.exports={
     name: 'disassemble',
@@ -16,7 +18,7 @@ module.exports={
         // otherwise check if args[1] is set, if it is, pass it to get value function to see how many items to be crafted
         } else { 
             if(typeof args[1] != 'undefined')
-                amount = calcAmount(args[1]);
+                amount = functions.calcAmount(args[1]);
         }
 
         // if the amount is -1 (set for error.) Return and print an error
@@ -61,7 +63,7 @@ module.exports={
                     // append it to sql 
                     sql2 += `${itemname} = ${itemname} + ${quantity}, `;
                     //append to message
-                    msg += `${quantity} ${itemname}'s ${getEmoji(itemname)}, `;
+                    msg += `${quantity} ${itemname}'s ${functions.getEmoji(itemname)}, `;
                 }
 
                 // remove the extra comma from message
@@ -78,62 +80,5 @@ module.exports={
 
         });
         
-    }
-}
-
-//function to get the emoji id for an item
-function getEmoji(item){
-
-    // traverse the items json file to find the item requested
-    for(i in items){
-        if(i == item)
-            // return the emoji id
-            return (items[i].emoji);
-    }
-
-}
-
-function calcAmount(input){
-    // regex for finding if the user has valid input
-    var regex = /\d+(\.\d+)?[kmb]?$/;
-
-    //test the input based off the regex
-    // if its valid, continue to pasre the input.
-    if(regex.test(input)){
-
-        // set the multiplier value for the k m b modifier
-        var multiplier = 1;
-
-        // figure out if there is a letter
-        var isLetter = /[kmb]/i;
-        var letter = input.match(isLetter);
-        // if letter found, store its value
-        if(letter != null){
-            // figure out which letter
-            // store its multiplier
-            switch(letter[0]){
-                case 'k':
-                    multiplier = 1000;
-                    break;
-                case 'm':
-                    multiplier = 1000000;
-                    break;
-                case 'b':
-                    multiplier = 1000000000;
-                    break;
-            }
-            // remove the k b or m
-            input = input.replace(letter[0], '');
-        }
-
-        // convert the input to float
-        input = parseFloat(input);
-        // convert to int after multiplying
-        var value = parseInt(input * multiplier);
-        return value;
-
-    // otherwise return -1 (error)
-    } else {
-        return -1;
     }
 }

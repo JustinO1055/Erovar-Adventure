@@ -1,5 +1,8 @@
 const {shop} = require('../jsons/items.json');
 
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
+
 module.exports={
     name: 'buy',
     description: "Used to buy items from the shop",
@@ -22,7 +25,7 @@ module.exports={
 
         // if there is an amount provided in args[2], convert to integer
         if(typeof args[2] != 'undefined')
-            amount = calcAmount(args[2]);
+            amount = functions.calcAmount(args[2]);
 
         // preform the look up on the item
         for(s in shop){
@@ -65,50 +68,5 @@ module.exports={
 
         });
 
-    }
-}
-
-function calcAmount(input){
-    // regex for finding if the user has valid input
-    var regex = /\d+(\.\d+)?[kmb]?$/;
-
-    //test the input based off the regex
-    // if its valid, continue to pasre the input.
-    if(regex.test(input)){
-
-        // set the multiplier value for the k m b modifier
-        var multiplier = 1;
-
-        // figure out if there is a letter
-        var isLetter = /[kmb]/i;
-        var letter = input.match(isLetter);
-        // if letter found, store its value
-        if(letter != null){
-            // figure out which letter
-            // store its multiplier
-            switch(letter[0]){
-                case 'k':
-                    multiplier = 1000;
-                    break;
-                case 'm':
-                    multiplier = 1000000;
-                    break;
-                case 'b':
-                    multiplier = 1000000000;
-                    break;
-            }
-            // remove the k b or m
-            input = input.replace(letter[0], '');
-        }
-
-        // convert the input to float
-        input = parseFloat(input);
-        // convert to int after multiplying
-        var value = parseInt(input * multiplier);
-        return value;
-
-    // otherwise return -1 (error)
-    } else {
-        return -1;
     }
 }

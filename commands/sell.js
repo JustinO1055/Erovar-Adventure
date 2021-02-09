@@ -1,5 +1,8 @@
 const {items} = require('../jsons/items.json');
 
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
+
 module.exports={
     name: 'sell',
     description: "Used to sell equipment and items",
@@ -26,10 +29,10 @@ module.exports={
         } else if (args[1] === "potion"){
             args[0] = args[0].concat(args[1]);
             if(typeof args[2] != 'undefined')
-                amount = calcAmount(args[2]);
+                amount = functions.calcAmount(args[2]);
         } else { 
             if(typeof args[1] != 'undefined')
-                amount = calcAmount(args[1]);
+                amount = functions.calcAmount(args[1]);
         }
 
         if (!specific){        
@@ -67,7 +70,7 @@ module.exports={
                                     // if it is sword, shield, or armor
                                     // update the users attack and defense
                                     if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
-                                        stats = getStats(args[0]);
+                                        stats = functions.getStats(args[0]);
                                         sqlUpdate2 += `, attack = attack - ${stats[0]}, defence = defence - ${stats[1]}`;
                                     }
                                     sqlUpdate2 += ` WHERE id = ${message.author.id}`;
@@ -117,7 +120,7 @@ module.exports={
                                     // if it is sword, shield, or armor
                                     // update the users attack and defense
                                     if(args[0] == 'sword' || args[0] == 'shield' || args[0] == 'armor'){
-                                        stats = getStats(rows[0][args[0]]);
+                                        stats = functions.getStats(rows[0][args[0]]);
                                         sqlUpdate2 += `, attack = attack - ${stats[0]}, defence = defence - ${stats[1]}`;
                                     }
                                     sqlUpdate2 += ` WHERE id = ${message.author.id}`;
@@ -177,62 +180,4 @@ function sell(amount, item, itemValue, queary, author, channelID){
             //Output sold message
             const channel = client.channels.cache.get(channelID);
             channel.send(output);
-}
-
-function calcAmount(input){
-    // regex for finding if the user has valid input
-    var regex = /\d+(\.\d+)?[kmb]?$/;
-
-    //test the input based off the regex
-    // if its valid, continue to pasre the input.
-    if(regex.test(input)){
-
-        // set the multiplier value for the k m b modifier
-        var multiplier = 1;
-
-        // figure out if there is a letter
-        var isLetter = /[kmb]/i;
-        var letter = input.match(isLetter);
-        // if letter found, store its value
-        if(letter != null){
-            // figure out which letter
-            // store its multiplier
-            switch(letter[0]){
-                case 'k':
-                    multiplier = 1000;
-                    break;
-                case 'm':
-                    multiplier = 1000000;
-                    break;
-                case 'b':
-                    multiplier = 1000000000;
-                    break;
-            }
-            // remove the k b or m
-            input = input.replace(letter[0], '');
-        }
-
-        // convert the input to float
-        input = parseFloat(input);
-        // convert to int after multiplying
-        var value = parseInt(input * multiplier);
-        return value;
-
-    // otherwise return -1 (error)
-    } else {
-        return -1;
-    }
-}
-
-//function to get the stats for an item
-function getStats(item){
-
-    // traverse the items json file to find the item requested
-    for(i in items){
-        if(i == item){
-            let stats = [items[i].attack,items[i].defence];
-            // return the stats id
-            return stats;
-        }
-    }
 }

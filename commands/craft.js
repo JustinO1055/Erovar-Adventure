@@ -2,6 +2,9 @@
 const RECIPES = require('../jsons/recipes.json');
 const {items} = require('../jsons/items.json');
 
+//Include the js file with functions, that includes the playerDeath function
+var functions = require('../functions.js');
+
 module.exports={
     name: 'craft',
     description: "Used to craft items within the game",
@@ -22,7 +25,7 @@ module.exports={
         // otherwise check if args[1] is set, if it is, pass it to get value function to see how many items to be crafted
         } else { 
             if(typeof args[1] != 'undefined')
-                amount = calcAmount(args[1]);
+                amount = functions.calcAmount(args[1]);
         }
 
         // if the amount is -1 (set for error.) Return and print an error
@@ -76,10 +79,10 @@ module.exports={
                     var quantity = parseInt(recipe[i]['quantity']) * amount;
                     if(rows[0][recipe[i]['itemname']] < quantity){
                         //error += `${rows[0][recipe[i]['itemname']]}/ ${recipe[i]['quantity']} ${recipe[i]['itemname']} ` + getEmoji(recipe[i]['itemname']) + ` :x:`;
-                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + getEmoji(itemName) + `${itemName} :x:\n`;
+                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + functions.getEmoji(itemName) + `${itemName} :x:\n`;
                         craftable = false;
                     } else {
-                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + getEmoji(itemName) + ` ${itemName} :white_check_mark:\n`;
+                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + functions.getEmoji(itemName) + ` ${itemName} :white_check_mark:\n`;
                         //prep the sql statement
                         sql2 += `${itemName} = ${itemName} - ${quantity}, `;                
                     }
@@ -108,12 +111,12 @@ module.exports={
                                 // if it is sword, shield, or armor
                                 // update the users attack and defense
                                 if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
-                                    let stats = getStats(item);
+                                    let stats = functions.getStats(item);
                                     sql4 += `, attack = attack + ${stats[0]}, defence = defence + ${stats[1]}`;
                                 }
                                 sql4 += ` WHERE id = '${message.author.id}'`;
                                 // query the database
-                                message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
+                                message.channel.send(`You have crafted a ${item} ` + functions.getEmoji(item));
                                 connection.query(sql4);
                                 connection.query(sql2);
 
@@ -124,9 +127,9 @@ module.exports={
                         // append the item and the user to the sql query
                         sql2 += `${item} = ${item} + ${amount} WHERE id = '${message.author.id}'`;
                         if(amount == 1){
-                            message.channel.send(`You have crafted a ${item} ` + getEmoji(item));
+                            message.channel.send(`You have crafted a ${item} ` + functions.getEmoji(item));
                         } else {
-                            message.channel.send(`You have crafted ${amount} ${item}'s ` + getEmoji(item));
+                            message.channel.send(`You have crafted ${amount} ${item}'s ` + functions.getEmoji(item));
                         }
 
                         connection.query(sql2);
@@ -142,75 +145,5 @@ module.exports={
             }
         });
 
-    }
-}
-
-//function to get the emoji id for an item
-function getEmoji(item){
-
-    // traverse the items json file to find the item requested
-    for(i in items){
-        if(i == item)
-            // return the emoji id
-            return (items[i].emoji);
-    }
-
-}
-
-//function to get the stats for an item
-function getStats(item){
-
-    // traverse the items json file to find the item requested
-    for(i in items){
-        if(i == item){
-            let stats = [items[i].attack,items[i].defence];
-            // return the stats id
-            return stats;
-        }
-    }
-}
-
-function calcAmount(input){
-    // regex for finding if the user has valid input
-    var regex = /\d+(\.\d+)?[kmb]?$/;
-
-    //test the input based off the regex
-    // if its valid, continue to pasre the input.
-    if(regex.test(input)){
-
-        // set the multiplier value for the k m b modifier
-        var multiplier = 1;
-
-        // figure out if there is a letter
-        var isLetter = /[kmb]/i;
-        var letter = input.match(isLetter);
-        // if letter found, store its value
-        if(letter != null){
-            // figure out which letter
-            // store its multiplier
-            switch(letter[0]){
-                case 'k':
-                    multiplier = 1000;
-                    break;
-                case 'm':
-                    multiplier = 1000000;
-                    break;
-                case 'b':
-                    multiplier = 1000000000;
-                    break;
-            }
-            // remove the k b or m
-            input = input.replace(letter[0], '');
-        }
-
-        // convert the input to float
-        input = parseFloat(input);
-        // convert to int after multiplying
-        var value = parseInt(input * multiplier);
-        return value;
-
-    // otherwise return -1 (error)
-    } else {
-        return -1;
     }
 }
