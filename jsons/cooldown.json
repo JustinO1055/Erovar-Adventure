@@ -9,6 +9,11 @@
             "name": "cd_sleep",
             "message": "Sleep",
             "cooldown": 960
+        },
+        "battle":{
+            "name": "cd_battle",
+            "message": "Battle",
+            "cooldown": 1
         }
     }
 }

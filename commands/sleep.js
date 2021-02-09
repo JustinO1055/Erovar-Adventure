@@ -33,13 +33,27 @@ module.exports={
                 message.reply('Please wait 16 hours before sending this command again. You have ' + hourL + ":" + minL +":" + secL + " left");
             // time has passed
             } else if (diff >= cooldown){
-                message.channel.send('You have slept... You awake to find your hp fully healed');
-                // update the last time sent in DB
-                var sql2 = `UPDATE Cooldown SET cd_sleep = NOW() WHERE id = ${message.author.id}`;
-                // heal hp
-                var sql3 = `UPDATE Users SET hp = max_hp WHERE id = ${message.author.id}`;
-                connection.query(sql2);
-                connection.query(sql3);
+
+                // query the db to see if the user has full hp
+                let sqlCheck = `SELECT hp, max_hp FROM Users WHERE id = '${message.author.id}'`;
+                connection.query(sqlCheck, (err, rows) =>{
+
+                    // if the users hp is not full, let them sleep
+                    if(rows[0].hp < rows[0].max_hp){
+                        message.channel.send('You have slept... You awake to find your hp fully healed');
+                        // update the last time sent in DB
+                        var sql2 = `UPDATE Cooldown SET cd_sleep = NOW() WHERE id = ${message.author.id}`;
+                        // heal hp
+                        var sql3 = `UPDATE Users SET hp = max_hp WHERE id = ${message.author.id}`;
+                        connection.query(sql2);
+                        connection.query(sql3);
+                        return;
+                    } else {
+                        message.channel.send('You tried to sleep... As your eyes were closing, you realized you already had full hp and decided to stay awake instead.\nType \`adv help\` for help`');
+                        return;
+                    }
+
+                });
             }
 
         });
