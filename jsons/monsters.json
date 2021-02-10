@@ -53,7 +53,12 @@
                 "maxhp": 13,
                 "minxp": 75,
                 "maxxp": 200,
-                "encounter": 1
+                "encounter": 1,
+                "attacks":{
+                    "1": "Screech",
+                    "2": "Wing Slap",
+                    "3": "Bite"
+                }
             }
         },
         "boss":{
