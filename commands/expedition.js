@@ -39,7 +39,8 @@ module.exports={
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxhp'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['minxp'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxxp'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji']));
+                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
+                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves']));
             }
 
             //Determine which monster is encountered
@@ -50,8 +51,11 @@ module.exports={
             // 3 = hp
             // 4 = emoji code
             // 5 = xp for winning
+            // 6 = gold for winning
+            // 7 = attacks in array form
             let monster = monsterEncounterTable.determineHit();
 
+            // call the combat function to initate the expedition battle
             combat(rows[0], monster, message);
 
         });
@@ -95,6 +99,9 @@ async function combat(player, monster, message){
 
     // set the stats for the monster for the embed
     let encounterStats = `**HP**: ${monster[3]}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+
+    // randomly generate the percents for each of the monsters moves
+    let percent = functions.threeRandomInteger();
     
     // create the embed to send
     const encounterEmbed = new Discord.MessageEmbed()
@@ -103,7 +110,8 @@ async function combat(player, monster, message){
     .addFields(
         { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
         { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true},
-        { name: "Action:", value: "What are you going to do?\n\`attack\` to attack the monster.\n\`block\` to block the monsters attack.\n\`dodge\` to dodge the monsters attack."}
+        { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back."},
+        { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7]['1']}\` (${percent[0]}%)\n\`${monster[7]['2']}\` (${percent[1]}%)\n\`${monster[7]['3']}\` (${percent[2]}%)\n`}
     );
 
     //Declare variables to track current HP for player and monster
@@ -126,6 +134,7 @@ async function combat(player, monster, message){
             } else {
                 message.channel.send(`You do a big dodge`);
             }
+            monsterCurrentHP = 0;
         })
         //If the user doesnt enter a valid response, monster attacks
         .catch(collected => {

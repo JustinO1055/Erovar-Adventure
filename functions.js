@@ -47,6 +47,13 @@ module.exports = {
     randomInteger: function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
+    threeRandomInteger: function(){
+        // function to compute three random numbers that add up to a total of 100
+        let number1 = this.randomInteger(0,100);
+        let number2 = this.randomInteger(0,(100- number1));
+        let number3 = 100 - number1 - number2;
+        return [number1, number2, number3];
+    },
     calcAmount: function(input){
         // regex for finding if the user has valid input
         var regex = /\d+(\.\d+)?[kmb]?$/;

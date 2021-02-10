@@ -54,7 +54,7 @@
                 "minxp": 75,
                 "maxxp": 200,
                 "encounter": 1,
-                "attacks":{
+                "moves":{
                     "1": "Screech",
                     "2": "Wing Slap",
                     "3": "Bite"
