@@ -102,6 +102,9 @@ async function combat(player, monster, message){
 
     // randomly generate the percents for each of the monsters moves
     let percent = functions.threeRandomInteger();
+
+    //Decalare player moves for readding to embed
+    encounterPlayerMoves = { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back."};
     
     // create the embed to send
     const encounterEmbed = new Discord.MessageEmbed()
@@ -110,8 +113,8 @@ async function combat(player, monster, message){
     .addFields(
         { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
         { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true},
-        { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back."},
-        { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7]['1']}\` (${percent[0]}%)\n\`${monster[7]['2']}\` (${percent[1]}%)\n\`${monster[7]['3']}\` (${percent[2]}%)\n`}
+        encounterPlayerMoves,
+        { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7][0]}\` (${percent[0]}%)\n\`${monster[7][1]}\` (${percent[1]}%)\n\`${monster[7][2]}\` (${percent[2]}%)\n`}
     );
 
     //Declare variables to track current HP for player and monster
@@ -127,14 +130,95 @@ async function combat(player, monster, message){
             //Convert message to lowercase
             var command = mes.first().content.toLowerCase();
 
-            if(command == "attack"){
-                message.channel.send(`You do a big attack`);
-            } else if(command == "block"){
-                message.channel.send(`You do a big block`);
-            } else {
-                message.channel.send(`You do a big dodge`);
+            //Generate random number for what monster move will be used
+            var randomNum  = functions.randomInteger(1, 100);
+
+            //Runing value used to calculate monsters move
+            var runningValue = 0;
+
+            //Stores the index of tha attack used
+            attackIndex = 0;
+
+            //Determines the mosters move
+            while(attackIndex < 3){
+                runningValue += percent[attackIndex];
+
+                if(randomNum < runningValue)
+                    break;
+
+                attackIndex++;
             }
-            monsterCurrentHP = 0;
+
+            //Determine the outome of the turn
+            if((command == "attack" && attackIndex == 0) || (command == "block" && attackIndex == 1) || (command == "dodge" && attackIndex == 2)){
+                //Calculate monsters new hp
+                monsterCurrentHP = functions.calculateDamage(player.attack, monster[2], monsterCurrentHP, 1);
+
+                //Calculate players new hp
+                playerCurrentHP = functions.calculateDamage(monster[1], player.defence, playerCurrentHP, 0.25);
+            } else if((command == "block" && attackIndex == 0) || (command == "dodge" && attackIndex == 1) || (command == "attack" && attackIndex == 2)){
+                //Calculate monsters new hp
+                monsterCurrentHP = functions.calculateDamage(player.attack, monster[2], monsterCurrentHP, 0.25);
+
+                //Calculate players new hp
+                playerCurrentHP = functions.calculateDamage(monster[1], player.defence, playerCurrentHP, 1);
+            } else {
+                //Calculate monsters new hp
+                monsterCurrentHP = functions.calculateDamage(player.attack, monster[2], monsterCurrentHP, 0.5);
+
+                //Calculate players new hp
+                playerCurrentHP = functions.calculateDamage(monster[1], player.defence, playerCurrentHP, 0.5);
+            }
+
+            //If the player or monster isnt dead, output new health and move values in embed
+            if(playerCurrentHP > 0 && monsterCurrentHP > 0) {
+                //set the stats for the user for the embed
+                userStats = `**HP**: ${playerCurrentHP}/${player.max_hp}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`;
+                encounterPlayer = { name: `${message.author.username}'s Stats:`, value: userStats, inline: true };
+
+                // set the stats for the monster for the embed
+                encounterStats = `**HP**: ${monsterCurrentHP}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+                ecounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
+
+                //Calculate new percents for each of the monsters moves
+                percent = functions.threeRandomInteger();
+
+                //Update the monster moves on the embed
+                encounterMonsterMove = { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7][0]}\` (${percent[0]}%)\n\`${monster[7][1]}\` (${percent[1]}%)\n\`${monster[7][2]}\` (${percent[2]}%)\n`};
+
+                encounter = [encounterPlayer, ecounterMonster, encounterPlayerMoves, encounterMonsterMove]
+
+                //Update Embed
+                encounterEmbed.spliceFields(0, 4, encounter);
+
+            } else {
+                //set the stats for the user for the embed
+                userStats = `**HP**: ${playerCurrentHP}/${player.max_hp}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`;
+                encounterPlayer = { name: `${message.author.username}'s Stats:`, value: userStats, inline: true };
+
+                // set the stats for the monster for the embed
+                encounterStats = `**HP**: ${monsterCurrentHP}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+                ecounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
+
+                if(playerCurrentHP == 0){
+                    ecounterOver = { name: "Fight Over", value: `You lost to the ${monster[0]}.`};
+                } else {
+                    ecounterOver = { name: "Fight Over", value: `You beat the ${monster[0]}.\nYou got ${monster[5]} XP and ${monster[6]} Gold!`};
+                }
+
+                encounter = [encounterPlayer, ecounterMonster, ecounterOver]
+
+                //Update Embed
+                encounterEmbed.spliceFields(0, 4, encounter);
+
+                message.channel.send(encounterEmbed);
+
+                if(playerCurrentHP == 0){
+                    functions.playerDeath(message);
+                } else {
+                    functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6]);
+                }
+            }
         })
         //If the user doesnt enter a valid response, monster attacks
         .catch(collected => {

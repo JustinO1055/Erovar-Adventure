@@ -13,7 +13,7 @@ module.exports = {
 
         return [xpCurrent, xpNext];
     },
-    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp) {
+    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp, gold) {
         //Get how much xp for player to level up
         xpValues = this.xpCurrentNext(currentLevel);
 
@@ -35,7 +35,7 @@ module.exports = {
                 message.channel.send(`You have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
 
             //Create query to update users data, inlcuding a level up
-            sql =`UPDATE Users SET hp = max_hp + 5 * ${lvls}, xp = xp + ${xpObtained}, level = level + 1 * ${lvls}, max_hp = max_hp + 5 * ${lvls}, attack = attack + 1 * ${lvls}, defence = defence + 1 * ${lvls} WHERE id = ${message.author.id}`;
+            sql =`UPDATE Users SET hp = max_hp + 5 * ${lvls}, xp = xp + ${xpObtained}, gold = gold + ${gold}, level = level + 1 * ${lvls}, max_hp = max_hp + 5 * ${lvls}, attack = attack + 1 * ${lvls}, defence = defence + 1 * ${lvls} WHERE id = ${message.author.id}`;
         } else{
             //Create query to update users data, not inlcuding a level up
             sql =`UPDATE Users SET hp = ${hp}, xp = xp + ${xpObtained} WHERE id = ${message.author.id}`;
@@ -118,5 +118,26 @@ module.exports = {
                 return stats;
             }
         }
+    },
+    //Function to calculate damage done to an enitity
+    calculateDamage: function(att, def, hp, percent){
+        //Calculate the damage to be dealt
+        //Difference of Attackers attack stat and defenders defence stat multiplied by 5
+        if(att > def)
+            attackDamage = (att - def) * 5;
+        else
+            return hp;
+
+        //Calculate attackDamage after percent
+        attackDamage = Math.round(attackDamage *= percent);
+
+        //Calculate the health after damage
+        //If damage is greater than current health, set hp to 0
+        if(attackDamage > hp)
+            hp = 0
+        else
+            hp -= attackDamage;
+
+        return hp;
     }
 }

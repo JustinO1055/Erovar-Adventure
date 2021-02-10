@@ -54,11 +54,11 @@
                 "minxp": 75,
                 "maxxp": 200,
                 "encounter": 1,
-                "moves":{
-                    "1": "Screech",
-                    "2": "Wing Slap",
-                    "3": "Bite"
-                }
+                "moves":[
+                    "Screech",
+                    "Wing Slap",
+                    "Bite"
+                ]
             }
         },
         "boss":{

@@ -50,6 +50,7 @@ module.exports={
             // 3 = hp
             // 4 = emoji code
             // 5 = xp for winning
+            // 6 = gold for winning
             let monster = monsterEncounterTable.determineHit();
             // prep message to send, could directly send, want it to be sent right before embed
             let encounterMsg = `A wild ${monster[4]} has appeared!`;
@@ -81,16 +82,16 @@ module.exports={
 
                         if(command == "fight"){
                             //Calculate Monsters new hp
-                            monsterCurrentHp = calculateDamage(rows[0].attack, monster[2], monster[3]);
+                            monsterCurrentHp = functions.calculateDamage(rows[0].attack, monster[2], monster[3], 1);
 
                             //Update the Monsters stat on the embed
                             encounterStats = `**HP**: ${monsterCurrentHp}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
                             encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
 
                             //Calculate players new hp
-                            playerCurrentHp = calculateDamage(monster[1], rows[0].defence, rows[0].hp);
+                            playerCurrentHp = functions.calculateDamage(monster[1], rows[0].defence, rows[0].hp, 1);
 
-                            //Update the Platers stat on the embed
+                            //Update the Players stat on the embed
                             userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
                             encounterPlayer = { name: `${message.author.username}'s Stats:`, value: userStats, inline: true }
 
@@ -121,9 +122,8 @@ module.exports={
                             if(playerCurrentHp == 0)
                                 functions.playerDeath(message);
                             else if(monsterCurrentHp == 0)
-                                functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp);
+                                functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6]);
                             
-                            //message.channel.send(`I DO A BIG ATTACK\nYou would've got ${monster[5]} xp`);
                         } else {
                             if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
                                 message.channel.send("AHHHHHHHHH IM SCARED");
@@ -166,22 +166,3 @@ function failEscape(monsterName, monsterEmoji, author, channelID){
     return false;
 
 };
-
-//Function to calculate damage done to an enitity
-function calculateDamage(att, def, hp){
-    //Calculate the damage to be dealt
-    //Difference of Attackers attack stat and defenders defence stat multiplied by 5
-    if(att > def)
-        attackDamage = (att - def) * 5;
-    else
-        return hp;
-
-    //Calculate the health after damage
-    //If damage is greater than current health, set hp to 0
-    if(attackDamage > hp)
-        hp = 0
-    else
-        hp -= attackDamage;
-
-    return hp;
-}
