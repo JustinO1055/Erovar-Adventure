@@ -39,6 +39,8 @@ module.exports={
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxhp'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['minxp'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxxp'],
+                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['mingold'],
+                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxgold'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
                     MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves']));
             }
@@ -109,7 +111,7 @@ async function combat(player, monster, message){
     // create the embed to send
     const encounterEmbed = new Discord.MessageEmbed()
     .setColor('#FF0000')
-    .setTitle('Battle')
+    .setTitle('Expedition')
     .addFields(
         { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
         { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true},
@@ -178,7 +180,7 @@ async function combat(player, monster, message){
 
                 // set the stats for the monster for the embed
                 encounterStats = `**HP**: ${monsterCurrentHP}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
-                ecounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
+                encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
 
                 //Calculate new percents for each of the monsters moves
                 percent = functions.threeRandomInteger();
@@ -186,7 +188,7 @@ async function combat(player, monster, message){
                 //Update the monster moves on the embed
                 encounterMonsterMove = { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7][0]}\` (${percent[0]}%)\n\`${monster[7][1]}\` (${percent[1]}%)\n\`${monster[7][2]}\` (${percent[2]}%)\n`};
 
-                encounter = [encounterPlayer, ecounterMonster, encounterPlayerMoves, encounterMonsterMove]
+                encounter = [encounterPlayer, encounterMonster, encounterPlayerMoves, encounterMonsterMove]
 
                 //Update Embed
                 encounterEmbed.spliceFields(0, 4, encounter);
@@ -198,15 +200,15 @@ async function combat(player, monster, message){
 
                 // set the stats for the monster for the embed
                 encounterStats = `**HP**: ${monsterCurrentHP}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
-                ecounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
+                encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true};
 
                 if(playerCurrentHP == 0){
-                    ecounterOver = { name: "Fight Over", value: `You lost to the ${monster[0]}.`};
+                    encounterOver = { name: "Fight Over", value: `You lost to the ${monster[0]}.`};
                 } else {
-                    ecounterOver = { name: "Fight Over", value: `You beat the ${monster[0]}.\nYou got ${monster[5]} XP and ${monster[6]} Gold!`};
+                    encounterOver = { name: "Fight Over", value: `You beat the ${monster[0]}.\nYou got ${monster[5]} XP and ${monster[6]} Gold!`};
                 }
 
-                encounter = [encounterPlayer, ecounterMonster, ecounterOver]
+                encounter = [encounterPlayer, encounterMonster, encounterOver]
 
                 //Update Embed
                 encounterEmbed.spliceFields(0, 4, encounter);

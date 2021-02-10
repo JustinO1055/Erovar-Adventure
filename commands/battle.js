@@ -39,6 +39,8 @@ module.exports={
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['maxhp'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['minxp'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['maxxp'],
+                    MONSTERS[`area${rows[0].area}`]['battle'][m]['mingold'],
+                    MONSTERS[`area${rows[0].area}`]['battle'][m]['maxgold'],
                     MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji']));
             }
 
@@ -99,7 +101,7 @@ module.exports={
                             if(playerCurrentHp == 0){
                                 result = `The wild ${monster[0]} ${monster[4]} has beat you.`
                             } else if(monsterCurrentHp == 0){
-                                result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} xp from the battle!`
+                                result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} XP and ${monster[6]} Gold! from the battle!`;
                             } else{
                                 result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
                                 sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp} WHERE id = '${message.author.id}'`;

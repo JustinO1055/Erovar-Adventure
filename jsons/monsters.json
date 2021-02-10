@@ -12,6 +12,8 @@
                 "maxhp": 10,
                 "minxp": 25,
                 "maxxp": 100,
+                "mingold": 25,
+                "maxgold": 75,
                 "encounter": 1
             },
             "seagull":{
@@ -25,6 +27,8 @@
                 "maxhp": 8,
                 "minxp": 25,
                 "maxxp": 100,
+                "mingold": 25,
+                "maxgold": 75,
                 "encounter": 1
             },
             "wasp":{
@@ -38,6 +42,8 @@
                 "maxhp": 10,
                 "minxp": 50,
                 "maxxp": 100,
+                "mingold": 50,
+                "maxgold": 85,
                 "encounter": 2
             }
         },
@@ -53,6 +59,8 @@
                 "maxhp": 13,
                 "minxp": 75,
                 "maxxp": 200,
+                "mingold": 100,
+                "maxgold": 300,
                 "encounter": 1,
                 "moves":[
                     "Screech",
@@ -65,13 +73,13 @@
             "brownbear":{
                 "name": "Brown Bear",
                 "emoji": "<:brownbear:806229086153605150>",
-                "minattack": 2,
-                "maxattack": 8,
-                "mindefence": 2,
-                "maxdefence": 8,
-                "minhp": 100,
-                "maxhp": 120
-
+                "hp": 50,
+                "moves":[
+                    "Scratch",
+                    "Bite", 
+                    "Stomp",
+                    "Hibernate"
+                ]
             }
         }
     },

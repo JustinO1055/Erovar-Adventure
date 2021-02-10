@@ -25,7 +25,7 @@ module.exports = class monsterEncounter {
         var randomNum  = functions.randomInteger(1, this.encounterSum());
 
         //Used while going through each probability
-        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp, monsterMoves;
+        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp, monsterMoves, monsterGold;
 
         //Find which monster is encountered
         for(let element of this.monsters){
@@ -38,6 +38,7 @@ module.exports = class monsterEncounter {
                 monsterHP = functions.randomInteger(element.hp[0], element.hp[1]);
                 monsterEmoji = element.emoji;
                 monsterxp = functions.randomInteger(element.xp[0], element.xp[1]);
+                monsterGold = functions.randomInteger(element.gold[0], element.gold[1]);
                 if(typeof(element.moves)!='undefined')
                     monsterMoves = element.moves;
                 else
@@ -46,7 +47,7 @@ module.exports = class monsterEncounter {
             }
         }
         // return the monster and its stats
-        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp, 0, monsterMoves];
+        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp, monsterGold, monsterMoves];
     }
 
 };

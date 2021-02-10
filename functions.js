@@ -1,3 +1,6 @@
+// include the items json file
+const {items} = require('./jsons/items.json');
+
 module.exports = {
     playerDeath: function(message, currentLevel) {
         message.channel.send("You have died.")
@@ -38,7 +41,7 @@ module.exports = {
             sql =`UPDATE Users SET hp = max_hp + 5 * ${lvls}, xp = xp + ${xpObtained}, gold = gold + ${gold}, level = level + 1 * ${lvls}, max_hp = max_hp + 5 * ${lvls}, attack = attack + 1 * ${lvls}, defence = defence + 1 * ${lvls} WHERE id = ${message.author.id}`;
         } else{
             //Create query to update users data, not inlcuding a level up
-            sql =`UPDATE Users SET hp = ${hp}, xp = xp + ${xpObtained} WHERE id = ${message.author.id}`;
+            sql =`UPDATE Users SET hp = ${hp}, xp = xp + ${xpObtained}, gold = gold + ${gold} WHERE id = ${message.author.id}`;
         }
 
         connection.query(sql);

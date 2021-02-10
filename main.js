@@ -141,9 +141,12 @@ client.on('message', message => {
                 }  else if (command === 'buy'){
                     // execute the command in the file buy.js
                     client.commands.get('buy').execute(message, args);
-                }else if (command === 'expedition' || command === 'exp'){
+                } else if (command === 'expedition' || command === 'exp'){
                     // execute the command in the file expedition.js
                     client.commands.get('expedition').execute(message, args);
+                } else if (command === 'boss'){
+                    // execute the command in the file boss.js
+                    client.commands.get('boss').execute(message, args);
                 }
             }
         });
