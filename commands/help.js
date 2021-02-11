@@ -60,6 +60,10 @@ module.exports={
                     );
     
                 break;
+
+            default:
+                var helpEmbed = new Discord.MessageEmbed()
+                        .setDescription("Cannot find a help page for that.")
                 
 
         }
