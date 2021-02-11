@@ -12,10 +12,13 @@ module.exports={
             
             //Create the embed to output
             var helpEmbed = new Discord.MessageEmbed()
+                .setColor('#FF69B4')
                 .addFields(
-                    { name: `Help`, value: `Specialized help for help will go here`},
+                    { name: `Help`, value: `General help will go here`},
                 );
 
+                //Send Embed
+                message.channel.send(helpEmbed);
             return;
         }
 
