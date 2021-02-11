@@ -19,8 +19,8 @@ module.exports={
         connection.query(sqlInfo, (err, rows) =>{
             if (err) throw err;
 
-            // do a switch statement based on max area to get the right dungeon
-            switch(rows[0].max_area){
+            // do a switch statement based on area to get the right dungeon
+            switch(rows[0].area){
                 case 0:{
                     // check to make sure the user is in the area
                     if(rows[0].max_area != rows[0].area){
@@ -48,10 +48,10 @@ module.exports={
                     }
                     // make sure user has basic shield
                     if(rows[0].shield != 'basic shield') {
-                        errorMessage += `**Shield:** Basic Sheild ${functions.getEmoji('basic shield')} :x:\n`;
+                        errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :x:\n`;
                         valid = false;
                     } else {
-                        errorMessage += `**Shield:** Basic Sheild ${functions.getEmoji('basic shield')} :white_check_mark:\n`;
+                        errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :white_check_mark:\n`;
                     }
                     // make sure user has stone axe
                     if(rows[0].axe != 'stone axe') {
@@ -296,7 +296,6 @@ async function boss0(player, message){
                 }
 
             }
-            
 
             outcome = { name: `Outcome`, value: outcomeMsg, inline: true };
 
@@ -333,6 +332,105 @@ async function boss0(player, message){
             bossEmbed.spliceFields(0, 5, bossFight);
         });
     }
-    console.log("hehehe");
+
+    // one the battle is over, see who the winner is
+    // both player and boss die together
+    if(playerCurrentHP <= 0 && bossCurrentHP <= 0){
+
+        // set hp of boss and player to 0
+        playerCurrentHP = 0;
+        bossCurrentHP = 0;
+
+        let drawMsg = {name: 'Outcome', value:`You and the ${boss.name} ${boss.emoji} have both manged to kill each other at the exact same time... Much to your amazement, a magical healing fairy is able to revive you so that you can walk back to base. \nGet some rest, heal up and attempt this boss battle again once you are ready.`};
+
+        // update the user stats
+        userStats = { name: `${message.author.username}'s Stats:`, value: `**HP**: ${playerCurrentHP}/${player.max_hp}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`, inline: true };
+        // set the stats for the boss for the embed
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+
+        // prep the outcome embed
+        const drawEmbed = new Discord.MessageEmbed()
+        .setColor('#0A008C')
+        .setTitle('It\'s a... draw!')
+        .addFields(
+            userStats,
+            bossStats, 
+            drawMsg    
+        );
+
+        // send the embed
+        message.channel.send(drawEmbed);
+        // update the database to set the users hp to 1
+        let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
+        connection.query(sql);
+        return;
+
+    // boss kills player
+    } else if (playerCurrentHP <= 0 && bossCurrentHP > 0) {
+
+        // set hp of player to 0
+        playerCurrentHP = 0;
+
+        let defeatMsg = {name: 'Outcome', value: `The ${boss.name} ${boss.emoji} has managed to kill you. After sensing victory, the ${boss.name} decides to leave you laying there as he goes back to protect the area. After a while, magical healing fairy is able to revive you so that you can walk back to base.\nGet some rest, heal up and attempt this boss battle again once you are ready.`};
+
+        // update the user stats
+        userStats = { name: `${message.author.username}'s Stats:`, value: `**HP**: ${playerCurrentHP}/${player.max_hp}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`, inline: true };
+        // set the stats for the boss for the embed
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+
+        // prep the outcome embed
+        const defeatEmbed = new Discord.MessageEmbed()
+        .setColor('#0A008C')
+        .setTitle('Defeat.')
+        .addFields(
+            userStats,
+            bossStats, 
+            defeatMsg    
+        );
+        
+        // send the embed
+        message.channel.send(defeatEmbed);
+        // update the database to set the users hp to 1
+        let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
+        connection.query(sql);
+        return;
+
+    } else if (playerCurrentHP > 0 && bossCurrentHP <= 0){
+
+        // set hp of boss to 0
+        bossCurrentHP = 0;
+
+        let victoryMsg = {name: 'Outcome', value: `You have managed to slay the ${boss.name} ${boss.emoji}, the path to the next area is now open. Upon entering the unknown of the new area, a sense of danger is in the air... You then realize that there will be new monsters to fight, and a new boss to defeat.`};
+        let welcome = {name: 'Welcome', value: `Welcome to area 1, the 'offical' first area of the game. Monsters can now kill you in battle, causing you to lose your progress towards the current level.\nYou have developed the skills to now use some tools. Use \`adv chop\` to gather wood based resources and \`adv mine\` to gather rock based resources.
+        \nNew recipes will be possible with these new items.
+        \nYou can now view and level up various skills with \`adv skills\`. 
+        \nUse \`adv help\` for help
+        \n**Goodluck, and enjoy your adventure throughout Erovar!**`};
+
+        // update the user stats
+        userStats = { name: `${message.author.username}'s Stats:`, value: `**HP**: ${playerCurrentHP}/${player.max_hp}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`, inline: true };
+        // set the stats for the boss for the embed
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+
+        // prep the outcome embed
+        const victoryEmbed = new Discord.MessageEmbed()
+        .setColor('#0A008C')
+        .setTitle('Victory!')
+        .addFields(
+            userStats,
+            bossStats, 
+            victoryMsg,
+            welcome    
+        );
+        
+        // send the embed
+        message.channel.send(victoryEmbed);
+        // update the database to set the users hp to their current hp, set their area to 1 and max area to 1
+        let sql = `UPDATE Users SET hp = ${playerCurrentHP}, max_area = 1, area = 1 WHERE id = '${message.author.id}'`;
+        connection.query(sql);
+        return;
+
+    }
+
 
 }

@@ -46,7 +46,7 @@ module.exports={
 
                     // if the user is not in area 0, print a message and return.
                     if(rows[0].area != 0){
-                        message.reply('Find is only to be used within area 0. Use **adv chop** or **adv mine** to find resources. \n\nUse **adv h** for commands.');
+                        message.reply('Find is only to be used within area 0. Use \`adv chop\` or \`adv mine\` to find resources. \n\nUse \`adv h\` for commands.');
                     } else {
                         //Declare drop table for the find commandd
                         var findDropTable = new dropTable;
