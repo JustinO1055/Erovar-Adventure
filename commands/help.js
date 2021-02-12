@@ -22,6 +22,32 @@ module.exports={
             return;
         }
 
+        let itemSearch = "";
+        // combine the arguments in case of item
+        for(var i = 0; i < args.length; i++){
+            itemSearch += args[i] + " ";
+        }
+        // remove extra space
+        itemSearch = itemSearch.slice(0, -1);
+        
+        // loop through items json to find it
+        for(i in items){
+            if(i === itemSearch){
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                .addFields(
+                    { name: `${items[i]['name']} ${items[i]['emoji']}`, value: items[i]['description']},
+                    { name: `Sell Value`, value: items[i]['value']},
+                ) 
+                .setColor('#FF69B4')
+                .setFooter(`Use "adv help" for general help`);
+
+                message.channel.send(helpEmbed);
+                return;
+
+            }
+        }
+
         switch(args[0]){
             case 'find':
                 //Create the embed to output

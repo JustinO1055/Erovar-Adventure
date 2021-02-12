@@ -3,6 +3,7 @@
         "stick":{
             "name": "stick",
             "emoji": "<:stick:801885407129370625>",
+            "description": "Found in area 0 using `find`. Used to create basic equipment and logs.",
             "value": 10
         },
         "log":{
@@ -23,6 +24,7 @@
         "basic sword":{
             "name": "basicsword",
             "emoji": "<:basicsword:806232602491093013>",
+            "description": "Slicey Slicey",
             "value": 350,
             "attack": 3,
             "defence": 0
