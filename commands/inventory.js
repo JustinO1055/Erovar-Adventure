@@ -30,8 +30,8 @@ module.exports={
                 var intentory = "";
                 for(i in items){
                     //Only show items that have user has at least one of
-                    if(rows[0][items[i]['name']] > 0)
-                        intentory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][items[i]['name']]} \n`;
+                    if(rows[0][i] > 0)
+                        intentory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
                 }
 
                 //Check if the players inventory is empty and add a message if it is

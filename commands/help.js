@@ -36,9 +36,16 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                 .addFields(
-                    { name: `${items[i]['name']} ${items[i]['emoji']}`, value: items[i]['description']},
+                    { name: `${items[i]['name']}  ${items[i]['emoji']}`, value: items[i]['description']},
                     { name: `Sell Value`, value: items[i]['value']},
-                ) 
+                );
+                
+                // if the second arg is sword shield or armor, add new field for stats
+                if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
+                    helpEmbed.addFields({name: 'Stats', value: `Attack :crossed_swords:: ${items[i]['attack']}, Defence :shield:: ${items[i]['defence']}`});
+                }
+
+                helpEmbed 
                 .setColor('#FF69B4')
                 .setFooter(`Use "adv help" for general help`);
 
