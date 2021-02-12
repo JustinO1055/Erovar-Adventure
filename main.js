@@ -54,16 +54,19 @@ client.on('message', message => {
         const args = message.content.substring(4).split(/ +/).map(a => a.toLowerCase());
         const command = args.shift();
 
-        // if user is on cooldown, Print a message and return.
-        // do not execute their command
-        if(cooldown.has(message.author.id)){
-            return message.reply("You must wait 1 second between commands. Please Stop Spamming");
-        }
+
 
         // preform SQL query to see if user exists
         let sql = `SELECT admin FROM Users WHERE id = '${message.author.id}'`;
         // query the database
         connection.query(sql, (err, rows) =>{
+
+            // if user is on cooldown, Print a message and return.
+            // do not execute their command
+            // allow admin to bypass
+            if(cooldown.has(message.author.id) && rows[0].admin != 1){
+                return message.reply("You must wait 1 second between commands. Please Stop Spamming");
+            }
 
             // Check to see if the user has already started the bot
             // if account does not exist...

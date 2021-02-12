@@ -24,7 +24,7 @@ module.exports = class dropTable {
         var randomNum  = functions.randomInteger(1, this.probabliltySum());
 
         //Used while going through each probability
-        var runningValue = 0, resource, resourceAmount;
+        var runningValue = 1, resource, resourceAmount;
 
         //Find which resource is found
         for(let element of this.resources){

@@ -17,7 +17,7 @@ module.exports={
         var hours = 0;
 
         //check to ensure that the user is not on cooldown
-        var sqlCooldown = `SELECT cd_gather FROM Cooldown WHERE id = '${message.author.id}'`;
+        var sqlCooldown = `SELECT C.cd_gather, U.admin FROM Cooldown C, Users U WHERE U.id = C.id AND C.id = '${message.author.id}'`;
         connection.query(sqlCooldown, (err, rowsCD) =>{
             if(err) throw err;
 
@@ -31,7 +31,7 @@ module.exports={
             var cooldown = ((((hours * 60) + minutes) * 60) + seconds)* 1000;
 
             // if the time is less than the cooldown
-            if(diff < cooldown){
+            if(diff < cooldown && rowsCD[0].admin != 1){
                 // convert to seconds
                 var cooldownL = (cooldown - diff)/ 1000;
                 var minL = Math.floor(cooldownL / 60);
@@ -39,7 +39,7 @@ module.exports={
                 message.reply(`Please wait ${minutes} minutes before sending this command again. You have ${minL}:${secL} left`);
                 return;
             // if no longer on cooldown
-            } else if(diff >= cooldown){
+            } else if(diff >= cooldown || rowsCD[0].admin == 1){
                 // command is only to be used in area 0, ensure that the user is in area 0
                 var sqlCheck = `SELECT area FROM Users WHERE id = '${message.author.id}'`;
                 connection.query(sqlCheck, (err, rows) => {
