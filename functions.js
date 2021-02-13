@@ -3,18 +3,28 @@ const {items} = require('./jsons/items.json');
 
 module.exports = {
     playerDeath: function(message, currentLevel, area) {
+        //Check to see if the player is in area 0
         if(area != 0){
+            //Output a message that the user died
             message.channel.send("You died. Your XP has been reset back to 0 for your current level.")
 
+            //Find the xp values for the user to level
             xpValues = this.xpCurrentNext(currentLevel);
 
+            //Update the db
             sql = `UPDATE Users SET hp = hp_max, xp = ${xpValues[0]} WHERE id = ${message.author.id}`;
             connection.query(sql);
         } else {
-            message.channel.send("You feel your life fade before you. At the last second a magical healing fairy saves your life.\nThe fairy tells you to be more careful as she wont help you after you leave area 0.")
+            //Output a message that the user died
+            message.channel.send("You feel your life fade before you. At the last second a magical healing fairy saves your life.\nThe fairy tells you to be more careful as she wont help you after you leave area 0.");
+
+            //Heal the player
+            sql = `UPDATE Users SET hp = hp_max WHERE id = ${message.author.id}`;
+            connection.query(sql);
         }
     },
     xpCurrentNext: function(level) {
+        //Get the xp values for the players current level and the next level
         var xpCurrent = Math.round(4408417000 + (109.1345 - 4408417000)/(1 + Math.pow(((level- 1)/457.4632),3.390761)));
         var xpNext = Math.round(4408417000 + (109.1345 - 4408417000)/(1 + Math.pow((level/457.4632),3.390761)));
 
