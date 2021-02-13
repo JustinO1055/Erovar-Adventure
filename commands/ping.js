@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 var functions = require('../functions.js');
 
 module.exports={
@@ -5,5 +6,6 @@ module.exports={
     description: "Ping Pong :). Used to ensure bot is online",
     execute(message, args){
         message.channel.send('pong.:)');
+
     }
 }

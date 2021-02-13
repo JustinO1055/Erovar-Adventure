@@ -3,6 +3,9 @@ const Discord = require('discord.js');
 // include the json file that holds all of the items names and emoji codes
 const {items} = require('../jsons/items.json');
 
+// include functions file
+var functions = require('../functions.js');
+
 module.exports={
     name: 'help',
     description: "Give user help",
@@ -12,13 +15,20 @@ module.exports={
             
             //Create the embed to output
             var helpEmbed = new Discord.MessageEmbed()
+                .setTitle(`<:ErovarAdventure:810276183202856990> Help`)
+                .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item >\``)
                 .setColor('#FF69B4')
                 .addFields(
-                    { name: `Help`, value: `General help will go here`},
+                    { name: `General Commands`, value: `\`area\` \`cooldown\` \`heal\` \`help\` \`inventory\` \`ready\` \`profile\` \`skills\` \`sleep\``},
+                    { name: `Combat Commands`, value: `\`battle\` \`boss\` \`expedition\` \`heal\` \`sleep\``},
+                    { name: `Shop Commands`, value: `\`buy\` \`use\` \`sell\` \`shop\``},
+                    { name: `Artisan & Gathering Commands`, value: `\`chop\` \`craft\` \`dissassemble\` \`mine\` \`inventory\` \`recipes\``}
                 );
 
-                //Send Embed
-                message.channel.send(helpEmbed);
+                // later will need to update this with the commands we add in higher areas
+
+            //Send Embed
+            message.channel.send(helpEmbed);
             return;
         }
 
@@ -80,13 +90,25 @@ module.exports={
     
                 break;
             case 'boss':
+                // if generic boss help print generic message
+                if(args[1] == null || args[1] == ""){
                 //Create the embed to output
-                var helpEmbed = new Discord.MessageEmbed()
-                    .addFields(
-                        { name: `Boss`, value: `Once you have prepaired enough, use this to challenge the boss of the area so you can progress to the next area.\n
-                            This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
-                        { name: `Usage:`, value: `\`adv boss\``}
-                    );
+                    var helpEmbed = new Discord.MessageEmbed()
+                        .addFields(
+                            { name: `Boss`, value: `Once you have prepaired enough, use this to challenge the boss of the area so you can progress to the next area.\n
+                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Usage:`, value: `\`adv boss\``}
+                        );
+                } else if(args[1] == 0){
+                    var helpEmbed = new Discord.MessageEmbed()
+                        .addFields(
+                            { name: `Boss`, value: `Once you have prepaired enough, use this to challenge the boss of the area so you can progress to the next area.\n
+                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Requirements`, value: `Level 3\nBasic Sword ${functions.getEmoji('basic sword')}\nBasic Shield ${functions.getEmoji('basic shield')}\nStone axe ${functions.getEmoji('stone axe')}\nStone Pickaxe ${functions.getEmoji('stone pickaxe')}\n`},
+                            { name: `Tips`, value: `This boss has a 'tell' that hints to what the boss is going to do. Each move has 1 good counter, 1 okay counter, and 2 bad counters. You will have to figure out what is good against each move in order to defeat this boss`},
+                            { name: `Usage:`, value: `\`adv boss\``}
+                        );
+                }
     
                 break;
             case 'buy':

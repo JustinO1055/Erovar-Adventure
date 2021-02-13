@@ -14,7 +14,7 @@ module.exports={
 
         //Check if the player has supplied an item to craft and give a message if they do no use the command correctly
         if(args.length < 1){
-            message.channel.send(`${message.author}, the proper use of this command is \`adv craft [item]\` \nYou can see the recipes with \`adv recipes\``);
+            message.channel.send(`${message.author}, the proper use of this command is \`adv craft <item>\` \nYou can see the recipes with \`adv recipes\``);
             return;
         }
 
@@ -30,7 +30,7 @@ module.exports={
 
         // if the amount is -1 (set for error.) Return and print an error
         if(amount === -1){
-            message.channel.send(`${message.author}, The amount to craft is invalid. Please give a number to craft. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv craft [item] 5k\`. \nType \`adv help\` for help`);
+            message.channel.send(`${message.author}, The amount to craft is invalid. Please give a number to craft. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv craft <item> 5k\`. \nType \`adv help\` for help`);
             return;
         } 
 

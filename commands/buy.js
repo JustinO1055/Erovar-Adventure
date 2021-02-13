@@ -9,7 +9,7 @@ module.exports={
     execute(message, args){
         //Check if the player has supplied an item to buy and give a message if they do not use the command correctly
         if(args.length < 1){
-            message.channel.send(`${message.author}, the proper use of this command is \`adv buy [item]\``);
+            message.channel.send(`${message.author}, the proper use of this command is \`adv buy <item>\``);
             return;
         }
 
@@ -29,7 +29,7 @@ module.exports={
 
         // if the amount is -1 (set for error.) Return and print an error
         if(amount === -1){
-            message.channel.send(`${message.author}, The amount to buy is invalid. Please give a number to buy. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv buy [item] 5k\`. \nType \`adv help\` for help`);
+            message.channel.send(`${message.author}, The amount to buy is invalid. Please give a number to buy. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv buy <item> 5k\`. \nType \`adv help\` for help`);
             return;
         } 
 

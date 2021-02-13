@@ -11,7 +11,7 @@ module.exports={
         
         //Check if the player has supplied a category to see the recupes of and give a message if they do no use the command correctly
         if(args.length < 1 || !(category == "items" || category == "equipment")){
-            message.channel.send(`${message.author}, the proper use of this command is \`adv recipes [category]\` \nValid categories are \`equipment\`, \`items\``);
+            message.channel.send(`${message.author}, the proper use of this command is \`adv recipes <category>\` \nValid categories are \`equipment\`, \`items\``);
             return;
         }
 

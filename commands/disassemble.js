@@ -14,7 +14,7 @@ module.exports={
 
         // check the arg to make sure its not equipment. if it is equipment. warn the user they can not disassemble it
         if(args[0] === "sword" || args[0] === "shield" || args[0] === "armor" || args[0] === "pickaxe" || args[0] === "axe" || args[1] === "sword" || args[1] === "shield" || args[1] === "armor" || args[1] === "pickaxe" || args[1] === "axe"){
-            message.channel.send(`${message.author}, You can not disassmble equipment. You are able to sell the equipment using \`adv sell [equipment]\` \nType \`adv help\` for help`);
+            message.channel.send(`${message.author}, You can not disassmble equipment. You are able to sell the equipment using \`adv sell <equipment>\` \nType \`adv help\` for help`);
         // otherwise check if args[1] is set, if it is, pass it to get value function to see how many items to be crafted
         } else { 
             if(typeof args[1] != 'undefined')
@@ -23,7 +23,7 @@ module.exports={
 
         // if the amount is -1 (set for error.) Return and print an error
         if(amount === -1){
-            message.channel.send(`${message.author}, The amount to disassemble is invalid. Please give a number to disassemble. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv disassemble [item] 5k\`. \nType \`adv help\` for help`);
+            message.channel.send(`${message.author}, The amount to disassemble is invalid. Please give a number to disassemble. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv disassemble <item> 5k\`. \nType \`adv help\` for help`);
             return;
         } 
 
