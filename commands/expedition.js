@@ -250,7 +250,7 @@ async function combat(player, monster, message){
                 message.channel.send(encounterEmbed);
 
                 if(playerCurrentHP == 0){
-                    functions.playerDeath(message);
+                    functions.playerDeath(message, player.level, player.area);
                 } else {
                     functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6]);
                 }

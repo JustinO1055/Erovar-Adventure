@@ -2,13 +2,17 @@
 const {items} = require('./jsons/items.json');
 
 module.exports = {
-    playerDeath: function(message, currentLevel) {
-        message.channel.send("You have died.")
+    playerDeath: function(message, currentLevel, area) {
+        if(area != 0){
+            message.channel.send("You died. Your XP has been reset back to 0 for your current level.")
 
-        xpValues = this.xpCurrentNext(currentLevel);
+            xpValues = this.xpCurrentNext(currentLevel);
 
-        sql = `UPDATE Users SET hp = hp_max, xp = ${xpValues[0]} WHERE id = ${message.author.id}`;
-        connection.query(sql);
+            sql = `UPDATE Users SET hp = hp_max, xp = ${xpValues[0]} WHERE id = ${message.author.id}`;
+            connection.query(sql);
+        } else {
+            message.channel.send("You feel your life fade before you. At the last second a magical healing fairy saves your life.\nThe fairy tells you to be more careful as she wont help you after you leave area 0.")
+        }
     },
     xpCurrentNext: function(level) {
         var xpCurrent = Math.round(4408417000 + (109.1345 - 4408417000)/(1 + Math.pow(((level- 1)/457.4632),3.390761)));
@@ -126,9 +130,14 @@ module.exports = {
     calculateDamage: function(att, def, hp, percent){
         //Calculate the damage to be dealt
         //Difference of Attackers attack stat and defenders defence stat multiplied by 5
-        if(att > def)
-            attackDamage = (att - def) * 5;
-        else
+        if(att > def){
+            //Calculate the upper and lower bound of damage that use can do
+            damageUpper = Math.round((3 + att * 0.5) + 3);
+            damageLower = Math.round(((3 + att * 0.5) - 3 > 1) ? (3 + att) - 3 : 1);
+
+            //Determine the dammage the user will do
+            attackDamage = (att - def) * this.randomInteger(damageLower, damageUpper);
+        } else
             return hp;
 
         //Calculate attackDamage after percent

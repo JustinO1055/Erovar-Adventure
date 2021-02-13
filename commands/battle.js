@@ -120,7 +120,7 @@ module.exports={
                                     encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
 
                                     //Calculate players new hp
-                                    playerCurrentHp = functions.calculateDamage(monster[1], rows[0].defence, rows[0].hp, 1);
+                                    playerCurrentHp = functions.calculateDamage(100, rows[0].defence, rows[0].hp, 1);
 
                                     //Update the Players stat on the embed
                                     userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
@@ -151,7 +151,7 @@ module.exports={
 
                                     //If the player died, call playerDeath function
                                     if(playerCurrentHp == 0)
-                                        functions.playerDeath(message);
+                                        functions.playerDeath(message, rows[0].level, rows[0].area);
                                     else if(monsterCurrentHp == 0)
                                         functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6]);
                                     
