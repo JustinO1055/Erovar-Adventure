@@ -14,106 +14,143 @@ module.exports={
 
         // todo, add support for multiple players to do the same dungeon
 
-        // get the users information
-        let sqlInfo = `SELECT area, max_area, level, sword, shield, armor, pickaxe, axe, hp, max_hp, attack, defence FROM Users WHERE id = '${message.author.id}'`;
-        connection.query(sqlInfo, (err, rows) =>{
-            if (err) throw err;
+        // variables for time cooldown
+        var seconds = 0;
+        var minutes = 0;
+        var hours = 6;
 
-            // do a switch statement based on area to get the right dungeon
-            switch(rows[0].area){
-                case 0:{
-                    // check to make sure the user is in the area
-                    if(rows[0].max_area != rows[0].area){
-                        message.channel.send(`${message.author}, you are not in the right area. Make sure you are in your max area to do this dungeon.\nType \`adv help\` for help`);                   
-                        return;
-                    }
-                    
-                    // ensure the user has all of the correct requirements.
-                    // prep error message for if they do not have the requirements
-                    let errorMessage = "";
-                    valid = true;
-                    // check the users level to be greater than 3
-                    if(rows[0].level < 3) {
-                        errorMessage += `**Level:** 3 :x:\n`;
-                        valid = false;
-                    } else {
-                        errorMessage += `**Level:** 3 :white_check_mark:\n`;
-                    }
-                    // make sure user has basic sword
-                    if(rows[0].sword != 'basic sword') {
-                        errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :x:\n`;
-                        valid = false;
-                    } else {
-                        errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :white_check_mark:\n`;
-                    }
-                    // make sure user has basic shield
-                    if(rows[0].shield != 'basic shield') {
-                        errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :x:\n`;
-                        valid = false;
-                    } else {
-                        errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :white_check_mark:\n`;
-                    }
-                    // make sure user has stone axe
-                    if(rows[0].axe != 'stone axe') {
-                        errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :x:\n`;
-                        valid = false;
-                    } else {
-                        errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :white_check_mark:\n`;
-                    }
-                    // make sure user has stone pickaxe
-                    if(rows[0].pickaxe != 'stone pickaxe') {
-                        errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :x:\n`;
-                        valid = false;
-                    } else {
-                        errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :white_check_mark:\n`;
-                    }
+        //check to ensure that the user is not on cooldown
+        var sqlCooldown = `SELECT C.cd_boss, U.admin FROM Cooldown C, Users U WHERE U.id = C.id AND C.id = '${message.author.id}'`;
+        connection.query(sqlCooldown, (err, rowsCD) =>{
+            if(err) throw err;
 
-                    // if the user does not meet requirements. send the error
-                    if(!valid){
-                            // create the embed to send
-                            const errorEmbed = new Discord.MessageEmbed()
-                            .setColor('#CC0000')
-                            .setTitle('Error')
-                            .addFields(
-                                { name: `Lacking Boss Requirements:`, value: errorMessage},
-                            );
-                            message.channel.send(errorEmbed);
-                            return;
-                    }
+            // get the last command time
+            var last = rowsCD[0]['cd_boss'];
+            // get current time
+            var today = new Date();
+            // get difference in time from now to last sent
+            var diff = Math.abs(today - last);
+            // convert the cooldown 
+            var cooldown = ((((hours * 60) + minutes) * 60) + seconds)* 1000;
 
-                    // if the player is prepared, prompt user if they are ready to start the boss fight
-                    // create the embed to send
-                    const ready = new Discord.MessageEmbed()
-                    .setColor('#0A008C')
-                    .setTitle('Boss Fight')
-                    .addFields(
-                        { name: `Description`, value: `Welcome to the first of many boss fights you will encounter throughout your journey through Erovar.\n
-                        This is the tutorial boss fight, you will be fighting this boss alone, in the future you might need to team up with fellow adventurers in order to take down the tougher bosses.\n
-                        This is a strategy based boss, this boss has a 'tell' before it attacks. You must decipher his tell to defeat him. Each successful attack to the boss will deal some damage, if you attack unsuccessfully, the boss will instead attack you.\n
-                        Good luck. Upon defeating the boss, you will be granted access to the greater areas in area 1.`},
-                        { name: "Ready", value: `If you are ready, type \`yes\` to begin the fight. If you need more time to prepare, type \`no\` to cancel.`}
-                    );
+            // if the time is less than the cooldown
+            if(diff < cooldown && rowsCD[0].admin != 1){
+                // convert to seconds
+                var cooldownL = (cooldown - diff) / 1000;
+                var hourL = Math.floor(cooldownL / 3600);
+                var minL = Math.floor((cooldownL % 3600) / 60);
+                var secL = Math.floor((cooldownL % 60) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+                message.reply(`Please wait ${hours} hours before sending this command again. You have ${hourL} : ${minL} : ${secL} + left`);
+                return;
+            // if no longer on cooldown
+            // time has passed
+            } else if (diff >= cooldown || rowsCD[0].admin == 1){
 
-                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no');
-                    message.channel.send(ready).then(() => {
-                        message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
-                            var command = mes.first().content.toLowerCase();
-                            if (command == 'yes') {
-                                boss0(rows[0], message);
-                            } else if (command == 'no') {
-                                message.channel.send("Boss fight canceled");
+                // get the users information
+                let sqlInfo = `SELECT area, max_area, level, sword, shield, armor, pickaxe, axe, hp, max_hp, attack, defence FROM Users WHERE id = '${message.author.id}'`;
+                connection.query(sqlInfo, (err, rows) =>{
+                    if (err) throw err;
+
+                    // do a switch statement based on area to get the right dungeon
+                    switch(rows[0].area){
+                        case 0:{
+                            // check to make sure the user is in the area
+                            if(rows[0].max_area != rows[0].area){
+                                message.channel.send(`${message.author}, you are not in the right area. Make sure you are in your max area to do this dungeon.\nType \`adv help\` for help`);                   
+                                return;
                             }
-                            return;
-                        })
-                        .catch(collected => {
-                            message.channel.send(`Boss fight canceled. ${message.author} has taken too long to respond.`);
-                        });
-                    });
+                            
+                            // ensure the user has all of the correct requirements.
+                            // prep error message for if they do not have the requirements
+                            let errorMessage = "";
+                            valid = true;
+                            // check the users level to be greater than 3
+                            if(rows[0].level < 3) {
+                                errorMessage += `**Level:** 3 :x:\n`;
+                                valid = false;
+                            } else {
+                                errorMessage += `**Level:** 3 :white_check_mark:\n`;
+                            }
+                            // make sure user has basic sword
+                            if(rows[0].sword != 'basic sword') {
+                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :x:\n`;
+                                valid = false;
+                            } else {
+                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :white_check_mark:\n`;
+                            }
+                            // make sure user has basic shield
+                            if(rows[0].shield != 'basic shield') {
+                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :x:\n`;
+                                valid = false;
+                            } else {
+                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :white_check_mark:\n`;
+                            }
+                            // make sure user has stone axe
+                            if(rows[0].axe != 'stone axe') {
+                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :x:\n`;
+                                valid = false;
+                            } else {
+                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :white_check_mark:\n`;
+                            }
+                            // make sure user has stone pickaxe
+                            if(rows[0].pickaxe != 'stone pickaxe') {
+                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :x:\n`;
+                                valid = false;
+                            } else {
+                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :white_check_mark:\n`;
+                            }
 
-                    break;
-                }
+                            // if the user does not meet requirements. send the error
+                            if(!valid){
+                                    // create the embed to send
+                                    const errorEmbed = new Discord.MessageEmbed()
+                                    .setColor('#CC0000')
+                                    .setTitle('Error')
+                                    .addFields(
+                                        { name: `Lacking Boss Requirements:`, value: errorMessage},
+                                    );
+                                    message.channel.send(errorEmbed);
+                                    return;
+                            }
+
+                            // if the player is prepared, prompt user if they are ready to start the boss fight
+                            // create the embed to send
+                            const ready = new Discord.MessageEmbed()
+                            .setColor('#0A008C')
+                            .setTitle('Boss Fight')
+                            .addFields(
+                                { name: `Description`, value: `Welcome to the first of many boss fights you will encounter throughout your journey through Erovar.\n
+                                This is the tutorial boss fight, you will be fighting this boss alone, in the future you might need to team up with fellow adventurers in order to take down the tougher bosses.\n
+                                This is a strategy based boss, this boss has a 'tell' before it attacks. You must decipher his tell to defeat him. Each successful attack to the boss will deal some damage, if you attack unsuccessfully, the boss will instead attack you.\n
+                                Good luck. Upon defeating the boss, you will be granted access to the greater areas in area 1.`},
+                                { name: "Ready", value: `If you are ready, type \`yes\` to begin the fight. If you need more time to prepare, type \`no\` to cancel.`}
+                            );
+
+                            let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no');
+                            message.channel.send(ready).then(() => {
+                                message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
+                                    var command = mes.first().content.toLowerCase();
+                                    if (command == 'yes') {
+                                        boss0(rows[0], message);
+                                        connection.query(sql2);
+                                    } else if (command == 'no') {
+                                        message.channel.send("Boss fight canceled");
+                                    }
+                                    return;
+                                })
+                                .catch(collected => {
+                                    message.channel.send(`Boss fight canceled. ${message.author} has taken too long to respond.`);
+                                });
+                            });
+                            break;
+                        }
+                    }
+                
+                });
+
+                // update the cooldown in database
+                var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${message.author.id}'`;
             }
-        
         });
 
     }

@@ -20,26 +20,33 @@ module.exports={
             //Declare output message
             msg = "";
             
+            // have variable to check if any are set
+            var ready = false;
+
             //Check if the user has started their adventure
             if(rows.length < 1){
                 message.channel.send(`${user.username} has not started their adventure in Erovar!`)
             } else {
-                for (cd in commands) {
-
-                    // get the last command time
-                    var last = rows[0][commands[cd]['name']];
-                    // get current time
-                    var today = new Date();
-                    // get difference in time from now to last sent and subract the cooldown of the command by that
-                    var diff = commands[cd]['cooldown'] * 60000 - (today - last);
-
-                    //If message is not on cooldown still, put message for how much time is left.
-                    if(diff < 0){
-                        msg += `:white_check_mark: --- \`${commands[cd]['message']}\`\n`;
+                for (cdT in commands) {
+                    msg += `**----- ${cdT} -----**\n`;
+                    for(cd in commands[cdT]){
+                        // get the last command time
+                        var last = rows[0][commands[cdT][cd]['name']];
+                        // get current time
+                        var today = new Date();
+                        // get difference in time from now to last sent and subract the cooldown of the command by that
+                        var diff = commands[cdT][cd]['cooldown'] * 60000 - (today - last);
+                        
+                        //If message is not on cooldown still, put message for how much time is left.
+                        if(diff < 0){
+                            msg += `:white_check_mark: --- \`${commands[cdT][cd]['message']}\`\n`;
+                            ready = true;
+                        }
                     }
+                    msg += `------------------------------------\n`;
                 }
 
-                if(msg === ""){
+                if(!ready){
                     msg = "All commands are currently on cooldown.";
                 }
                 //Create the embed to output

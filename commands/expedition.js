@@ -16,52 +16,86 @@ module.exports={
     description: "Used in order for the player to go on a longer mission to fight an enemy. 1 hour cooldown on this command.",
     execute(message, args) {
 
-        //TODO: begin with cooldown check. add later after initial testing cuz it will get in our way
+        // variables for time cooldown
+        var seconds = 0;
+        var minutes = 30;
+        var hours = 0;
 
-        // get the users area
-        let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
-        connection.query(sql1, (err, rows) =>{
+        //check to ensure that the user is not on cooldown
+        var sqlCooldown = `SELECT C.cd_expedition, U.admin FROM Cooldown C, Users U WHERE U.id = C.id AND C.id = '${message.author.id}'`;
+        connection.query(sqlCooldown, (err, rowsCD) =>{
+            if(err) throw err;
 
-            // create a new monster encounter table
-            let monsterEncounterTable = new monsterEncounter;
+            // get the last command time
+            var last = rowsCD[0]['cd_expedition'];
+            // get current time
+            var today = new Date();
+            // get difference in time from now to last sent
+            var diff = Math.abs(today - last);
+            // convert the cooldown 
+            var cooldown = ((((hours * 60) + minutes) * 60) + seconds)* 1000;
 
-            // Go through the monstors list for the users area under the battle section.
-            for(m in MONSTERS[`area${rows[0].area}`]['expedition']){
-                // add the information for that monster to the encounter table.
-                monsterEncounterTable.addMonster(new monsterStats(
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['name'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['encounter'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['minattack'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxattack'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['mindefence'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxdefence'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['minhp'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxhp'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['minxp'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxxp'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['mingold'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxgold'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
-                    MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves']));
+            // if the time is less than the cooldown
+            if(diff < cooldown && rowsCD[0].admin != 1){
+                // convert to seconds
+                var cooldownL = (cooldown - diff)/ 1000;
+                var minL = Math.floor(cooldownL / 60);
+                var secL = Math.floor(cooldownL % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+                message.reply(`Please wait ${minutes} minutes before sending this command again. You have ${minL}:${secL} left`);
+                return;
+            // if no longer on cooldown
+            // time has passed
+            } else if (diff >= cooldown || rowsCD[0].admin == 1){
+
+                // get the users area
+                let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
+                connection.query(sql1, (err, rows) =>{
+
+                    // create a new monster encounter table
+                    let monsterEncounterTable = new monsterEncounter;
+
+                    // Go through the monstors list for the users area under the battle section.
+                    for(m in MONSTERS[`area${rows[0].area}`]['expedition']){
+                        // add the information for that monster to the encounter table.
+                        monsterEncounterTable.addMonster(new monsterStats(
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['name'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['encounter'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['minattack'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxattack'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['mindefence'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxdefence'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['minhp'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxhp'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['minxp'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxxp'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['mingold'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxgold'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves']));
+                    }
+
+                    //Determine which monster is encountered
+                    // returns as array
+                    // 0 = name
+                    // 1 = attack
+                    // 2 = defence
+                    // 3 = hp
+                    // 4 = emoji code
+                    // 5 = xp for winning
+                    // 6 = gold for winning
+                    // 7 = attacks in array form
+                    let monster = monsterEncounterTable.determineHit();
+
+                    // call the combat function to initate the expedition battle
+                    combat(rows[0], monster, message);
+
+                    // update the cooldown in database
+                    var sql2 = `UPDATE Cooldown SET cd_expedition = NOW() WHERE id = '${message.author.id}'`;
+                    connection.query(sql2);
+
+                });
             }
-
-            //Determine which monster is encountered
-            // returns as array
-            // 0 = name
-            // 1 = attack
-            // 2 = defence
-            // 3 = hp
-            // 4 = emoji code
-            // 5 = xp for winning
-            // 6 = gold for winning
-            // 7 = attacks in array form
-            let monster = monsterEncounterTable.determineHit();
-
-            // call the combat function to initate the expedition battle
-            combat(rows[0], monster, message);
-
         });
-
     }
 }
 

@@ -1,19 +1,33 @@
 {
     "commands":{
-        "gather":{
-            "name": "cd_gather",
-            "message": "Find",
-            "cooldown": 2
-        },
-        "sleep":{
-            "name": "cd_sleep",
-            "message": "Sleep",
-            "cooldown": 960
-        },
-        "battle":{
-            "name": "cd_battle",
-            "message": "Battle",
-            "cooldown": 1
+        "Combat":{
+            "battle":{
+                "name": "cd_battle",
+                "message": "Battle",
+                "cooldown": 1
+            },
+            "expedition":{
+                "name": "cd_expedition",
+                "message": "Expedition",
+                "cooldown": 30
+            },
+            "boss":{
+                "name": "cd_boss",
+                "message": "Boss",
+                "cooldown": 360
+            }
+        },       
+        "Skills":{
+            "gather":{
+                "name": "cd_gather",
+                "message": "Find",
+                "cooldown": 2
+            },
+            "sleep":{
+                "name": "cd_sleep",
+                "message": "Sleep",
+                "cooldown": 960
+            }
         }
     }
 }

@@ -24,29 +24,30 @@ module.exports={
             if(rows.length < 1){
                 message.channel.send(`${user.username} has not started their adventure in Erovar!`)
             } else {
-                for (cd in commands) {
-
-                    // get the last command time
-                    var last = rows[0][commands[cd]['name']];
-                    // get current time
-                    var today = new Date();
-                    // get difference in time from now to last sent and subract the cooldown of the command by that
-                    var diff = commands[cd]['cooldown'] * 60000 - (today - last);
-
-                    console.log([commands[cd]['name']]);
-                    
-                    //If message is not on cooldown still, put message for how much time is left.
-                    if(diff >= 0){
-                        // do a check to see if it is greater than an hour cooldown, if it is, display how many hours
-                        if(commands[cd]['cooldown'] >= 60){
-                            msg += `:clock1: --- \`${commands[cd]['message']}\` **${msToHoursandMinutesandSeconds(diff)}**\n`;                            
-                        // otherwise only show minutes/ seconds
-                        } else {
-                            msg += `:clock1: --- \`${commands[cd]['message']}\` **${msToMinutesandSeconds(diff)}**\n`;
+                for (cdT in commands) {
+                    msg += `**----- ${cdT} -----**\n`;
+                    for(cd in commands[cdT]){
+                        // get the last command time
+                        var last = rows[0][commands[cdT][cd]['name']];
+                        // get current time
+                        var today = new Date();
+                        // get difference in time from now to last sent and subract the cooldown of the command by that
+                        var diff = commands[cdT][cd]['cooldown'] * 60000 - (today - last);
+                        
+                        //If message is not on cooldown still, put message for how much time is left.
+                        if(diff >= 0){
+                            // do a check to see if it is greater than an hour cooldown, if it is, display how many hours
+                            if(commands[cdT][cd]['cooldown'] >= 60){
+                                msg += `:clock1: --- \`${commands[cdT][cd]['message']}\` **${msToHoursandMinutesandSeconds(diff)}**\n`;                            
+                            // otherwise only show minutes/ seconds
+                            } else {
+                                msg += `:clock1: --- \`${commands[cdT][cd]['message']}\` **${msToMinutesandSeconds(diff)}**\n`;
+                            }
+                        } else{
+                            msg += `:white_check_mark: --- \`${commands[cdT][cd]['message']}\`\n`;
                         }
-                    } else{
-                        msg += `:white_check_mark: --- \`${commands[cd]['message']}\`\n`;
                     }
+                    msg += `------------------------------------\n`;
                 }
                 //Create the embed to output
                 const cooldownEmbed = new Discord.MessageEmbed()

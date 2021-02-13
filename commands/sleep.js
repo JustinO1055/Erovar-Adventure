@@ -9,11 +9,11 @@ module.exports={
         var hours = 16;
 
         // query the DB to see when last time sending this message was
-        var sql = `SELECT cd_sleep FROM Cooldown WHERE id = ${message.author.id}`;
-        connection.query(sql, (err, rows) =>{
+        var sqlCooldown = `SELECT C.cd_sleep, U.admin FROM Cooldown C, Users U WHERE U.id = C.id AND C.id = '${message.author.id}'`;
+        connection.query(sqlCooldown, (err, rowsCD) =>{
             if(err) throw err;
 
-            var last_sleep = rows[0]['cd_sleep'];
+            var last_sleep = rowsCD[0]['cd_sleep'];
             // get current time
             var today = new Date();
 
@@ -24,15 +24,15 @@ module.exports={
             var cooldown = ((((hours * 60) + minutes) * 60) + seconds)* 1000;
 
             // if still in cooldown
-            if(diff < cooldown){
+            if(diff < cooldown && rowsCD[0].admin != 1){
                 // convert to seconds
                 var cooldownL = (cooldown - diff) / 1000;
                 var hourL = Math.floor(cooldownL / 3600);
                 var minL = Math.floor((cooldownL % 3600) / 60);
                 var secL = Math.floor((cooldownL % 60) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-                message.reply('Please wait 16 hours before sending this command again. You have ' + hourL + ":" + minL +":" + secL + " left");
+                message.reply(`Please wait ${hours} hours before sending this command again. You have ${hourL} : ${minL} : ${secL} + left`);
             // time has passed
-            } else if (diff >= cooldown){
+            } else if (diff >= cooldown || rowsCD[0].admin == 1){
 
                 // query the db to see if the user has full hp
                 let sqlCheck = `SELECT hp, max_hp FROM Users WHERE id = '${message.author.id}'`;
