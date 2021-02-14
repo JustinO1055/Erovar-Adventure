@@ -156,16 +156,15 @@ module.exports={
                                         functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6]);
                                     
                                 } else {
-                                    if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
-                                        message.channel.send("AHHHHHHHHH IM SCARED");
+                                    functions.failEscape(monster[4], message.author.id, message.channel.id);
                                 }
 
 
                             })
                             //If the user doesnt enter a valid response, monster attacks
                             .catch(collected => {
-                                if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
-                                    message.channel.send(`Monster does a big attack`);
+                                message.channel.send(`After staring at the moster for a while, you decide to try and run away.`);
+                                functions.failEscape(monster[4], message.author.id, message.channel.id);
                             });
                         });
 
@@ -179,27 +178,3 @@ module.exports={
 
     }
 }
-
-// function to decide if the user can successfully get away
-function failEscape(monsterName, monsterEmoji, author, channelID){
-
-    // compute a random number between 1 and 10
-    // if it is between 1 and 10, escape failed, and user loses half of their HP
-    if(functions.randomInteger(1,10) <= 1){
-
-        // create sql statement
-        let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${author}'`;
-        // query the db
-        connection.query(sql);
-
-        // print message 
-        const channel = client.channels.cache.get(channelID);
-        channel.send(`As you were running away, the ${monsterEmoji} got an attack in doing half of your hp!.`);
-        
-        return true;
-
-    }
-
-    return false;
-
-};

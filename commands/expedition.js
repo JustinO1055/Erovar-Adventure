@@ -99,30 +99,6 @@ module.exports={
     }
 }
 
-// function to decide if the user can successfully get away
-function failEscape(monsterName, monsterEmoji, author, channelID){
-
-    // compute a random number between 1 and 10
-    // if it is between 1 and 10, escape failed, and user loses half of their HP
-    if(functions.randomInteger(1,10) <= 1){
-
-        // create sql statement
-        let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${author}'`;
-        // query the db
-        connection.query(sql);
-
-        // print message 
-        const channel = client.channels.cache.get(channelID);
-        channel.send(`As you were running away, the ${monsterEmoji} got an attack in doing half of your hp!.`);
-        
-        return true;
-
-    }
-
-    return false;
-
-};
-
 //Function for combat
 async function combat(player, monster, message){
 
@@ -258,8 +234,13 @@ async function combat(player, monster, message){
         })
         //If the user doesnt enter a valid response, monster attacks
         .catch(collected => {
-            if(!failEscape(monster[0], monster[4], message.author.id, message.channel.id))
-                message.channel.send(`Monster does a big attack`);
+            message.channel.send("You sat in a daze for a while and when you came to your senses you realized that you had to run away.\nYou got nothing from that fight and realize you lost half your HP.");
+            monsterCurrentHP = 0;
+
+            // create sql statement
+            let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${message.author.id}'`;
+            // query the db
+            connection.query(sql);
         });
     }
 

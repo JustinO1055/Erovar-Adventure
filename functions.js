@@ -12,14 +12,14 @@ module.exports = {
             xpValues = this.xpCurrentNext(currentLevel);
 
             //Update the db
-            sql = `UPDATE Users SET hp = hp_max, xp = ${xpValues[0]} WHERE id = ${message.author.id}`;
+            sql = `UPDATE Users SET hp = max_hp, xp = ${xpValues[0]} WHERE id = ${message.author.id}`;
             connection.query(sql);
         } else {
             //Output a message that the user died
             message.channel.send("You feel your life fade before you. At the last second a magical healing fairy saves your life.\nThe fairy tells you to be more careful as she wont help you after you leave area 0.");
 
             //Heal the player
-            sql = `UPDATE Users SET hp = hp_max WHERE id = ${message.author.id}`;
+            sql = `UPDATE Users SET hp = max_hp WHERE id = ${message.author.id}`;
             connection.query(sql);
         }
     },
@@ -161,5 +161,28 @@ module.exports = {
             hp -= attackDamage;
 
         return hp;
+    },
+    // function to decide if the user can successfully get away
+    failEscape: function(monsterEmoji, author, channelID){
+
+        //Get channel
+        const channel = client.channels.cache.get(channelID);
+
+        // compute a random number between 1 and 10
+        // if it is between 1 and 10, escape failed, and user loses half of their HP
+        if(this.randomInteger(1,10) <= 1){
+
+            // create sql statement
+            let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${author}'`;
+            // query the db
+            connection.query(sql);
+
+            // print message 
+            channel.send(`As you were running away, the ${monsterEmoji} got an attack in doing half of your hp!.`);
+
+        } else {
+            // print message 
+            channel.send(`You were able to run away successfuly.`);
+        }
     }
 }
