@@ -95,14 +95,14 @@ module.exports={
                 //Create the embed to output
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
-                            { name: `Boss`, value: `Once you have prepaired enough, use this to challenge the boss of the area so you can progress to the next area.\n
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
                                 This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
                             { name: `Usage:`, value: `\`adv boss\``}
                         );
                 } else if(args[1] == 0){
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
-                            { name: `Boss`, value: `Once you have prepaired enough, use this to challenge the boss of the area so you can progress to the next area.\n
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
                                 This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
                             { name: `Requirements`, value: `Level 3\nBasic Sword ${functions.getEmoji('basic sword')}\nBasic Shield ${functions.getEmoji('basic shield')}\nStone axe ${functions.getEmoji('stone axe')}\nStone Pickaxe ${functions.getEmoji('stone pickaxe')}\n`},
                             { name: `Tips`, value: `This boss has a 'tell' that hints to what the boss is going to do. Each move has 1 good counter, 1 okay counter, and 2 bad counters. You will have to figure out what is good against each move in order to defeat this boss`},
@@ -135,7 +135,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Craft`, value: `Used to craft items and equipment. Use the \`recipes\` command to see the list of recipes that can be crafted.\nNote that you cannot carry more than one item of the same equipment type. For example you can only have one sword and one armor at once, so you have to sell your current one to craft another.`},
+                        { name: `Craft`, value: `Used to craft items and equipment. Use the \`recipes\` command to see the list of recipes that can be crafted.\nNote that you cannot carry more than one item of the same equipment type. For example, you can only have one sword and one armor at once, so you have to sell your current one to craft another.`},
                         { name: `Usage:`, value: `\`adv craft <item name> [# to craft]\``}
                     );
 
@@ -157,7 +157,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Expedition`, value: `You explore to find a bigger monster to put yours skills to a test.\n
+                        { name: `Expedition`, value: `You explore to find a bigger monster to put your skills to a test.\n
                             Once in combat, you will be able to have an educated guess at what the monster will use to attack, use this information to help figure out the best action to take.\n
                             Damage will be calculated in a very similar way to battle. However, depending on what what you and the monster use will greatly affect the damage dealt.
                             This fight will continue until you or the monster is defeated. So make sure you are ready.`},
@@ -190,7 +190,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Inventory`, value: `Used to see a players inventory.`},
+                        { name: `Inventory`, value: `Used to see a player's inventory.`},
                         { name: `Usage:`, value: `\`adv intenvory [player]\``},
                         { name: `Alias`, value:  `\`inventory\` \`i\` `}
                     );
@@ -201,7 +201,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Profile`, value: `Used to see a players profile.`},
+                        { name: `Profile`, value: `Used to see a player's profile.`},
                         { name: `Usage:`, value: `\`adv profile [player]\``},
                         { name: `Alias`, value:  `\`profile\` \`p\` `}
                     );
