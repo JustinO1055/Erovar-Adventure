@@ -52,10 +52,11 @@ module.exports={
                         var findDropTable = new dropTable;
 
                         //Push resources into the new drop table
-                        findDropTable.addResource(new resourceDrop("stick", 15, 1, 4));
-                        findDropTable.addResource(new resourceDrop("pebble", 15, 1, 5));
-                        findDropTable.addResource(new resourceDrop("log", 1, 1, 2));
-                        findDropTable.addResource(new resourceDrop("stone", 1, 1, 2));
+                        //(name, probability, quanityMin, quanityMax)
+                        findDropTable.addResource(new resourceDrop("stick", 15, 4, 8));
+                        findDropTable.addResource(new resourceDrop("pebble", 15, 5, 10));
+                        findDropTable.addResource(new resourceDrop("log", 5, 1, 2));
+                        findDropTable.addResource(new resourceDrop("stone", 5, 1, 2));
                         //var findDropTable = [new resourceDrop("stick", 15, 1, 4), new resourceDrop("pebble", 15, 1, 5), new resourceDrop("log", 1, 1, 2), new resourceDrop("stone", 1, 1, 2)];
 
                         //Determine which reource is found
