@@ -16,13 +16,13 @@ module.exports={
             //Create the embed to output
             var helpEmbed = new Discord.MessageEmbed()
                 .setTitle(`<:ErovarAdventure:810276183202856990> Help`)
-                .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item >\``)
+                .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item>\``)
                 .setColor('#FF69B4')
                 .addFields(
-                    { name: `General Commands`, value: `\`area\` \`cooldown\` \`heal\` \`help\` \`inventory\` \`ready\` \`profile\` \`skills\` \`sleep\``},
-                    { name: `Combat Commands`, value: `\`battle\` \`boss\` \`expedition\` \`heal\` \`sleep\``},
-                    { name: `Shop Commands`, value: `\`buy\` \`use\` \`sell\` \`shop\``},
-                    { name: `Artisan & Gathering Commands`, value: `\`chop\` \`craft\` \`dissassemble\` \`mine\` \`inventory\` \`recipes\``}
+                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`inventory\` | \`ready\` | \`profile\` | \`skills\` | \`sleep\``},
+                    { name: `Combat Commands`, value: `\`battle\` | \`boss\` | \`expedition\` | \`heal\` | \`sleep\``},
+                    { name: `Shop Commands`, value: `\`buy\` | \`use\` | \`sell\` | \`shop\``},
+                    { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`dissassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
                 );
 
                 // later will need to update this with the commands we add in higher areas

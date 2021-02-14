@@ -30,7 +30,7 @@ module.exports={
                 var hourL = Math.floor(cooldownL / 3600);
                 var minL = Math.floor((cooldownL % 3600) / 60);
                 var secL = Math.floor((cooldownL % 60) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-                message.reply(`Please wait ${hours} hours before sending this command again. You have ${hourL} : ${minL} : ${secL} + left`);
+                message.reply(`Please wait ${hours} hours before sending this command again. You have ${hourL}:${minL}:${secL} left`);
             // time has passed
             } else if (diff >= cooldown || rowsCD[0].admin == 1){
 
