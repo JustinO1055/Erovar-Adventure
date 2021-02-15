@@ -30,7 +30,7 @@ module.exports = {
 
         return [xpCurrent, xpNext];
     },
-    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp, gold) {
+    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp, gold, drop) {
         //Get how much xp for player to level up
         xpValues = this.xpCurrentNext(currentLevel);
 
@@ -56,6 +56,12 @@ module.exports = {
         } else{
             //Create query to update users data, not inlcuding a level up
             sql =`UPDATE Users SET hp = ${hp}, xp = xp + ${xpObtained}, gold = gold + ${gold} WHERE id = ${message.author.id}`;
+        }
+
+        // if there is a drop, add it to the database
+        if(typeof(drop) != 'undefined' || drop != null){
+            sql2 = `UPDATE Inventory SET ${drop} = ${drop} + 1 WHERE id = ${message.author.id}`;
+            connection.query(sql2);
         }
 
         connection.query(sql);
