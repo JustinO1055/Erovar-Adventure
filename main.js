@@ -153,6 +153,9 @@ client.on('message', message => {
                 } else if (command === 'mine'){
                     // execute the command in the file mine.js
                     client.commands.get('mine').execute(message, args);
+                } else if (command === 'skills'){
+                    // execute the command in the file skills.js
+                    client.commands.get('skills').execute(message, args);
                 }
             }
         });

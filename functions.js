@@ -182,7 +182,33 @@ module.exports = {
 
         } else {
             // print message 
-            channel.send(`You were able to run away successfuly.`);
+            channel.send(`You were able to run away successfully.`);
         }
+    },
+    //Function to capitalize the first letter of a string
+    capFirstLetter: function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    //Function to return players current progress to a skill level up
+    skillLevel: function(totalXP){
+        xp = totalXP;
+        level = 1;
+        graphic = "";
+
+        //Keep subtracting 500 to get players current progress to next level
+        while (xp > 500){
+            level++;
+            xp -= 500;
+        }
+
+        //Generate graphic for current progress
+        for(i = 0; i < 500; i += 50){
+            if(xp > i)
+                graphic += "▰";
+            else
+                graphic += "▱";
+        }
+
+        return [level, xp, graphic];
     }
 }

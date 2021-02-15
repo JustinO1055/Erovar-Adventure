@@ -27,16 +27,16 @@ module.exports={
                 const User = client.users.cache.get(rows[0].id); // Getting the user by ID.
 
                 //Generate an array of the users inventory.
-                var intentory = "";
+                var inventory = "";
                 for(i in items){
                     //Only show items that have user has at least one of
                     if(rows[0][i] > 0)
-                        intentory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
+                    inventory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
                 }
 
                 //Check if the players inventory is empty and add a message if it is
-                if(intentory == "")
-                    intentory = "Your items is empty :slight_frown:";
+                if(inventory == "")
+                inventory = "Your items is empty :slight_frown:";
 
                 //Generate an array of the users inventory.
                 var consumablesL = "";
@@ -55,7 +55,7 @@ module.exports={
                     .setColor('#0a008c')
                     .setAuthor(User.username + '\'s Inventory', User.avatarURL())
                     .addFields(
-                        { name: 'Items', value: intentory, inline: true },
+                        { name: 'Items', value: inventory, inline: true },
                         { name: 'Consumables', value: consumablesL, inline: true },
                     )
                 //Send Embed

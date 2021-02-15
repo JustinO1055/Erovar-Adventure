@@ -11,7 +11,7 @@ module.exports = class dropTable {
     } 
 
     // function to compute the sum of the probability chance of each resource in the list
-    probabliltySum() {
+    probabilitySum() {
         var probSum = 0;
         this.resources.forEach(element => {
             probSum += element.probability;
@@ -21,7 +21,7 @@ module.exports = class dropTable {
 
     determineHit() {
         //Generate random number for determining which item will be recieved
-        var randomNum  = functions.randomInteger(1, this.probabliltySum());
+        var randomNum  = functions.randomInteger(1, this.probabilitySum());
 
         //Used while going through each probability
         var runningValue = 1, resource, resourceAmount;
