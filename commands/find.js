@@ -72,7 +72,7 @@ module.exports={
 
                             //Generate a message to send to the user
                             var msg = "You found " + resource[1] + " " + resource[0];
-                            if (resource[1] > 1) {msg += "'s"} ;   //Determine if 's is needed
+                            if (resource[1] > 1) {msg += "s"} ;   //Determine if 's is needed
                             // append the emoji to the message
                             msg += ` ${emoji}`;
                             message.channel.send(msg);
