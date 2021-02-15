@@ -14,7 +14,11 @@
                 "maxxp": 100,
                 "mingold": 25,
                 "maxgold": 75,
-                "encounter": 1
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 1]
+                ]
             },
             "seagull":{
                 "name": "Cute Seagull",
@@ -29,7 +33,11 @@
                 "maxxp": 100,
                 "mingold": 25,
                 "maxgold": 75,
-                "encounter": 1
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 1]
+                ]
             },
             "wasp":{
                 "name": "Killer Wasp",
@@ -44,7 +52,11 @@
                 "maxxp": 100,
                 "mingold": 50,
                 "maxgold": 85,
-                "encounter": 2
+                "encounter": 2,
+                "moves" : null,
+                "drops":[
+                    [null, 1]
+                ]
             }
         },
         "expedition": {
@@ -83,6 +95,89 @@
             }
         }
     },
-    "area1": {},
+    "area1": {        
+        "battle": {
+            "ghostly": {
+                "name": "Scary Ghost",
+                "emoji": "<:ghostly:810738535736016976>",
+                "minattack": 5,
+                "maxattack": 12,
+                "mindefence": 6,
+                "maxdefence": 14,
+                "minhp": 15,
+                "maxhp": 23,
+                "minxp": 75,
+                "maxxp": 175,
+                "mingold": 75,
+                "maxgold": 125,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 1]
+                ]
+            },
+            "jelly": {
+                "name": "Blue Jelly",
+                "emoji": "<:jelly:810738535740080128>",
+                "minattack": 6,
+                "maxattack": 13,
+                "mindefence": 4,
+                "maxdefence": 12,
+                "minhp": 10,
+                "maxhp": 23,
+                "minxp": 70,
+                "maxxp": 160,
+                "mingold": 70,
+                "maxgold": 110,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 1]
+                ]
+            },
+            "cow": {
+                "name": "cow",
+                "emoji": "<:cowEro:810927764109787158>",
+                "minattack": 6,
+                "maxattack": 10,
+                "mindefence": 4,
+                "maxdefence": 15,
+                "minhp": 10,
+                "maxhp": 20,
+                "minxp": 75,
+                "maxxp": 175,
+                "mingold": 75,
+                "maxgold": 150,
+                "encounter": 2,
+                "moves" : null,
+                "drops":[
+                    ["cowhide", 2],
+                    [null, 98]
+                ]
+            }
+        },
+        "expedition": { 
+            "spider":{
+                "name": "Spider",
+                "emoji": "<:spiderEro:810955596739510284>",
+                "minattack": 8,
+                "maxattack": 19,
+                "mindefence": 7,
+                "maxdefence": 20,
+                "minhp": 35,
+                "maxhp": 54,
+                "minxp": 180,
+                "maxxp": 260,
+                "mingold": 275,
+                "maxgold": 450,
+                "encounter": 1,
+                "moves":[
+                    "Bite",
+                    "Web",
+                    "Cleave"
+                ]
+            }
+        }
+    },
     "area2": {}
 }

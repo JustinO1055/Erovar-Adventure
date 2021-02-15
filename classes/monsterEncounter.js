@@ -1,6 +1,10 @@
 //Include the js file with functions, that includes the random function
 var functions = require('../functions.js');
 
+//Include the js file that contains the resourceDrop class
+var resourceDrop = require('../classes/resourceDrop.js');
+var dropTable = require('../classes/dropTable.js');
+
 //Class for a drop table that used the resourceDrop
 module.exports = class monsterEncounter {
     monsters = [];
@@ -26,6 +30,7 @@ module.exports = class monsterEncounter {
 
         //Used while going through each probability
         var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp, monsterMoves, monsterGold;
+        var monsterDrop = [null, null];
 
         //Find which monster is encountered
         for(let element of this.monsters){
@@ -39,15 +44,29 @@ module.exports = class monsterEncounter {
                 monsterEmoji = element.emoji;
                 monsterxp = functions.randomInteger(element.xp[0], element.xp[1]);
                 monsterGold = functions.randomInteger(element.gold[0], element.gold[1]);
-                if(typeof(element.moves)!='undefined')
+                if(typeof(element.moves)!='undefined' || (elements.moves) != null)
                     monsterMoves = element.moves;
                 else
+                    monsterMoves = null;
+                
+                if(typeof(element.drops)!='undefined' || (elements.drops) != null){
+                    // create monster item drop table
+                    var monsterDropTable = new dropTable;
+                    
+                    // push all the possible drops into table
+                    for(var i = 0; i < element.drops.length; i++){
+                        monsterDropTable.addResource(new resourceDrop(element.drops[i][0], element.drops[i][1], 1, 1));
+                    }
+                    monsterDrop = monsterDropTable.determineHit();
+
+                
+                } else
                     monsterMoves = null;
                 break;
             }
         }
         // return the monster and its stats
-        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp, monsterGold, monsterMoves];
+        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp, monsterGold, monsterMoves, monsterDrop[0]];
     }
 
 };

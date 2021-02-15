@@ -1,6 +1,9 @@
 // to allow for embeds
 const Discord = require('discord.js');
 
+// include the json file that holds all of the items names and emoji codes
+const {items} = require('../jsons/items.json');
+
 // include the json file that holds all of the monsters names, emoji codes and information
 const MONSTERS = require('../jsons/monsters.json');
 
@@ -70,7 +73,9 @@ module.exports={
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['maxxp'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['mingold'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['maxgold'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji']));
+                            MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji'],
+                            MONSTERS[`area${rows[0].area}`]['battle'][m]['moves'],
+                            MONSTERS[`area${rows[0].area}`]['battle'][m]['drops']));
                     }
 
                     //Determine which monster is encountered
@@ -82,6 +87,8 @@ module.exports={
                     // 4 = emoji code
                     // 5 = xp for winning
                     // 6 = gold for winning
+                    // 7 = moves. (not used in battle)
+                    // 8 = Drop earned 
                     let monster = monsterEncounterTable.determineHit();
                     // prep message to send, could directly send, want it to be sent right before embed
                     let encounterMsg = `A wild ${monster[4]} has appeared!`;
@@ -131,6 +138,10 @@ module.exports={
                                         result = `The wild ${monster[0]} ${monster[4]} has beat you.`
                                     } else if(monsterCurrentHp == 0){
                                         result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} XP and ${monster[6]} Gold! from the battle!`;
+                                        // if the drop is not null, drop was obtained, append it to the message
+                                        if(monster[8] != null){
+                                            result += `\nYou have gathered a ${monster[8]} ${items[monster[8]]['emoji']}after defeating the ${monster[0]}.`;
+                                        }
                                     } else{
                                         result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
                                         sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp} WHERE id = '${message.author.id}'`;
@@ -153,7 +164,7 @@ module.exports={
                                     if(playerCurrentHp == 0)
                                         functions.playerDeath(message, rows[0].level, rows[0].area);
                                     else if(monsterCurrentHp == 0)
-                                        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6]);
+                                        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6], monster[8]);
                                     
                                 } else {
                                     functions.failEscape(monster[4], message.author.id, message.channel.id);

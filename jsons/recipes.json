@@ -11,6 +11,20 @@
                 "itemname": "pebble",
                 "quantity": "15"
             }
+        },
+        "leather":{
+            "item1":{
+                "itemname": "cowhide",
+                "quantity": "1"
+            },
+            "item2":{
+                "itemname": "log",
+                "quantity": "1"
+            },
+            "item3":{
+                "itemname": "stick",
+                "quantity": "5"
+            }
         }
 
     },

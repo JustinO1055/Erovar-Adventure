@@ -69,6 +69,18 @@
             "emoji": "<:healthpotion:808098747585658921>",
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
             "value": 75
+        },
+        "cowhide":{
+            "name": "Cowhide",
+            "emoji": "<:cowhide:810982102987833344>",
+            "description": "Item dropped from <:cowEro:810927764109787158> found in area 1. Used to make leather. Use `adv recipes items` for recipes.",
+            "value": 275
+        },
+        "leather":{
+            "name": "Leather",
+            "emoji": "<:leather:810982124907659274>",
+            "description": "Crafted by using cowhide, sticks and logs. Recipe found in `adv recipes items`. Used to create armor.",
+            "value": 400
         }
     },
     "consumables":{

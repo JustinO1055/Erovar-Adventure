@@ -26,6 +26,10 @@ CREATE TABLE Inventory (
   stick INT NOT NULL DEFAULT 0,
   log INT NOT NULL DEFAULT 0,
   healthpotion INT NOT NULL DEFAULT 5,
+  copper_ore INT NOT NULL DEFAULT 0,
+  copper_ingot INT NOT NULL DEFAULT 0,
+  cowhide INT NOT NULL DEFAULT 0,
+  leather INT NOT NULL DEFAULT 0,
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE,
   CHECK(pebble >= 0 AND stone >=0 AND stick >= 0 AND log >= 0)
   
