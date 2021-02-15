@@ -31,7 +31,7 @@ module.exports = class dropTable {
             runningValue += element.probability;
             if(randomNum < runningValue){
                 resource = element.name;
-                resourceAmount = functions.randomInteger(element.quanity[0], element.quanity[1]);
+                resourceAmount = functions.randomInteger(element.quantity[0], element.quantity[1]);
                 break;
             }
         }

@@ -1,8 +1,8 @@
 //Class for each resource that can be dropped
 module.exports = class resourceDrop {
-    constructor(name, probability, quanityMin, quanityMax) {
+    constructor(name, probability, quantityMin, quantityMax) {
         this.name = name;
         this.probability = probability;
-        this.quanity = [quanityMin, quanityMax];
+        this.quantity = [quantityMin, quantityMax];
     }
 };

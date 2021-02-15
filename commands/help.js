@@ -196,6 +196,15 @@ module.exports={
                     );
     
                 break;
+            case 'mine':
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Mine`, value: `Mine help goes here`},
+                        { name: `Usage:`, value: `\`adv mine\``}
+                    );
+    
+                break;
             case 'profile':
             case 'p':
                 //Create the embed to output

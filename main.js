@@ -150,6 +150,9 @@ client.on('message', message => {
                 } else if (command === 'boss'){
                     // execute the command in the file boss.js
                     client.commands.get('boss').execute(message, args);
+                } else if (command === 'mine'){
+                    // execute the command in the file mine.js
+                    client.commands.get('mine').execute(message, args);
                 }
             }
         });
