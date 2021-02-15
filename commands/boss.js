@@ -313,7 +313,7 @@ async function boss0(player, message){
                 if(attack == 'trap'){
                     // bad outcome
                     playerCurrentHP -= 10;
-                    outcomeMsg = `You threw the trap at the hibernating ${boss.name}, this wakes him up causing him to bossMove you.\n-10 :heart: ${message.author.username}`;
+                    outcomeMsg = `You threw the trap at the hibernating ${boss.name}, this wakes him up causing him to attack you.\n-10 :heart: ${message.author.username}`;
                     
                 } else if(attack == 'tomahawk'){
                     // okay outcome
@@ -438,7 +438,7 @@ async function boss0(player, message){
         bossCurrentHP = 0;
 
         let victoryMsg = {name: 'Outcome', value: `You have managed to slay the ${boss.name} ${boss.emoji}, the path to the next area is now open. Upon entering the unknown of the new area, a sense of danger is in the air... You then realize that there will be new monsters to fight, and a new boss to defeat.`};
-        let welcome = {name: 'Welcome', value: `Welcome to area 1, the 'offical' first area of the game. Monsters can now kill you in battle, causing you to lose your progress towards the current level.\nYou have developed the skills to now use some tools. Use \`adv chop\` to gather wood based resources and \`adv mine\` to gather rock based resources.
+        let welcome = {name: 'Welcome', value: `Welcome to area 1, the 'official' first area of the game. Monsters can now kill you in battle, causing you to lose your progress towards the current level.\nYou have developed the skills to now use some tools. Use \`adv chop\` to gather wood based resources and \`adv mine\` to gather rock based resources.
         \nNew recipes will be possible with these new items.
         \nYou can now view and level up various skills with \`adv skills\`. 
         \nUse \`adv help\` for help
