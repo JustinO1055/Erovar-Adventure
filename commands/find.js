@@ -48,7 +48,7 @@ module.exports={
                     if(rows[0].area != 0){
                         message.reply('Find is only to be used within area 0. Use \`adv chop\` or \`adv mine\` to find resources. \n\nUse \`adv h\` for commands.');
                     } else {
-                        //Declare drop table for the find commandd
+                        //Declare drop table for the find command
                         var findDropTable = new dropTable;
 
                         //Push resources into the new drop table
@@ -59,9 +59,9 @@ module.exports={
                         findDropTable.addResource(new resourceDrop("stone", 5, 1, 2));
                         //var findDropTable = [new resourceDrop("stick", 15, 1, 4), new resourceDrop("pebble", 15, 1, 5), new resourceDrop("log", 1, 1, 2), new resourceDrop("stone", 1, 1, 2)];
 
-                        //Determine which reource is found
+                        //Determine which resource is found
                         resource = findDropTable.determineHit();
-                        // sql code to input the items into the databse
+                        // sql code to input the items into the database
                         let sql = `UPDATE Inventory SET ${resource[0]} = ${resource[0]} + ${resource[1]} WHERE id = '${message.author.id}'`;
                         // query the database
                         connection.query(sql, (err, rows) =>{

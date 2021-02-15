@@ -123,7 +123,7 @@ client.on('message', message => {
 		        }else if (command === 'ready' || command === 'rd'){
                 // execute the command in the file ready.js
                     client.commands.get('ready').execute(message, args);
-                } else if (command === 'disassemble' || command === 'diss' || command === 'da'){
+                } else if (command === 'disassemble' || command === 'dis' || command === 'da'){
                     // execute the command in the file disassemble.js
                     client.commands.get('disassemble').execute(message, args);
                 } else if (command === 'help' || command === 'h'){

@@ -136,7 +136,7 @@ module.exports = {
             }
         }
     },
-    //Function to calculate damage done to an enitity
+    //Function to calculate damage done to an entity
     calculateDamage: function(att, def, hp, percent){
         //Calculate the damage to be dealt
         //Difference of Attackers attack stat and defenders defence stat multiplied by 5
@@ -145,7 +145,7 @@ module.exports = {
             damageUpper = Math.round((3 + att * 0.5) + 3);
             damageLower = Math.round(((3 + att * 0.5) - 3 > 1) ? (3 + att) - 3 : 1);
 
-            //Determine the dammage the user will do
+            //Determine the damage the user will do
             attackDamage = (att - def) * this.randomInteger(damageLower, damageUpper);
         } else
             return hp;

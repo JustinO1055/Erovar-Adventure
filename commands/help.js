@@ -22,7 +22,7 @@ module.exports={
                     { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`inventory\` | \`ready\` | \`profile\` | \`skills\` | \`sleep\``},
                     { name: `Combat Commands`, value: `\`battle\` | \`boss\` | \`expedition\` | \`heal\` | \`sleep\``},
                     { name: `Shop Commands`, value: `\`buy\` | \`use\` | \`sell\` | \`shop\``},
-                    { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`dissassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
+                    { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`disassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
                 );
 
                 // later will need to update this with the commands we add in higher areas
@@ -80,10 +80,10 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Battle`, value: `A simple fight to train yourself in the ways of combat and get some gold. It is recomended that you bring a weapon and armor, or you may not make it back alive.\n
+                        { name: `Battle`, value: `A simple fight to train yourself in the ways of combat and get some gold. It is recommended that you bring a weapon and armor, or you may not make it back alive.\n
                             Once you find a target, you will see its HP, attack and defense and then you can choose to fight it or run away.\n
-                            Attempting to run away won't guranteed to get you away unijured.\n
-                            Damage done will be reletive to the difference between attack and defense. There is some element of randomness to the damage dealt, but you should be able to determine whether you can beat the monster or not.\n
+                            Attempting to run away won't guarantee that will you get away uninjured.\n
+                            Damage done will be relative to the difference between attack and defense. There is some element of randomness to the damage dealt, but you should be able to determine whether you can beat the monster or not.\n
                             The fight will only last one turn, so unless you beat the monster in one hit, you will not be able to get a reward.`},
                         { name: `Usage:`, value: `\`adv battle\``}
                     );
@@ -115,7 +115,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Buy`, value: `Used to buy basic items from the shop. Use \`adv shop\` to see the avaiable stock.`},
+                        { name: `Buy`, value: `Used to buy basic items from the shop. Use \`adv shop\` to see the available stock.`},
                         { name: `Usage:`, value: `\`adv buy <items> [amount]\``}
                     );
     
@@ -141,14 +141,14 @@ module.exports={
 
                 break;
             case 'disassemble':
-            case 'diss':
+            case 'dis':
             case 'da':
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Disasemble`, value: `Used to disasemble an item to get its components back. This will only give back 50% of the recipe cost.`},
+                        { name: `Disassemble`, value: `Used to disassemble an item to get its components back. This will only give back 50% of the recipe cost.`},
                         { name: `Usage:`, value: `\`adv disassemble <item name> [# to disassemble]\``},
-                        { name: `Alias`, value:  `\`disasemble\` \`diss\` \`da\``}
+                        { name: `Alias`, value:  `\`disassemble\` \`dis\` \`da\``}
                     );
     
                 break;
@@ -191,7 +191,7 @@ module.exports={
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
                         { name: `Inventory`, value: `Used to see a player's inventory.`},
-                        { name: `Usage:`, value: `\`adv intenvory [player]\``},
+                        { name: `Usage:`, value: `\`adv inventory [player]\``},
                         { name: `Alias`, value:  `\`inventory\` \`i\` `}
                     );
     
