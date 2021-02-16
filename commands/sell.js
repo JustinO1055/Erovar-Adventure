@@ -13,7 +13,7 @@ module.exports={
             return;
         }
 
-        //Set euqipment to false by default
+        //Set equipment to false by default
         equipment = false;
         var specific = false;
         amount = 1;

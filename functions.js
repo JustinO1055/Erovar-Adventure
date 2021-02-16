@@ -216,5 +216,22 @@ module.exports = {
         }
 
         return [level, xp, graphic];
+    },
+    //Function that parses the command arguments to extract item name and amount, if specified
+    parseArguments: function(args){
+        //Check if the player specified a number of items to craft
+        var amountRegex = /^\d+(\.\d+)?[kmb]?$/;
+
+        //If last argument is a valid amount, extract that value, and the rest of the arguments are the item name
+        if(amountRegex.test(args[args.length - 1])){
+            var craftAmount = this.calcAmount(args.pop());
+
+            var itemName = args.join(' ');
+        } else{
+            var craftAmount = 1;
+            var itemName = args.join(' ');
+        }
+
+        return [itemName, craftAmount];
     }
 }

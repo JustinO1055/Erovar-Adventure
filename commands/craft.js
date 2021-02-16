@@ -10,40 +10,25 @@ module.exports={
     description: "Used to craft items within the game",
     execute(message, args){
 
-        var amount = 1;
-
         //Check if the player has supplied an item to craft and give a message if they do no use the command correctly
         if(args.length < 1){
             message.channel.send(`${message.author}, the proper use of this command is \`adv craft <item>\` \nYou can see the recipes with \`adv recipes\``);
             return;
         }
-
-        // test the second argument, see if it is equipment
-        if(args[1] === "sword" || args[1] === "shield" || args[1] === "armor" || args[1] === "pickaxe" || args[1] === "axe"){
-            // combine the args into one string
-            args[0] = args[0].concat(' ', args[1]);
-        // otherwise check if args[1] is set, if it is, pass it to get value function to see how many items to be crafted
-        } else { 
-            if(typeof args[1] != 'undefined')
-                amount = functions.calcAmount(args[1]);
-        }
-
-        // if the amount is -1 (set for error.) Return and print an error
-        if(amount === -1){
-            message.channel.send(`${message.author}, The amount to craft is invalid. Please give a number to craft. \nValid shorthand notaion \`k=1000\`, \`m=1000000\`, \`b=1000000000\`. Ex. \`adv craft <item> 5k\`. \nType \`adv help\` for help`);
-            return;
-        } 
+        
+        //Parse argument list
+        var arguments = functions.parseArguments(args);
 
         // set the recipe string to empty string
         let recipe = "";
-        
+
         // to be used to decide if its equipment or an item, since equipment can only be crafted once
         let itemType = "";
 
         //Find the recipe for the item the player is trying to craft
         for(category in RECIPES){
             for(r in RECIPES[category]){
-                if(r == args[0]){
+                if(r === arguments[0]){
                     recipe = RECIPES[category][r];
                     item = r;
                     itemType = category;
@@ -65,7 +50,7 @@ module.exports={
 
             //Ensure a row was returned
             if(rows.length < 1){
-                message.channel.send(`Soemthing went wrong`)
+                message.channel.send(`Something went wrong`)
             } else {
                 var craftable = true;
 
@@ -76,7 +61,7 @@ module.exports={
                 for(i in recipe){
                     var itemName = recipe[i]['itemname'];
                     // multiple the quantity by the amount to be made
-                    var quantity = parseInt(recipe[i]['quantity']) * amount;
+                    var quantity = parseInt(recipe[i]['quantity']) * arguments[1];
                     if(rows[0][recipe[i]['itemname']] < quantity){
                         //error += `${rows[0][recipe[i]['itemname']]}/ ${recipe[i]['quantity']} ${recipe[i]['itemname']} ` + getEmoji(recipe[i]['itemname']) + ` :x:`;
                         error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + functions.getEmoji(itemName) + `${itemName} :x:\n`;
@@ -92,12 +77,14 @@ module.exports={
                 if(craftable){
                     // if equipment, check if the user already has the equipment
                     if(itemType == "equipment"){
-                        let sql3 = `SELECT ${args[1]} FROM Users WHERE id = '${message.author.id}'`;
+                        let equipmentType = args[1];
+
+                        let sql3 = `SELECT ${equipmentType} FROM Users WHERE id = '${message.author.id}'`;
                         connection.query(sql3, (err, rows2) =>{
                             if(err) throw err;
                             // if the user has already has the equipment
-                            if(rows2[0][args[1]] != "NONE") {
-                                message.channel.send(`${message.author}, You already have a ${args[1]}. You must sell this equipment before crafting a new one. \nIt can be sold using \`adv sell ${args[1]}\``);
+                            if(rows2[0][equipmentType] != "NONE") {
+                                message.channel.send(`${message.author}, You already have a ${equipmentType}. You must sell this equipment before crafting a new one. \nIt can be sold using \`adv sell ${equipmentType}\``);
                                 return;
                             // user does not have this equipment
                             } else {
@@ -107,16 +94,16 @@ module.exports={
                                 sql2 = sql2.slice(0, -2);
                                 sql2 += ` WHERE id = '${message.author.id}'`;
                                 //prep the sql query to add the equipment into the users table
-                                let sql4 = `UPDATE Users SET ${args[1]} = '${item}'`;
+                                let sql4 = `UPDATE Users SET ${equipmentType} = '${arguments[0]}'`;
                                 // if it is sword, shield, or armor
                                 // update the users attack and defense
-                                if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
-                                    let stats = functions.getStats(item);
+                                if(equipmentType == 'sword' || equipmentType == 'shield' || equipmentType == 'armor'){
+                                    let stats = functions.getStats(arguments[0]);
                                     sql4 += `, attack = attack + ${stats[0]}, defence = defence + ${stats[1]}`;
                                 }
                                 sql4 += ` WHERE id = '${message.author.id}'`;
                                 // query the database
-                                message.channel.send(`You have crafted a ${item} ` + functions.getEmoji(item));
+                                message.channel.send(`You have crafted a ${arguments[0]} ` + functions.getEmoji(arguments[0]));
                                 connection.query(sql4);
                                 connection.query(sql2);
 
@@ -125,11 +112,11 @@ module.exports={
                     //if the item crafted is not equipment
                     } else{
                         // append the item and the user to the sql query
-                        sql2 += `${item} = ${item} + ${amount} WHERE id = '${message.author.id}'`;
-                        if(amount == 1){
-                            message.channel.send(`You have crafted a ${item} ` + functions.getEmoji(item));
+                        sql2 += `${arguments[0]} = ${arguments[0]} + ${arguments[1]} WHERE id = '${message.author.id}'`;
+                        if(arguments[1] == 1){
+                            message.channel.send(`You have crafted a ${arguments[0]} ` + functions.getEmoji(arguments[0]));
                         } else {
-                            message.channel.send(`You have crafted ${amount} ${item}'s ` + functions.getEmoji(item));
+                            message.channel.send(`You have crafted ${arguments[1]} ${arguments[0]}s ` + functions.getEmoji(arguments[0]));
                         }
 
                         connection.query(sql2);
@@ -144,6 +131,5 @@ module.exports={
                 }
             }
         });
-
     }
 }

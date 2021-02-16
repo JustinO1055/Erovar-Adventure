@@ -4,37 +4,43 @@
             "name": "Stick",
             "emoji": "<:stick:801885407129370625>",
             "description": "Found in area 0 using `find`. Used to create basic equipment and logs.",
-            "value": 10
+            "value": 10,
+            "type": "resource"
         },
         "log":{
             "name": "Log",
             "emoji": "<:log:806232602703822899>",
             "description": "Found in area 0 using `find` or in higher areas using `chop`. Used to create higher level equipment and higher tier wood materials.",
-			"value": 150
+			"value": 150,
+            "type": "resource"
         },
         "pebble":{
             "name": "Pebble",
             "emoji": "<:pebble:801895841178451998>",
             "description": "Found in area 0 using `find`. Used to create basic equipment and stones.",
-            "value": 5
+            "value": 5,
+            "type": "resource"
         },
         "stone":{
             "name": "Stone",
             "emoji": "<:stone:801902761335586848>",
             "description": "Found in area 0 using `find` or in higher areas using `mine`. Used to create higher level equipment and higher tier rock materials.",
-            "value": 75
+            "value": 75,
+            "type": "resource"
         },
         "copper_ore":{
             "name": "Copper Ore",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 1 using `mine`. Used to create higher level equipment and higher tier rock materials.",
-            "value": 75
+            "value": 75,
+            "type": "resource"
         },
         "copper_ingot":{
             "name": "Copper Ingot",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 0 using `find` or in higher areas using `mine`. Used to create higher level equipment and higher tier rock materials.",
-            "value": 75
+            "value": 75,
+            "type": "resource"
         },
         "basic sword":{
             "name": "Basic Sword",
@@ -42,7 +48,8 @@
             "description": "First sword that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
             "value": 350,
             "attack": 3,
-            "defence": 0
+            "defence": 0,
+            "type": "equipment"
         },
         "basic shield":{
             "name": "Basic Shield",
@@ -50,37 +57,43 @@
             "description": "First shield that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
             "value": 400,
             "attack": 0,
-            "defence": 3
+            "defence": 3,
+            "type": "equipment"
         },
         "stone axe":{
             "name": "Stone Axe",
             "emoji": "<:stoneaxe:806233369032654879>",
             "description": "First axe that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
-            "value": 245
+            "value": 245,
+            "type": "equipment"
         },
         "stone pickaxe":{
             "name": "Stone Pickaxe",
             "emoji": "<:stonepickaxe:806232602969243668>",
             "description": "First pickaxe that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
-            "value": 245
+            "value": 245,
+            "type": "equipment"
         },
         "health potion":{
             "name": "Health Potion",
             "emoji": "<:healthpotion:808098747585658921>",
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
-            "value": 75
+            "value": 75,
+            "type": "equipment"
         },
         "cowhide":{
             "name": "Cowhide",
             "emoji": "<:cowhide:810982102987833344>",
             "description": "Item dropped from <:cowEro:810927764109787158> found in area 1. Used to make leather. Use `adv recipes items` for recipes.",
-            "value": 275
+            "value": 275,
+            "type": "resource"
         },
         "leather":{
             "name": "Leather",
             "emoji": "<:leather:810982124907659274>",
             "description": "Crafted by using cowhide, sticks and logs. Recipe found in `adv recipes items`. Used to create armor.",
-            "value": 400
+            "value": 400,
+            "type": "resource"
         }
     },
     "consumables":{
@@ -90,7 +103,7 @@
         }
     },
     "shop":{
-        "healthpotion":{
+        "health potion":{
             "name": "Health Potion",
             "emoji" : "<:healthpotion:808098747585658921>",
             "cost": 150,
