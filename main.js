@@ -159,6 +159,9 @@ client.on('message', message => {
                 } else if (command === 'skills'){
                     // execute the command in the file skills.js
                     client.commands.get('skills').execute(message, args);
+                } else if (command === 'give'){
+                    // execute the command in the file give.js
+                    client.commands.get('give').execute(message, args);
                 }
             }
         });
