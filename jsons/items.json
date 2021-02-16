@@ -12,6 +12,12 @@
             "description": "Found in area 0 using `find` or in higher areas using `chop`. Used to create higher level equipment and higher tier wood materials.",
 			"value": 150
         },
+        "pine_log":{
+            "name": "Pine Log",
+            "emoji": "<:pinelog:811035395319267348>",
+            "description": "Found in area 1 using `chop`. Used to create higher level equipment and higher tier wood materials.",
+			"value": 250
+        },
         "pebble":{
             "name": "Pebble",
             "emoji": "<:pebble:801895841178451998>",
