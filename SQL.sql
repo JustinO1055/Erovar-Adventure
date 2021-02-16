@@ -25,6 +25,7 @@ CREATE TABLE Inventory (
   stone INT NOT NULL DEFAULT 0,
   stick INT NOT NULL DEFAULT 0,
   log INT NOT NULL DEFAULT 0,
+  pine_log INT NOT NULL DEFAULT 0,
   healthpotion INT NOT NULL DEFAULT 5,
   copper_ore INT NOT NULL DEFAULT 0,
   copper_ingot INT NOT NULL DEFAULT 0,
@@ -46,3 +47,9 @@ CREATE TABLE Cooldown(
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 
 ) engine = "innoDB";
+
+CREATE TABLE Skills (
+    id VARCHAR(20) NOT NULL PRIMARY KEY,
+    gathering INT NOT NULL DEFAULT 0,
+    artisan INT NOT NULL DEFAULT 0
+);

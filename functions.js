@@ -59,7 +59,8 @@ module.exports = {
         }
 
         // if there is a drop, add it to the database
-        if(typeof(drop) != 'undefined' || drop != null){
+        if(typeof(drop) != 'undefined' && drop != null){
+            console.log("hi");
             sql2 = `UPDATE Inventory SET ${drop} = ${drop} + 1 WHERE id = ${message.author.id}`;
             connection.query(sql2);
         }
