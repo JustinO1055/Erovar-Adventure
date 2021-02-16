@@ -79,48 +79,36 @@ module.exports = {
         return [number1, number2, number3];
     },
     calcAmount: function(input){
-        // regex for finding if the user has valid input
-        var regex = /\d+(\.\d+)?[kmb]?$/;
-    
-        //test the input based off the regex
-        // if its valid, continue to pasre the input.
-        if(regex.test(input)){
-    
-            // set the multiplier value for the k m b modifier
-            var multiplier = 1;
-    
-            // figure out if there is a letter
-            var isLetter = /[kmb]/i;
-            var letter = input.match(isLetter);
-            // if letter found, store its value
-            if(letter != null){
-                // figure out which letter
-                // store its multiplier
-                switch(letter[0]){
-                    case 'k':
-                        multiplier = 1000;
-                        break;
-                    case 'm':
-                        multiplier = 1000000;
-                        break;
-                    case 'b':
-                        multiplier = 1000000000;
-                        break;
-                }
-                // remove the k b or m
-                input = input.replace(letter[0], '');
+        // set the multiplier value for the k m b modifier
+        var multiplier = 1;
+
+        // figure out if there is a letter
+        var isLetter = /[kmb]/i;
+        var letter = input.match(isLetter);
+        // if letter found, store its value
+        if(letter != null){
+            // figure out which letter
+            // store its multiplier
+            switch(letter[0]){
+                case 'k':
+                    multiplier = 1000;
+                    break;
+                case 'm':
+                    multiplier = 1000000;
+                    break;
+                case 'b':
+                    multiplier = 1000000000;
+                    break;
             }
-    
-            // convert the input to float
-            input = parseFloat(input);
-            // convert to int after multiplying
-            var value = parseInt(input * multiplier);
-            return value;
-    
-        // otherwise return -1 (error)
-        } else {
-            return -1;
+            // remove the k b or m
+            input = input.replace(letter[0], '');
         }
+
+        // convert the input to float
+        input = parseFloat(input);
+        // convert to int after multiplying
+        var value = parseInt(input * multiplier);
+        return value;
     },
     //function to get the emoji id for an item
     getEmoji: function(item){
@@ -137,7 +125,7 @@ module.exports = {
         // traverse the items json file to find the item requested
         for(i in items){
             if(i == item){
-                let stats = [items[i].attack,items[i].defence];
+                let stats = [items[i].attack, items[i].defence];
                 // return the stats id
                 return stats;
             }
@@ -221,7 +209,7 @@ module.exports = {
     //Function that parses the command arguments to extract item name and amount, if specified
     parseArguments: function(args){
         //Check if the player specified a number of items to craft
-        var amountRegex = /^\d+(\.\d+)?[kmb]?$/;
+        var amountRegex = /(\d+[kmb]+$)|(\d+\.\d[kmb]$)|(^\d{1,}$)/
 
         //If last argument is a valid amount, extract that value, and the rest of the arguments are the item name
         if(amountRegex.test(args[args.length - 1])){

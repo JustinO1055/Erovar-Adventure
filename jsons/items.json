@@ -18,7 +18,8 @@
             "name": "Pine Log",
             "emoji": "<:pinelog:811035395319267348>",
             "description": "Found in area 1 using `chop`. Used to create higher level equipment and higher tier wood materials.",
-			"value": 250
+			"value": 250,
+            "type": "resource"
         },
         "pebble":{
             "name": "Pebble",
@@ -34,14 +35,14 @@
             "value": 75,
             "type": "resource"
         },
-        "copper_ore":{
+        "copper ore":{
             "name": "Copper Ore",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 1 using `mine`. Used to create higher level equipment and higher tier rock materials.",
             "value": 75,
             "type": "resource"
         },
-        "copper_ingot":{
+        "copper ingot":{
             "name": "Copper Ingot",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 0 using `find` or in higher areas using `mine`. Used to create higher level equipment and higher tier rock materials.",
@@ -85,7 +86,7 @@
             "emoji": "<:healthpotion:808098747585658921>",
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
             "value": 75,
-            "type": "equipment"
+            "type": "consumable"
         },
         "cowhide":{
             "name": "Cowhide",
@@ -103,7 +104,7 @@
         }
     },
     "consumables":{
-        "healthpotion":{
+        "health potion":{
             "name": "Health Potion",
             "emoji" : "<:healthpotion:808098747585658921>"
         }
