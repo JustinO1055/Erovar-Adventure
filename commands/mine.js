@@ -5,6 +5,8 @@ const {items} = require('../jsons/items.json');
 var resourceDrop = require('../classes/resourceDrop.js');
 var dropTable = require('../classes/dropTable.js');
 
+var functions = require('../functions.js');
+
 module.exports={
     name: 'mine',
     description: "Used in the area 1 and beyond to get stone and ores for equipment",
@@ -66,6 +68,9 @@ module.exports={
                             break;
                     }
 
+                    //Get players gathering skill level
+                    var gatherSkill = functions.skillLevel(rowsUser[0].gathering);
+
                     //Push default resources into the new drop table
                     //(name, probability, quantity min, quantity max)
                     findDropTable.addResource(new resourceDrop("pebble", 25, 10, 15));
@@ -74,10 +79,10 @@ module.exports={
                     //Push resources into the drop table depending on players current area
                     switch(rowsUser[0].area){
                         case 1:
-                            findDropTable.addResource(new resourceDrop("copper_ore", 3 * pickaxe, 1 + rowsUser[0].gathering, 2 + rowsUser[0].gathering));
+                            findDropTable.addResource(new resourceDrop("copper_ore", 3 * pickaxe, 1 + gatherSkill[0], 2 + gatherSkill[0]));
                             break;
                         case 2:
-                            findDropTable.addResource(new resourceDrop("copper_ore", 6 * pickaxe, 3 + rowsUser[0].gathering, 6 + rowsUser[0].gathering));
+                            findDropTable.addResource(new resourceDrop("copper_ore", 6 * pickaxe, 3 + gatherSkill[0], 6 + gatherSkill[0]));
                             break;
                     }
 
@@ -85,6 +90,8 @@ module.exports={
                     resource = findDropTable.determineHit();
                     // sql code to input the items into the database
                     let sql = `UPDATE Inventory SET ${resource[0]} = ${resource[0]} + ${resource[1]} WHERE id = '${message.author.id}'`;
+                    let sqlSkillUpdate = `UPDATE Skills SET gathering = gathering + 1 WHERE id = '${message.author.id}'`;
+                    connection.query(sqlSkillUpdate);
                     // query the database
                     connection.query(sql, (err, rows) =>{
                         if(err) throw err;
