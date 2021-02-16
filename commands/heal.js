@@ -1,4 +1,4 @@
-const {consumables} = require('../jsons/items.json');
+const {items} = require('../jsons/items.json');
 
 module.exports = {
     name: 'heal',
@@ -15,7 +15,7 @@ module.exports = {
                 message.channel.send(`${message.author}, you already have full hp!`);
                 return;
             // if the user has no health potions
-            } else if (rows[0]['health potion'] <= 0){
+            } else if (rows[0]['health_potion'] <= 0){
                 message.channel.send(`${message.author}, you do not have any health potions to heal with!\nBuy some more from the shop \`adv shop\``);
                 return;
             // otherwise user can heal
@@ -29,7 +29,7 @@ module.exports = {
                 connection.query(sql3);
 
                 // print message to user
-                message.channel.send(`${message.author}, Your hp has been fully healed by drinking a ${consumables['health potion']['emoji']}`);
+                message.channel.send(`${message.author}, Your HP has been fully healed by drinking a ${items['health_potion']['emoji']}`);
                 return;
 
             }

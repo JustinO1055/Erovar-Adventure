@@ -103,7 +103,7 @@ module.exports={
                                 }
                                 sql4 += ` WHERE id = '${message.author.id}'`;
                                 // query the database
-                                message.channel.send(`You have crafted a ${arguments[0]} ` + functions.getEmoji(arguments[0]));
+                                message.channel.send(`You have crafted a ${items[arguments[0]]['name']} ` + functions.getEmoji(arguments[0]));
                                 connection.query(sql4);
                                 connection.query(sql2);
 

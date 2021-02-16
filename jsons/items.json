@@ -35,21 +35,21 @@
             "value": 75,
             "type": "resource"
         },
-        "copper ore":{
+        "copper_ore":{
             "name": "Copper Ore",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 1 using `mine`. Used to create higher level equipment and higher tier rock materials.",
             "value": 75,
             "type": "resource"
         },
-        "copper ingot":{
+        "copper_ingot":{
             "name": "Copper Ingot",
             "emoji": "<:coppperore:810927764411646002>",
             "description": "Found in area 0 using `find` or in higher areas using `mine`. Used to create higher level equipment and higher tier rock materials.",
             "value": 75,
             "type": "resource"
         },
-        "basic sword":{
+        "basic_sword":{
             "name": "Basic Sword",
             "emoji": "<:basicsword:806232602491093013>",
             "description": "First sword that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
@@ -58,7 +58,7 @@
             "defence": 0,
             "type": "equipment"
         },
-        "basic shield":{
+        "basic_shield":{
             "name": "Basic Shield",
             "emoji": "<:basicshield:803356283188150324>",
             "description": "First shield that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
@@ -67,21 +67,21 @@
             "defence": 3,
             "type": "equipment"
         },
-        "stone axe":{
+        "stone_axe":{
             "name": "Stone Axe",
             "emoji": "<:stoneaxe:806233369032654879>",
             "description": "First axe that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
             "value": 245,
             "type": "equipment"
         },
-        "stone pickaxe":{
+        "stone_pickaxe":{
             "name": "Stone Pickaxe",
             "emoji": "<:stonepickaxe:806232602969243668>",
             "description": "First pickaxe that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
             "value": 245,
             "type": "equipment"
         },
-        "health potion":{
+        "health_potion":{
             "name": "Health Potion",
             "emoji": "<:healthpotion:808098747585658921>",
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
@@ -103,14 +103,8 @@
             "type": "resource"
         }
     },
-    "consumables":{
-        "health potion":{
-            "name": "Health Potion",
-            "emoji" : "<:healthpotion:808098747585658921>"
-        }
-    },
     "shop":{
-        "health potion":{
+        "health_potion":{
             "name": "Health Potion",
             "emoji" : "<:healthpotion:808098747585658921>",
             "cost": 150,

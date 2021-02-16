@@ -64,7 +64,7 @@ function checkEquipment(item){
     if(item != "NONE"){
 
         //Split item name by the spaces
-        const words = item.split(" ");
+        const words = item.split("_");
 
         //Capatalize each word
         for (let i = 0; i < words.length; i++) {

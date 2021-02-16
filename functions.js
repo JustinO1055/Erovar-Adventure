@@ -215,10 +215,10 @@ module.exports = {
         if(amountRegex.test(args[args.length - 1])){
             var craftAmount = this.calcAmount(args.pop());
 
-            var itemName = args.join(' ');
+            var itemName = args.join('_');
         } else{
             var craftAmount = 1;
-            var itemName = args.join(' ');
+            var itemName = args.join('_');
         }
 
         return [itemName, craftAmount];

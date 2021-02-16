@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const {items, consumables} = require('../jsons/items.json');
+const {items} = require('../jsons/items.json');
 
 module.exports={
     name: 'inventory',
@@ -28,23 +28,20 @@ module.exports={
 
                 //Generate an array of the users inventory.
                 var inventory = "";
+                var consumablesL = "";
                 for(i in items){
                     //Only show items that have user has at least one of
-                    if(rows[0][i] > 0)
-                    inventory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
+                    if(rows[0][i] > 0 && items[i]['type'] === "resource")
+                        inventory += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
+                    else if(rows[0][i] > 0 && items[i]['type'] === "consumable")
+                        consumablesL += `${items[i]['emoji']} ${items[i]['name']} : ${rows[0][i]} \n`;
                 }
 
                 //Check if the players inventory is empty and add a message if it is
                 if(inventory == "")
                 inventory = "Your items is empty :slight_frown:";
 
-                //Generate an array of the users inventory.
-                var consumablesL = "";
-                for(c in consumables){
-                    //Only show items that have user has at least one of
-                    if(rows[0][c] > 0)
-                        consumablesL += `${consumables[c]['emoji']} ${consumables[c]['name']} : ${rows[0][c]} \n`;
-                }
+                //Generate an array of the users inventory.ad
 
                 //Check if the players inventory is empty and add a message if it is
                 if(consumablesL == "")

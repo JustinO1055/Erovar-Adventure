@@ -47,7 +47,7 @@ module.exports={
             } else {
                 // prep the two queries
                 let sql2 = `UPDATE Users SET gold = gold - ${totalCost} WHERE id = '${message.author.id}'`;
-                let sql3 = `UPDATE Inventory SET ${arguments[0].replace(/\s/g, '_')} = ${arguments[0].replace(/\s/g, '_')} + ${arguments[1]} WHERE id = '${message.author.id}'`;
+                let sql3 = `UPDATE Inventory SET ${arguments[0]} = ${arguments[0]} + ${arguments[1]} WHERE id = '${message.author.id}'`;
 
                 // query the database
                 connection.query(sql2);

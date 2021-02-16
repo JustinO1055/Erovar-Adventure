@@ -62,15 +62,15 @@ module.exports={
             sellEquipment(sellingInformation, message);
         else {
             //Check to see if the user has the required items to sell
-            sql1 = `SELECT ${arguments[0].replace(/\s/g, '_')} FROM Inventory WHERE id = ${message.author.id}`;
+            sql1 = `SELECT ${arguments[0]} FROM Inventory WHERE id = ${message.author.id}`;
             connection.query(sql1, (err, rows) =>{
-                if(rows[0][arguments[0].replace(/\s/g, '_')] >= sellingInformation[3]){
+                if(rows[0][arguments[0]] >= sellingInformation[3]){
                     //Create query to remove items sold
-                    sqlUpdate = `UPDATE Inventory SET ${arguments[0].replace(/\s/g, '_')} = ${arguments[0].replace(/\s/g, '_')} - ${sellingInformation[3]} WHERE id = ${message.author.id}`;
+                    sqlUpdate = `UPDATE Inventory SET ${arguments[0]} = ${arguments[0]} - ${sellingInformation[3]} WHERE id = ${message.author.id}`;
 
                     sell(sellingInformation[3], sellingInformation[0], sellingInformation[2], sqlUpdate, message.author.id, message.channel.id)
                 } else{
-                    message.channel.send(`${message.author}, You do not have ${sellingInformation[3]} ${arguments[0]} to sell.`);
+                    message.channel.send(`${message.author}, You do not have ${sellingInformation[3]} ${items[sellingInformation[1]]['name']} to sell.`);
                 }
             });
         }
@@ -102,13 +102,13 @@ async function sellEquipment(sellingInformation, message){
         }
     } else {
         //Get the generic equipment term of the item they are selling
-        var itemNameVar = sellingInformation[0].split(" ");
+        var itemNameVar = sellingInformation[0].split("_");
         sellingInformation[1] =  itemNameVar[itemNameVar.length - 1];
 
         //Check if user has the equipment to sell
         if(await validateEquipment(sellingInformation, message.author.id) == null){
             //If they did not have the equipment to sell, output message and exit function
-            message.channel.send(`${message.author}, You do not have a ${sellingInformation[1]} to sell.`);
+            message.channel.send(`${message.author}, You do not have a ${items[sellingInformation[0]]['name']} to sell.`);
             valid = false
         }
     }
@@ -119,7 +119,7 @@ async function sellEquipment(sellingInformation, message){
 
     //Have a check to ensure user want to sell equipment
     let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no' || m.content.toLowerCase() == 'y' || m.content.toLowerCase() == 'n');
-    message.channel.send(`Are you sure you want to sell ${sellingInformation[0]}? \`Yes/No\``).then(() => {
+    message.channel.send(`Are you sure you want to sell ${items[sellingInformation[0]]['name']} ${items[sellingInformation[0]]['emoji']}? \`Yes/No\``).then(() => {
         message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time'] })
             .then(mes => {
                 //Convert message to lowercase
@@ -140,12 +140,12 @@ async function sellEquipment(sellingInformation, message){
                     //Sell equipment
                     sell(sellingInformation[3], sellingInformation[0], sellingInformation[2], sqlUpdate, message.author.id, message.channel.id)
                 } else if (command == 'no' || command == 'n') {
-                    message.channel.send(`${message.author}, ${sellingInformation[0]} ${items[sellingInformation[0]]['emoji']} not sold.`);
+                    message.channel.send(`${message.author}, ${items[sellingInformation[0]]['name']} ${items[sellingInformation[0]]['emoji']} not sold.`);
                 }
             })
                 //If the user doesn't enter a valid response, output not sold message
                 .catch(collected => {
-                    message.channel.send(`${message.author}, ${sellingInformation[0]} ${items[sellingInformation[0]]['emoji']} not sold.`);
+                    message.channel.send(`${message.author}, ${items[sellingInformation[0]]['name']} ${items[sellingInformation[0]]['emoji']} not sold.`);
             });
         });
 }
@@ -177,9 +177,9 @@ function sell(amount, item, itemValue, query, author, channelID){
             //Generate output message
             output = `You have sold `;
             if(amount == 1)
-                output += `a ${item} `;
+                output += `a ${items[item]['name']} `;
             else
-                output += `${amount} ${item}s `;
+                output += `${amount} ${items[item]['name']}s `;
             output += `${items[item]['emoji']} for ${itemValue * amount} gold.`;
     
             //Output sold message
