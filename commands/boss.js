@@ -72,32 +72,32 @@ module.exports={
                                 errorMessage += `**Level:** 3 :white_check_mark:\n`;
                             }
                             // make sure user has basic sword
-                            if(rows[0].sword != 'basic sword') {
-                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :x:\n`;
+                            if(rows[0].sword != 'basic_sword') {
+                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic_sword')} :x:\n`;
                                 valid = false;
                             } else {
-                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic sword')} :white_check_mark:\n`;
+                                errorMessage += `**Sword:** Basic Sword ${functions.getEmoji('basic_sword')} :white_check_mark:\n`;
                             }
                             // make sure user has basic shield
-                            if(rows[0].shield != 'basic shield') {
-                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :x:\n`;
+                            if(rows[0].shield != 'basic_shield') {
+                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic_shield')} :x:\n`;
                                 valid = false;
                             } else {
-                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic shield')} :white_check_mark:\n`;
+                                errorMessage += `**Shield:** Basic Shield ${functions.getEmoji('basic_shield')} :white_check_mark:\n`;
                             }
                             // make sure user has stone axe
-                            if(rows[0].axe != 'stone axe') {
-                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :x:\n`;
+                            if(rows[0].axe != 'stone_axe') {
+                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone_axe')} :x:\n`;
                                 valid = false;
                             } else {
-                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone axe')} :white_check_mark:\n`;
+                                errorMessage += `**Axe:** Stone Axe ${functions.getEmoji('stone_axe')} :white_check_mark:\n`;
                             }
                             // make sure user has stone pickaxe
-                            if(rows[0].pickaxe != 'stone pickaxe') {
-                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :x:\n`;
+                            if(rows[0].pickaxe != 'stone_pickaxe') {
+                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone_pickaxe')} :x:\n`;
                                 valid = false;
                             } else {
-                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone pickaxe')} :white_check_mark:\n`;
+                                errorMessage += `**Pickaxe:** Stone Pickaxe ${functions.getEmoji('stone_pickaxe')} :white_check_mark:\n`;
                             }
 
                             // if the user does not meet requirements. send the error
