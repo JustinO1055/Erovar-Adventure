@@ -26,7 +26,7 @@ CREATE TABLE Inventory (
   stick INT NOT NULL DEFAULT 0,
   log INT NOT NULL DEFAULT 0,
   pine_log INT NOT NULL DEFAULT 0,
-  healthpotion INT NOT NULL DEFAULT 5,
+  health_potion INT NOT NULL DEFAULT 5,
   copper_ore INT NOT NULL DEFAULT 0,
   copper_ingot INT NOT NULL DEFAULT 0,
   cowhide INT NOT NULL DEFAULT 0,
@@ -51,5 +51,6 @@ CREATE TABLE Cooldown(
 CREATE TABLE Skills (
     id VARCHAR(20) NOT NULL PRIMARY KEY,
     gathering INT NOT NULL DEFAULT 0,
-    artisan INT NOT NULL DEFAULT 0
+    artisan INT NOT NULL DEFAULT 0,    
+    FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 );
