@@ -21,7 +21,7 @@ module.exports={
         for(r in RECIPES[category]){
 
             for(i in RECIPES[category][r]){
-                list += `${RECIPES[category][r][i]['quantity']} ${items[RECIPES[category][r][i]['itemname']]['emoji']}  + `;
+                list += `${RECIPES[category][r]['items'][i][1]} ${items[RECIPES[category][r]['items'][i][0]]['emoji']}  + `;
             }
             list = list.slice(0, -2);
             list += ` ➜ ${items[r]['emoji']} ${r}`;
@@ -31,10 +31,11 @@ module.exports={
         //Generate the list of recipes
         var list = "";
         for(r in RECIPES[category]){
-            list += `${items[r]['emoji']} ${r} ➜  `;
+            list += `${items[r]['emoji']} ${items[r]['name']} ➜  `;
 
-            for(i in RECIPES[category][r]){
-                list += `${RECIPES[category][r][i]['quantity']} ${items[RECIPES[category][r][i]['itemname']]['emoji']} + `;
+            // recipe items are stored in a 2d array with first element being the name, second element being the quantity
+            for(var i = 0; i < RECIPES[category][r]['items'].length; i++){
+                list += `${RECIPES[category][r]['items'][i][1]} ${items[RECIPES[category][r]['items'][i][0]]['emoji']} + `;
             }
             list = list.slice(0, -2);
             list += "\n";

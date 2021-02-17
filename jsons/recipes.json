@@ -1,85 +1,83 @@
 {
     "items":{
         "log":{
-            "item1":{
-                "itemname": "stick",
-                "quantity": "15"
-            }
+            "items":[
+                ["stick",
+                "15"]
+            ],
+            "xp" : 0.1
         },
         "stone":{
-            "item1":{
-                "itemname": "pebble",
-                "quantity": "15"
-            }
+            "items":[
+                ["pebble",
+                "15"]
+            ],
+            "xp" : 0.1
         },
         "leather":{
-            "item1":{
-                "itemname": "cowhide",
-                "quantity": "1"
-            },
-            "item2":{
-                "itemname": "log",
-                "quantity": "1"
-            },
-            "item3":{
-                "itemname": "stick",
-                "quantity": "5"
-            }
+            "items":[
+                ["cowhide",
+                "1"],                
+                
+                ["log",
+                "1"],              
+                
+                ["stick",
+                "5"]
+            ],
+            "xp" : 1
         }
 
     },
     "equipment":{
         "basic_sword":{
-            "item1":{
-                "itemname": "stick",
-                "quantity": "5"
-            },
-            "item2":{
-                "itemname": "log",
-                "quantity": "1"
-            },
-            "item3":{
-                "itemname": "stone",
-                "quantity": "2"
-            }
+            "items":[
+                ["stick",
+                "5"],                
+                
+                ["log",
+                "1"],                
+                
+                ["stone",
+                "2"]
+            ],
+            "xp" : 1
         },
         "basic_shield":{
-            "item1":{
-                "itemname": "stick",
-                "quantity": "10"
-            },
-            "item2":{
-                "itemname": "log",
-                "quantity": "2"
-            }
+            "items":[
+                ["stick",
+                "10"],
+                
+                ["log",
+                "2"]
+            ],
+            "xp" : 1
         },
         "stone_axe":{
-            "item1":{
-                "itemname": "stick",
-                "quantity": "2"
-            },
-            "item2":{
-                "itemname": "log",
-                "quantity": "1"
-            },
-            "item3":{
-                "itemname": "stone",
-                "quantity": "1"
-            }
+            "items":[
+                ["stick",
+                "2"],
+                
+                ["log",
+                "1"],
+                
+                ["stone",
+                "1"]
+            ],
+            "xp" : 1
         },
         "stone_pickaxe":{
-            "item1":{
-                "itemname": "stick",
-                "quantity": "2"
-            },
-            "item2":{
-                "itemname": "log",
-                "quantity": "1"
-            },
-            "item3":{
-                "itemname": "stone",
-                "quantity": "1"
-            }
+            "items":[
+                ["stick",
+                "2"],
+            
+                ["log",
+                "1"],
+                            
+                ["stone",
+                "1"]
+            ],
+            "xp" : 1
         }
     }
 }

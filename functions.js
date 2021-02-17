@@ -214,13 +214,14 @@ module.exports = {
         //If last argument is a valid amount, extract that value, and the rest of the arguments are the item name
         if(amountRegex.test(args[args.length - 1])){
             var craftAmount = this.calcAmount(args.pop());
-
+            var itemType = args[args.length - 1];
             var itemName = args.join('_');
         } else{
             var craftAmount = 1;
+            var itemType = args[args.length - 1];
             var itemName = args.join('_');
         }
 
-        return [itemName, craftAmount];
+        return [itemName, craftAmount, itemType];
     }
 }

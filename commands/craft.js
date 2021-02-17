@@ -57,17 +57,22 @@ module.exports={
                 //variable to store the error message that the user does not have enough materials and showing what they are missing.
                 var error = ""; 
                 var sql2 = `UPDATE Inventory SET `;
+
+                // compute the artisan xp earned from crafting
+                var xpEarned = Math.floor(recipe['xp'] * arguments[1]);
                 //Check if the player has the required items to craft the item
-                for(i in recipe){
-                    var itemName = recipe[i]['itemname'];
+                // recipe items are stored in a 2d array with first element being the name, second element being the quantity
+                for(var i = 0; i < recipe['items'].length; i++){
+                    var itemName = recipe['items'][i][0];
+
                     // multiple the quantity by the amount to be made
-                    var quantity = parseInt(recipe[i]['quantity']) * arguments[1];
-                    if(rows[0][recipe[i]['itemname']] < quantity){
+                    var quantity = parseInt(recipe['items'][i][1]) * arguments[1];
+                    if(rows[0][itemName] < quantity){
                         //error += `${rows[0][recipe[i]['itemname']]}/ ${recipe[i]['quantity']} ${recipe[i]['itemname']} ` + getEmoji(recipe[i]['itemname']) + ` :x:`;
-                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + functions.getEmoji(itemName) + `${itemName} :x:\n`;
+                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + `${itemName} :x:\n`;
                         craftable = false;
                     } else {
-                        error += `${rows[0][recipe[i]['itemname']]}/${quantity} ` + functions.getEmoji(itemName) + ` ${itemName} :white_check_mark:\n`;
+                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + ` ${itemName} :white_check_mark:\n`;
                         //prep the sql statement
                         sql2 += `${itemName} = ${itemName} - ${quantity}, `;                
                     }
@@ -77,8 +82,8 @@ module.exports={
                 if(craftable){
                     // if equipment, check if the user already has the equipment
                     if(itemType == "equipment"){
-                        let equipmentType = args[1];
-
+                        let equipmentType = arguments[2];
+                        
                         let sql3 = `SELECT ${equipmentType} FROM Users WHERE id = '${message.author.id}'`;
                         connection.query(sql3, (err, rows2) =>{
                             if(err) throw err;
@@ -102,10 +107,16 @@ module.exports={
                                     sql4 += `, attack = attack + ${stats[0]}, defence = defence + ${stats[1]}`;
                                 }
                                 sql4 += ` WHERE id = '${message.author.id}'`;
-                                // query the database
+
+                                // prep adding xp to the user
+                                let sql5 = `UPDATE Skills SET artisan = artisan + ${xpEarned} WHERE id = '${message.author.id}'`;
+
+                                // print message
                                 message.channel.send(`You have crafted a ${items[arguments[0]]['name']} ` + functions.getEmoji(arguments[0]));
+                                 // query the database
                                 connection.query(sql4);
                                 connection.query(sql2);
+                                connection.query(sql5);
 
                             }
                         });
@@ -118,7 +129,11 @@ module.exports={
                         } else {
                             message.channel.send(`You have crafted ${arguments[1]} ${arguments[0]}s ` + functions.getEmoji(arguments[0]));
                         }
+                        
+                        // prep adding xp to the user
+                        let sql5 = `UPDATE Skills SET artisan = artisan + ${xpEarned} WHERE id = '${message.author.id}'`;
 
+                        connection.query(sql5);
                         connection.query(sql2);
                         return;
 
