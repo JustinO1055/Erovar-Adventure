@@ -120,6 +120,16 @@ module.exports={
                     );
     
                 break;
+            case 'chop':
+            //Create the embed to output
+            var helpEmbed = new Discord.MessageEmbed()
+                .addFields(
+                    { name: `Chop`, value: `Unlocked in area 1. Use this to get various logs and materials to craft new equipment.`},
+                    { name: `Possible Items:`, value: `${items['stick']['emoji']} ${items['log']['emoji']} ${items['pine_log']['emoji']}`},
+                    { name: `Usage:`, value: `\`adv chop\``}
+                );
+
+            break;
             case 'cooldown':
             case 'cd':
                 //Create the embed to output
@@ -176,6 +186,15 @@ module.exports={
                     );
 
                 break;
+            case 'give':
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Give`, value: `Used to give another player gold or items.`},
+                        { name: `Usage:`, value: `\`adv give <@player> <item name | gold> [amount]\``}
+                    );
+
+                break;
             case 'heal':
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
@@ -200,7 +219,8 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Mine`, value: `Mine help goes here`},
+                        { name: `Mine`, value: `Unlocked in area 1. Use this to get various ores and materials to craft new equipment.`},
+                        { name: `Possible Items:`, value: `${items['pebble']['emoji']} ${items['stone']['emoji']} ${items['copper_ore']['emoji']}`},
                         { name: `Usage:`, value: `\`adv mine\``}
                     );
     
@@ -253,6 +273,14 @@ module.exports={
                         { name: `Usage:`, value: `\`adv shop\``}
                     );
     
+                break;
+            case 'skills':
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Skill`, value: `Used to see a player's skill progression.`},
+                        { name: `Usage:`, value: `\`adv skills [player]\``}
+                    );
                 break;
             case 'sleep':
                 //Create the embed to output
