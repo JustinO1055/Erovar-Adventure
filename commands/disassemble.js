@@ -19,6 +19,12 @@ module.exports={
         //Parse argument list
         var arguments = functions.parseArguments(args);
 
+        // if last word is equipment, warn the user
+        if(arguments[2] === "sword" || arguments[2] === "shield" || arguments[2] === "armor" || arguments[2] === "pickaxe" || arguments[2] === "axe"){
+            message.channel.send(`${message.author}, You can not disassmble equipment. You are able to sell the equipment using \`adv sell <equipment>\` \nType \`adv help\` for help`);
+            return;
+        }
+
         //Declare recipes variable to store the recipe of the item to be disassembled
         recipe = "";
 
@@ -30,6 +36,7 @@ module.exports={
             }
         }
 
+ 
         //Check if the item was a valid recipe to disassemble
         if(recipe == ""){
             message.channel.send(`${message.author}, Cannot find the item you are trying to disassemble. **Items will be disassembled at 50% of recipe cost.** \nYou can see the recipes with \`adv recipes\``);
@@ -53,13 +60,14 @@ module.exports={
                 if(arguments[1] > 1){msg += "s"};
                 msg += ` into `;
                 // go through the recipe, multiply the amount by the required amount and divide by two, floor this value to get the amount to return
-                for(i in recipe){
-                    var itemname = recipe[i]['itemname'];
-                    var quantity = Math.floor(parseInt(recipe[i]['quantity']) * arguments[1] * 0.5);
+                for(var i = 0; i < recipe['items'].length; i++){
+                    var itemName = recipe['items'][i][0];
+                    // multiple the quantity by the amount to be made
+                    var quantity = Math.floor(parseInt(recipe['items'][i][1]) * arguments[1] * 0.5);
                     // append it to sql 
-                    sql2 += `${itemname} = ${itemname} + ${quantity}, `;
+                    sql2 += `${itemName} = ${itemName} + ${quantity}, `;
                     //append to message
-                    msg += `${quantity} ${itemname[0].toUpperCase() + itemname.substr(1)}s ${functions.getEmoji(itemname)}, `;
+                    msg += `${quantity} ${items[itemName]['name']}s ${functions.getEmoji(itemName)}, `;
                 }
 
                 // remove the extra comma from message

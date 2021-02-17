@@ -39,7 +39,7 @@ module.exports={
                         
                         //If message is not on cooldown still, put message for how much time is left.
                         if(diff < 0){
-                            msg += `:white_check_mark: --- \`${commands[cdT][cd]['message']}\`\n`;
+                            msg += `:white_check_mark: --- ${commands[cdT][cd]['message']}\n`;
                             ready = true;
                         }
                     }

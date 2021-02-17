@@ -3,29 +3,29 @@
         "Combat":{
             "battle":{
                 "name": "cd_battle",
-                "message": "Battle",
+                "message": "`Battle`",
                 "cooldown": 1
             },
             "expedition":{
                 "name": "cd_expedition",
-                "message": "Expedition",
+                "message": "`Expedition`",
                 "cooldown": 30
             },
             "boss":{
                 "name": "cd_boss",
-                "message": "Boss",
+                "message": "`Boss`",
                 "cooldown": 360
             }
         },       
         "Skills":{
             "gather":{
                 "name": "cd_gather",
-                "message": "Find",
+                "message": "`Find` | `Chop` | `Mine`",
                 "cooldown": 2
             },
             "sleep":{
                 "name": "cd_sleep",
-                "message": "Sleep",
+                "message": "`Sleep`",
                 "cooldown": 960
             }
         }

@@ -38,13 +38,13 @@ module.exports={
                         if(diff >= 0){
                             // do a check to see if it is greater than an hour cooldown, if it is, display how many hours
                             if(commands[cdT][cd]['cooldown'] >= 60){
-                                msg += `:clock1: --- \`${commands[cdT][cd]['message']}\` **${msToHoursandMinutesandSeconds(diff)}**\n`;                            
+                                msg += `:clock1: --- ${commands[cdT][cd]['message']} **${msToHoursandMinutesandSeconds(diff)}**\n`;                            
                             // otherwise only show minutes/ seconds
                             } else {
-                                msg += `:clock1: --- \`${commands[cdT][cd]['message']}\` **${msToMinutesandSeconds(diff)}**\n`;
+                                msg += `:clock1: --- ${commands[cdT][cd]['message']} **${msToMinutesandSeconds(diff)}**\n`;
                             }
                         } else{
-                            msg += `:white_check_mark: --- \`${commands[cdT][cd]['message']}\`\n`;
+                            msg += `:white_check_mark: --- ${commands[cdT][cd]['message']}\n`;
                         }
                     }
                     msg += `------------------------------------\n`;
