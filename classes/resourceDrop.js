@@ -4,6 +4,5 @@ module.exports = class resourceDrop {
         this.name = name;
         this.probability = probability;
         this.quantity = [quantityMin, quantityMax];
-        console.log(name + " " + " " + probability + " " + quantityMin);
     }
 };

@@ -117,7 +117,7 @@ async function combat(player, monster, message){
 
     //Decalare player moves for readding to embed
     encounterPlayerMoves = { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back."};
-    
+
     // create the embed to send
     const encounterEmbed = new Discord.MessageEmbed()
     .setColor('#FF0000')

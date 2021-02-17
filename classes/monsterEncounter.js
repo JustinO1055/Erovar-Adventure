@@ -44,12 +44,12 @@ module.exports = class monsterEncounter {
                 monsterEmoji = element.emoji;
                 monsterxp = functions.randomInteger(element.xp[0], element.xp[1]);
                 monsterGold = functions.randomInteger(element.gold[0], element.gold[1]);
-                if(typeof(element.moves)!='undefined' || (elements.moves) != null)
+                if(typeof(element.moves)!='undefined' && (element.moves) != null)
                     monsterMoves = element.moves;
                 else
                     monsterMoves = null;
                 
-                if(typeof(element.drops)!='undefined' || (elements.drops) != null){
+                if(typeof(element.drops)!='undefined' && (element.drops) != null){
                     // create monster item drop table
                     var monsterDropTable = new dropTable;
                     
@@ -59,9 +59,7 @@ module.exports = class monsterEncounter {
                     }
                     monsterDrop = monsterDropTable.determineHit();
 
-                
-                } else
-                    monsterMoves = null;
+                }
                 break;
             }
         }
