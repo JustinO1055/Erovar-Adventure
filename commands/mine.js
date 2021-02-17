@@ -60,10 +60,10 @@ module.exports={
 
                     //Get a numeric value for the pickaxe the user has
                     switch(rowsUser[0].pickaxe){
-                        case "stone pickaxe":
+                        case "stone_pickaxe":
                             var pickaxe = 1;
                             break;
-                        case "copper pickaxe":
+                        case "copper_pickaxe":
                             var pickaxe = 2;
                             break;
                     }

@@ -60,10 +60,10 @@ module.exports={
 
                     //Get a numeric value for the axe the user has
                     switch(rowsUser[0].axe){
-                        case "stone axe":
+                        case "stone_axe":
                             var axe = 1;
                             break;
-                        case "copper axe":
+                        case "copper_axe":
                             var axe = 2;
                             break;
                     }
