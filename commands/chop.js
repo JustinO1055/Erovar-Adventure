@@ -100,7 +100,7 @@ module.exports={
                         var emoji = items[`${resource[0]}`].emoji;
 
                         //Generate a message to send to the user
-                        var msg = "You found " + resource[1] + " " + items[resource[0]].name;
+                        var msg = `**${message.author.username}** found ${resource[1]} ${items[resource[0]].name}`;
                         if (resource[1] > 1) {msg += "s"} ;   //Determine if 's is needed
                         // append the emoji to the message
                         msg += ` ${emoji}`;
