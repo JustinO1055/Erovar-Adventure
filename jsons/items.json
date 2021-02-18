@@ -45,7 +45,7 @@
         "copper_ingot":{
             "name": "Copper Ingot",
             "emoji": "<:coppperore:810927764411646002>",
-            "description": "Found in area 0 using `find` or in higher areas using `mine`. Used to create higher level equipment and higher tier rock materials.",
+            "description": "Crafted by using copper ore <:coppperore:810927764411646002> and logs. Recipe found in `adv recipes items`. Used to create equipment.",
             "value": 75,
             "type": "resource"
         },

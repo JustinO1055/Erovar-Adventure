@@ -32,13 +32,12 @@ module.exports={
             return;
         }
 
-        let itemSearch = "";
-        // combine the arguments in case of item
-        for(var i = 0; i < args.length; i++){
-            itemSearch += args[i] + " ";
-        }
-        // remove extra space
-        itemSearch = itemSearch.slice(0, -1);
+        // store the modifer for commands
+        let modifer = args[1];
+
+        //Parse argument list
+        var arguments = functions.parseArguments(args);
+        itemSearch = arguments[0];
         
         // loop through items json to find it
         for(i in items){
@@ -51,7 +50,7 @@ module.exports={
                 );
                 
                 // if the second arg is sword shield or armor, add new field for stats
-                if(args[1] == 'sword' || args[1] == 'shield' || args[1] == 'armor'){
+                if(arguments[2] == 'sword' || arguments[2] == 'shield' || arguments[2] == 'armor'){
                     helpEmbed.addFields({name: 'Stats', value: `Attack :crossed_swords:: ${items[i]['attack']}, Defence :shield:: ${items[i]['defence']}`});
                 }
 
@@ -63,7 +62,7 @@ module.exports={
                 return;
 
             }
-        }
+        } 
 
         //Help pages for all commands within the bot
         switch(args[0]){
@@ -90,8 +89,17 @@ module.exports={
     
                 break;
             case 'boss':
+                if(modifer == 0){
+                    var helpEmbed = new Discord.MessageEmbed()
+                        .addFields(
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
+                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Requirements`, value: `Level 3\nBasic Sword ${functions.getEmoji('basic_sword')}\nBasic Shield ${functions.getEmoji('basic_shield')}\nStone axe ${functions.getEmoji('stone_axe')}\nStone Pickaxe ${functions.getEmoji('stone_pickaxe')}\n`},
+                            { name: `Tips`, value: `This boss has a 'tell' that hints to what the boss is going to do. Each move has 1 good counter, 1 okay counter, and 2 bad counters. You will have to figure out what is good against each move in order to defeat this boss`},
+                            { name: `Usage:`, value: `\`adv boss\``}
+                        );
                 // if generic boss help print generic message
-                if(args[1] == null || args[1] == ""){
+                } else {
                 //Create the embed to output
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
@@ -99,16 +107,7 @@ module.exports={
                                 This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
                             { name: `Usage:`, value: `\`adv boss\``}
                         );
-                } else if(args[1] == 0){
-                    var helpEmbed = new Discord.MessageEmbed()
-                        .addFields(
-                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
-                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
-                            { name: `Requirements`, value: `Level 3\nBasic Sword ${functions.getEmoji('basic sword')}\nBasic Shield ${functions.getEmoji('basic shield')}\nStone axe ${functions.getEmoji('stone axe')}\nStone Pickaxe ${functions.getEmoji('stone pickaxe')}\n`},
-                            { name: `Tips`, value: `This boss has a 'tell' that hints to what the boss is going to do. Each move has 1 good counter, 1 okay counter, and 2 bad counters. You will have to figure out what is good against each move in order to defeat this boss`},
-                            { name: `Usage:`, value: `\`adv boss\``}
-                        );
-                }
+                } 
     
                 break;
             case 'buy':
