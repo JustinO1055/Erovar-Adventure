@@ -1,19 +1,18 @@
 const Discord = require('discord.js');
 const {commands} = require('../jsons/cooldown.json');
 
+var functions = require('../functions.js');
+
 module.exports={
     name: 'ready',
     description: "Show commands that are ready to be used",
     execute(message, args){
-        //Check if the user mentioned someone else, meaning they want to check another users ready commands
-        if(message.mentions.members.size > 0){
-            user = message.mentions.users.first();
-        } else {
-            user = message.author;
-        }
+
+        //Check if the player mentioned another user
+        const player = functions.checkMention(message);
 
         //Get the users ready commands
-        let sql = `SELECT * FROM Cooldown WHERE id = '${user.id}'`;
+        let sql = `SELECT * FROM Cooldown WHERE id = '${player.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
@@ -25,7 +24,7 @@ module.exports={
 
             //Check if the user has started their adventure
             if(rows.length < 1){
-                message.channel.send(`${user.username} has not started their adventure in Erovar!`)
+                message.channel.send(`${player.username} has not started their adventure in Erovar!`)
             } else {
                 for (cdT in commands) {
                     msg += `**----- ${cdT} -----**\n`;
@@ -52,7 +51,7 @@ module.exports={
                 //Create the embed to output
                 const cooldownEmbed = new Discord.MessageEmbed()
                     .setColor('#0a008c')
-                    .setAuthor(user.username + '\'s Ready   ', user.avatarURL())
+                    .setAuthor(player.username + '\'s Ready   ', player.avatarURL())
                     .setDescription(msg)
 
                 //Send Embed

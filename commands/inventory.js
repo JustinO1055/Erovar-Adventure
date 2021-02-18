@@ -1,30 +1,25 @@
 const Discord = require('discord.js');
 const {items} = require('../jsons/items.json');
 
+var functions = require('../functions.js');
+
 module.exports={
     name: 'inventory',
     description: "shows the users inventory",
     execute(message){
 
-        //Check if the user mentioned someone else, meaning they want to check another users inventory
-        if(message.mentions.members.size > 0){
-            id = message.mentions.users.first().id;
-            username = message.mentions.users.first().username;
-        } else {
-            id = message.author.id;
-            username = message.author.username;
-        }
+        //Check if the player mentioned another user
+        const player = functions.checkMention(message);
 
         //Get the users inventory
-        let sql = `SELECT * FROM Inventory I WHERE I.id = '${id}'`;
+        let sql = `SELECT * FROM Inventory I WHERE I.id = '${player.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
             //Check if the user has an inventory
             if(rows.length < 1){
-                message.channel.send(`${username} has not started their adventure in Erovar!`)
+                message.channel.send(`${player.username} has not started their adventure in Erovar!`)
             } else {
-                const User = client.users.cache.get(rows[0].id); // Getting the user by ID.
 
                 //Generate an array of the users inventory.
                 var inventory = "";
@@ -41,8 +36,6 @@ module.exports={
                 if(inventory == "")
                 inventory = "Your items is empty :slight_frown:";
 
-                //Generate an array of the users inventory.ad
-
                 //Check if the players inventory is empty and add a message if it is
                 if(consumablesL == "")
                     consumablesL = "Your consumables is empty :slight_frown:";
@@ -50,7 +43,7 @@ module.exports={
                 //Create the embed to output
                 const inventoryEmbed = new Discord.MessageEmbed()
                     .setColor('#0a008c')
-                    .setAuthor(User.username + '\'s Inventory', User.avatarURL())
+                    .setAuthor(player.username + '\'s Inventory', player.avatarURL())
                     .addFields(
                         { name: 'Items', value: inventory, inline: true },
                         { name: 'Consumables', value: consumablesL, inline: true },

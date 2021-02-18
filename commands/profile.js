@@ -1,32 +1,26 @@
 const Discord = require('discord.js');
 const {items} = require('../jsons/items.json');
 
+var functions = require('../functions.js');
+
 module.exports={
     name: 'profile',
     description: "command to show profile",
     execute(message){
 
-        //Check if the user mentioned someone else, meaning they want to check another users inventory
-        if(message.mentions.members.size > 0){
-            id = message.mentions.users.first().id;
-            username = message.mentions.users.first().username;
-        } else {
-            id = message.author.id;
-            username = message.author.username;
-        }
+        //Check if the player mentioned another user
+        const player = functions.checkMention(message);
 
         //Get the users inventory
-        let sql = `SELECT * FROM Users WHERE id = '${id}'`;
+        let sql = `SELECT * FROM Users WHERE id = '${player.id}'`;
         connection.query(sql, (err, rows) =>{
             if(err) throw err;
 
             //Check if the user has an inventory
             if(rows.length < 1){
-                message.channel.send(`${username} has not started their adventure in Erovar!`)
+                message.channel.send(`${player.username} has not started their adventure in Erovar!`)
             } else {
-                const User = client.users.cache.get(rows[0].id); // Getting the user by ID.
-
-                //Generate arraya of the users profile.
+                //Generate arrays of the users profile.
                 var profileStats = `**Level:** ${rows[0].level}\n`;
                 profileStats += `**XP:** ${rows[0].xp}\n`;
                 profileStats += `**HP:** ${rows[0].hp}/${rows[0].max_hp}\n`;
@@ -46,7 +40,7 @@ module.exports={
                 //Create the embed to output
                 const profileEmbed = new Discord.MessageEmbed()
                     .setColor('#0a008c')
-                    .setAuthor(User.username + '\'s Profile', User.avatarURL())
+                    .setAuthor(player.username + '\'s Profile', player.avatarURL())
                     .addFields(
                         { name: '__Stats:__', value: profileStats, inline: true },
                         { name: '__Other:__', value: profileOther, inline: true },

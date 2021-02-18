@@ -5,8 +5,12 @@ module.exports={
     name: 'skills',
     description: "Used to see the players skills and progress in those skills",
     execute(message, args){
+        
+        //Check if the player mentioned another user
+        const player = functions.checkMention(message);
+
         //Create sql to get the users skills from db
-        let sqlSkills = `SELECT gathering, artisan FROM Skills WHERE id = ${message.author.id}`
+        let sqlSkills = `SELECT gathering, artisan FROM Skills WHERE id = ${player.id}`
         connection.query(sqlSkills, (err1, rowsSkills) =>{
             if(err1) throw err1;
 
@@ -22,7 +26,7 @@ module.exports={
             //Create the embed to output
             const skillsEmbed = new Discord.MessageEmbed()
                 .setColor('#00a83e')
-                .setAuthor(message.author.username + '\'s Skills', message.author.avatarURL())
+                .setAuthor(player.username + '\'s Skills', player.avatarURL())
                 .setDescription(skillOutput);
 
             message.channel.send(skillsEmbed);
