@@ -40,23 +40,28 @@ module.exports={
         }
 
         // get users profile to get inventory
-        let sql = `SELECT ${arguments[0]} FROM Inventory WHERE id = '${message.author.id}'`;
+        let sql = `SELECT I.${arguments[0]}, U.hp, U.max_hp FROM Inventory I, Users U WHERE I.id = U.id AND I.id = '${message.author.id}'`;
         connection.query(sql, (err, rows) =>{
             if (err) throw err;
 
             // check to see if user has enough gold
             // if not enough of the item, print error
             if(rows[0][arguments[0]] < 1){
-                message.reply(`You do not have enough ${item.name} ${item.emoji} to give. Check your inventory with \`adv inventory\``);
+                message.reply(`You do not have enough ${item.name} ${item.emoji} to use. Check your inventory with \`adv inventory\``);
                 return;
-            // give the gold
+            // use the item
+            } else if((rows[0]['hp'] >= rows[0]['max_hp']) && arguments[0] == "health_potion"){
+                message.channel.send(`${message.author}, you already have full hp!`);
+                return;
             } else {
 
                 // use the item
                 let sql2 = `UPDATE Users SET ${item.use} WHERE id = '${message.author.id}'`;
+                let sql3 = `UPDATE Inventory SET ${arguments[0]} = ${arguments[0]} - 1 WHERE id = '${message.author.id}'`;
                 connection.query(sql2);
+                connection.query(sql3);
 
-                let outputMsg = `${message.author.username} has used ${item.name} and gained ${item.msg}.`;
+                let outputMsg = `${message.author.username} has used ${item.name} and ${item.msg}.`;
                 // print a message to the user
                 message.channel.send(outputMsg);
                 return;

@@ -119,7 +119,8 @@
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
             "value": 75,
             "type": "consumable",
-            "use" : "hp = max_hp"
+            "use" : "hp = max_hp",
+            "msg" : "fullly healed your hp"
         },
         "cowhide":{
             "name": "Cowhide",
@@ -142,7 +143,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "max_hp = max_hp + 5, hp = max_hp",
-            "msg" : "+5 hp :heart:"
+            "msg" : "gained +5 hp :heart:"
         },
         "health_boost_b":{   
             "name": "Health Boost B",
@@ -151,7 +152,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "max_hp = max_hp +10, hp = max_hp",
-            "msg" : "+10 hp :heart:"
+            "msg" : "gained +10 hp :heart:"
         },
         "attack_boost_a":{   
             "name": "Attack Boost A",
@@ -160,7 +161,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "attack = attack + 1",
-            "msg" : "+1 attack :crossed_swords:"
+            "msg" : "gained +1 attack :crossed_swords:"
         },
         "attack_boost_b":{   
             "name": "Attack Boost B",
@@ -169,7 +170,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "attack = attack + 2",
-            "msg" : "+2 attack :crossed_swords:"
+            "msg" : "gained +2 attack :crossed_swords:"
         },
         "defence_boost_a":{   
             "name": "Defence Boost A",
@@ -178,7 +179,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "defence = defence + 1",
-            "msg" : "+1 defence :shield:"
+            "msg" : "gained +1 defence :shield:"
         },
         "defence_boost_b":{   
             "name": "Defence Boost B",
@@ -187,7 +188,7 @@
             "value": 1,
             "type": "consumable",
             "use" : "defence = defence + 2",
-            "msg" : "+2 defence :shield:"
+            "msg" : "gained +2 defence :shield:"
         }
     },
     "shop":{
