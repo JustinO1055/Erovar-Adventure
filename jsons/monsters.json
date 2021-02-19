@@ -17,7 +17,13 @@
                 "encounter": 1,
                 "moves" : null,
                 "drops":[
-                    [null, 1]
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             },
             "seagull":{
@@ -36,7 +42,13 @@
                 "encounter": 1,
                 "moves" : null,
                 "drops":[
-                    [null, 1]
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             },
             "wasp":{
@@ -55,7 +67,13 @@
                 "encounter": 2,
                 "moves" : null,
                 "drops":[
-                    [null, 1]
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             }
         },
@@ -113,7 +131,13 @@
                 "encounter": 1,
                 "moves" : null,
                 "drops":[
-                    [null, 1]
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             },
             "jelly": {
@@ -132,7 +156,13 @@
                 "encounter": 1,
                 "moves" : null,
                 "drops":[
-                    [null, 1]
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             },
             "cow": {
@@ -151,8 +181,14 @@
                 "encounter": 2,
                 "moves" : null,
                 "drops":[
-                    ["cowhide", 2],
-                    [null, 98]
+                    ["cowhide", 50],
+                    [null, 941],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
                 ]
             }
         },

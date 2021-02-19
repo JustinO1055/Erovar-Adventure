@@ -162,6 +162,9 @@ client.on('message', message => {
                 } else if (command === 'give'){
                     // execute the command in the file give.js
                     client.commands.get('give').execute(message, args);
+                } else if (command === 'use'){
+                    // execute the command in the file use.js
+                    client.commands.get('use').execute(message, args);
                 }
             }
         });

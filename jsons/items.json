@@ -80,13 +80,46 @@
             "description": "First pickaxe that you can make. Craftable in area 0. Use `adv recipes equipment` for ingredients.",
             "value": 245,
             "type": "equipment"
+        }, 
+        "pine_shield":{
+            "name": "Pine Shield",
+            "emoji": "<:pineshield:811813315701374996>",
+            "description": "Stronger shield that you can make. Protects you from some damage. Use `adv recipes equipment` for ingredients.",
+            "value": 1250,
+            "attack": 0,
+            "defence": 6,
+            "type": "equipment"
+        },
+        "copper_sword":{
+            "name": "Copper Sword",
+            "emoji": "<:coppersword:811669116384968724>",
+            "description": "Stronger sword than the basic. You can do more damage now! Use `adv recipes equipment` for ingredients.",
+            "value": 1350,
+            "attack": 6,
+            "defence": 0,
+            "type": "equipment"
+        },
+        "copper_axe":{
+            "name": "Copper Axe",
+            "emoji": "<:copperaxe:811664166212862043>",
+            "description": "Second axe that you can make. Craftable in area 1. Able to find more pine logs with this. Use `adv recipes equipment` for ingredients.",
+            "value": 1000,
+            "type": "equipment"
+        },
+        "copper_pickaxe":{
+            "name": "Copper Pickaxe",
+            "emoji": "<:copperpickaxe:811662167664230420>",
+            "description": "Second pickaxe that you can make. Craftable in area 1. Able to find more copper ore with this. Use `adv recipes equipment` for ingredients.",
+            "value": 1000,
+            "type": "equipment"
         },
         "health_potion":{
             "name": "Health Potion",
             "emoji": "<:healthpotion:808098747585658921>",
             "description": "Used to fully heal the player using `adv heal`. Buyable in the shop. To see shop stock use `adv shop`",
             "value": 75,
-            "type": "consumable"
+            "type": "consumable",
+            "use" : "hp = max_hp"
         },
         "cowhide":{
             "name": "Cowhide",
@@ -101,6 +134,60 @@
             "description": "Crafted by using cowhide, sticks and logs. Recipe found in `adv recipes items`. Used to create armor.",
             "value": 400,
             "type": "resource"
+        },
+        "health_boost_a":{   
+            "name": "Health Boost A",
+            "emoji": "<:hpboostA:812093131892850718> ",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use health boost a` to gain +5 hp :heart:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "max_hp = max_hp + 5, hp = max_hp",
+            "msg" : "+5 hp :heart:"
+        },
+        "health_boost_b":{   
+            "name": "Health Boost B",
+            "emoji": "<:hpboostB:812093133856702464> ",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use health boost b` to gain +10 hp :heart:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "max_hp = max_hp +10, hp = max_hp",
+            "msg" : "+10 hp :heart:"
+        },
+        "attack_boost_a":{   
+            "name": "Attack Boost A",
+            "emoji": "<:attackboostA:812093131826659348> ",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use attack boost a` to gain +1 attack :crossed_swords:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "attack = attack + 1",
+            "msg" : "+1 attack :crossed_swords:"
+        },
+        "attack_boost_b":{   
+            "name": "Attack Boost B",
+            "emoji": "<:attackboostB:812093131893768202> ",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use attack boost b` to gain +2 attack :crossed_swords:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "attack = attack + 2",
+            "msg" : "+2 attack :crossed_swords:"
+        },
+        "defence_boost_a":{   
+            "name": "Defence Boost A",
+            "emoji": "<:defenceboostA:812093131569889338> ",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use defence boost a` to gain +1 defence :shield:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "defence = defence + 1",
+            "msg" : "+1 defence :shield:"
+        },
+        "defence_boost_b":{   
+            "name": "Defence Boost B",
+            "emoji": "<:defenceboostB:812093132128649247>",
+            "description": "Rare drop obtained from fighting. Can be used with `adv use defence boost b` to gain +2 defence :shield:",
+            "value": 1,
+            "type": "consumable",
+            "use" : "defence = defence + 2",
+            "msg" : "+2 defence :shield:"
         }
     },
     "shop":{

@@ -9,7 +9,7 @@ module.exports={
     description: "Used to give another player items or gold)",
     execute(message, args){
 
-        //Check if the player has supplied an item to craft and give a message if they do no use the command correctly
+        //Check if the player has supplied an item to give and give a message if they do no use the command correctly
         if(args.length < 1){
             message.channel.send(`${message.author}, the proper use of this command is \`adv give <@person> <item> [quantity]\``);
             return;
@@ -99,7 +99,7 @@ module.exports={
         // if its an item
         } else {
 
-            // get users profile to get gold
+            // get users profile to get inventory
             let sql = `SELECT ${arguments[0]} FROM Inventory WHERE id = '${message.author.id}'`;
             connection.query(sql, (err, rows) =>{
                 if (err) throw err;
