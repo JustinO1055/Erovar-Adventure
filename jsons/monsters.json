@@ -165,6 +165,31 @@
                     ["defence_boost_b", 1]
                 ]
             },
+            "goblin": {
+                "name": "Goblin",
+                "emoji": "<:goblin:812396561739939890>",
+                "minattack": 8,
+                "maxattack": 15,
+                "mindefence": 4,
+                "maxdefence": 18,
+                "minhp": 10,
+                "maxhp": 18,
+                "minxp": 70,
+                "maxxp": 160,
+                "mingold": 70,
+                "maxgold": 110,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["hp_boost_a", 2],
+                    ["hp_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
             "cow": {
                 "name": "cow",
                 "emoji": "<:cowEro:810927764109787158>",
@@ -178,7 +203,7 @@
                 "maxxp": 175,
                 "mingold": 75,
                 "maxgold": 150,
-                "encounter": 2,
+                "encounter": 3,
                 "moves" : null,
                 "drops":[
                     ["cowhide", 50],
