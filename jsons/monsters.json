@@ -237,6 +237,26 @@
                     "Web",
                     "Cleave"
                 ]
+            },
+            "skeleton":{
+                "name": "Skeleton",
+                "emoji": "<:skeletonEro:812454036581122050>",
+                "minattack": 15,
+                "maxattack": 25,
+                "mindefence": 10,
+                "maxdefence": 21,
+                "minhp": 37,
+                "maxhp": 56,
+                "minxp": 180,
+                "maxxp": 260,
+                "mingold": 275,
+                "maxgold": 450,
+                "encounter": 1,
+                "moves":[
+                    "Bone Toss",
+                    "Bone Wack",
+                    "Arrow Shot"
+                ]
             }
         },
         "boss":{
