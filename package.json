@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JustinO1055/Erovar-Adventure#readme",
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.0",
     "discord.js": "^12.5.1",
     "mariadb": "^2.5.2",
     "mysql": "^2.18.1"

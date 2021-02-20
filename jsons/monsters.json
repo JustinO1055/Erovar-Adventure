@@ -213,6 +213,15 @@
                     "Cleave"
                 ]
             }
+        },
+        "boss":{
+            "brownbear":{
+                "name": "Brown Bear",
+                "emoji": "<:brownbear:806229086153605150>",
+                "hp": 150,
+                "attack": 10,
+                "defence": 10
+            }
         }
     },
     "area2": {}
