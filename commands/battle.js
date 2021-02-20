@@ -177,7 +177,7 @@ function battleFight(monster, rows, encounterEmbed, message){
         result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} XP and ${monster[6]} Gold! from the battle!`;
         // if the drop is not null, drop was obtained, append it to the message
         if(monster[8] != null){
-            result += `\nYou have gathered a ${monster[8]} ${items[monster[8]]['emoji']} after defeating the ${monster[0]}.`;
+            result += `\nYou have gathered a ${items[monster[8]]['name']} ${items[monster[8]]['emoji']} after defeating the ${monster[0]}.`;
         }
     } else{
         result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
