@@ -83,8 +83,9 @@ module.exports={
                             Once you find a target, you will see its HP, attack and defense and then you can choose to fight it or run away.\n
                             Attempting to run away won't guarantee that will you get away uninjured.\n
                             Damage done will be relative to the difference between attack and defense. There is some element of randomness to the damage dealt, but you should be able to determine whether you can beat the monster or not.\n
-                            The fight will only last one turn, so unless you beat the monster in one hit, you will not be able to get a reward.`},
-                        { name: `Usage:`, value: `\`adv battle\``}
+                            The fight will only last one turn, so unless you beat the monster in one hit, you will not be able to get a reward.\n
+                            Note: You can use the aurgument skip to skip the decision and automatically fight the enemy.`},
+                        { name: `Usage:`, value: `\`adv battle\` | \`adv battle skip\``}
                     );
     
                 break;

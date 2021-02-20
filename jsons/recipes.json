@@ -14,6 +14,17 @@
             ],
             "xp" : 0.1
         },
+        "copper_ingot":{
+            "items":[              
+                
+                ["log",
+                "2"],              
+                
+                ["copper_ore",
+                "2"]
+            ],
+            "xp" : 1
+        },
         "leather":{
             "items":[
                 ["cowhide",
@@ -78,6 +89,68 @@
                 "1"]
             ],
             "xp" : 1
+        },
+        "copper_sword":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["pine_log",
+                "2"],
+                            
+                ["copper_ingot",
+                "3"]
+            ],
+            "xp" : 2
+        },
+        "pine_shield":{
+            "items":[
+                ["pine_log",
+                "3"],
+            
+                ["leather",
+                "1"],
+                            
+                ["copper_ingot",
+                "1"]
+            ],
+            "xp" : 3
+        },
+        "copper_pickaxe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["log",
+                "1"],
+                            
+                ["copper_ingot",
+                "2"]
+            ],
+            "xp" : 2
+        },
+        "copper_axe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["log",
+                "1"],
+                            
+                ["copper_ingot",
+                "2"]
+            ],
+            "xp" : 2
+        },
+        "copper_plated_leather_armor":{
+            "items":[
+                ["copper_ingot",
+                "1"],
+            
+                ["leather",
+                "3"]
+            ],
+            "xp" : 3
         }
     }
 }

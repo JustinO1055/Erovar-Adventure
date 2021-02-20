@@ -44,9 +44,9 @@
         },
         "copper_ingot":{
             "name": "Copper Ingot",
-            "emoji": "<:coppperore:810927764411646002>",
+            "emoji": "<:copperingot:811659792447832104>",
             "description": "Crafted by using copper ore <:coppperore:810927764411646002> and logs. Recipe found in `adv recipes items`. Used to create equipment.",
-            "value": 75,
+            "value": 150,
             "type": "resource"
         },
         "basic_sword":{
@@ -111,6 +111,15 @@
             "emoji": "<:copperpickaxe:811662167664230420>",
             "description": "Second pickaxe that you can make. Craftable in area 1. Able to find more copper ore with this. Use `adv recipes equipment` for ingredients.",
             "value": 1000,
+            "type": "equipment"
+        },
+        "copper_plated_leather_armor":{
+            "name": "Copper Plated Leather Armor",
+            "emoji": "<:copperplatedleatherarmor:812498329371803650>",
+            "description": "First set of armor that you can make. Craftable in area 1. Use `adv recipes equipment` for ingredients.",
+            "value": 1800,
+            "attack": 2,
+            "defence": 7,
             "type": "equipment"
         },
         "health_potion":{

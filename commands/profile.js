@@ -33,7 +33,7 @@ module.exports={
 
                 var profileEquip = `**Sword:** ${checkEquipment(rows[0].sword)}\n`;
                 profileEquip += `**Shield:** ${checkEquipment(rows[0].shield)}\n`;
-                //profileEquip += `**Armor:** ${checkEquipment(rows[0].armor)}\n`;
+                profileEquip += `**Armor:** ${checkEquipment(rows[0].armor)}\n`;
                 profileEquip += `**Pickaxe:** ${checkEquipment(rows[0].pickaxe)}\n`;
                 profileEquip += `**Axe:** ${checkEquipment(rows[0].axe)}`;
 
