@@ -69,10 +69,10 @@ module.exports={
                     var quantity = parseInt(recipe['items'][i][1]) * arguments[1];
                     if(rows[0][itemName] < quantity){
                         //error += `${rows[0][recipe[i]['itemname']]}/ ${recipe[i]['quantity']} ${recipe[i]['itemname']} ` + getEmoji(recipe[i]['itemname']) + ` :x:`;
-                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + `${itemName} :x:\n`;
+                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + `${items[itemName]['name']} :x:\n`;
                         craftable = false;
                     } else {
-                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + ` ${itemName} :white_check_mark:\n`;
+                        error += `${rows[0][itemName]}/${quantity} ` + functions.getEmoji(itemName) + ` ${items[itemName]['name']} :white_check_mark:\n`;
                         //prep the sql statement
                         sql2 += `${itemName} = ${itemName} - ${quantity}, `;                
                     }
@@ -125,9 +125,9 @@ module.exports={
                         // append the item and the user to the sql query
                         sql2 += `${arguments[0]} = ${arguments[0]} + ${arguments[1]} WHERE id = '${message.author.id}'`;
                         if(arguments[1] == 1){
-                            message.channel.send(`You have crafted a ${arguments[0]} ` + functions.getEmoji(arguments[0]));
+                            message.channel.send(`You have crafted a ${items[arguments[0]]['name']} ` + functions.getEmoji(arguments[0]));
                         } else {
-                            message.channel.send(`You have crafted ${arguments[1]} ${arguments[0]}s ` + functions.getEmoji(arguments[0]));
+                            message.channel.send(`You have crafted ${arguments[1]} ${items[arguments[0]]['name']}s ` + functions.getEmoji(arguments[0]));
                         }
                         
                         // prep adding xp to the user
