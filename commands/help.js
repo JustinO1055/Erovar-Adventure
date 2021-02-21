@@ -256,6 +256,14 @@ module.exports={
                     );
     
                 break;
+            case 'use':                
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Use`, value: `Used to use consumables that the player has. Can check consumables using \`adv inventory\`. For help on the consumable, use \`adv help <consumable\``},
+                        { name: `Usage:`, value: `\`adv use <consumable>\``}
+                );
+                break;
             case 'sell':
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
