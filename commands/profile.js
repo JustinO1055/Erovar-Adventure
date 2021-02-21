@@ -20,9 +20,12 @@ module.exports={
             if(rows.length < 1){
                 message.channel.send(`${player.username} has not started their adventure in Erovar!`)
             } else {
+
+                //Get players Level progress
+                playerXP = functions.xpCurrentNext(rows[0].level);
                 //Generate arrays of the users profile.
                 var profileStats = `**Level:** ${rows[0].level}\n`;
-                profileStats += `**XP:** ${rows[0].xp}\n`;
+                profileStats += `**XP:** ${rows[0].xp - playerXP[0]}/${playerXP[1] - playerXP[0]}\n`;
                 profileStats += `**HP:** ${rows[0].hp}/${rows[0].max_hp}\n`;
                 profileStats += `**Attack:** ${rows[0].attack}\n`;
                 profileStats += `**Defence:** ${rows[0].defence}`;
