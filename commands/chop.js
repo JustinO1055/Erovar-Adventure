@@ -18,10 +18,10 @@ module.exports={
 
             // command is only to be used in at least area 1, ensure that the user is not in area 0
             if(rowsUser[0].area == 0){
-                message.reply('mine is unlocked in area 1. \n\nUse \`adv h\` for commands.');
+                message.reply('chop is unlocked in area 1. \n\nUse \`adv h\` for commands.');
                 return;
             } else if(rowsUser[0].axe == "NONE"){
-                message.reply('You must have a axe to mine. \n\nUse \`adv recipes equipment\` for recipes to make a axe.');
+                message.reply('You must have a axe to chop. \n\nUse \`adv recipes equipment\` for recipes to make a axe.');
                 return;
             }
 

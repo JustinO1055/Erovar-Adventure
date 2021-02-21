@@ -76,7 +76,7 @@ client.on('message', message => {
                     client.commands.get('start').execute(message, args);
                 // otherwise prompt them to start
                 } else {
-                    message.reply("Please use **adv start** to begin your journey into Erovar!");
+                    message.reply("Please use `adv start` to begin your journey into Erovar!");
                 }
             // otherwise the user has alreay began
             // execute their command
