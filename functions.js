@@ -30,7 +30,7 @@ module.exports = {
 
         return [xpCurrent, xpNext];
     },
-    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp, gold, drop) {
+    battleSuccess: function(message, currentLevel, xpCurrent, xpObtained, hp, gold, drop, name) {
         //Get how much xp for player to level up
         xpValues = this.xpCurrentNext(currentLevel);
 
@@ -62,9 +62,17 @@ module.exports = {
         if(typeof(drop) != 'undefined' && drop != null){
             sql2 = `UPDATE Inventory SET ${drop} = ${drop} + 1 WHERE id = ${message.author.id}`;
             connection.query(sql2);
+
+            // update the stats
+            sql4 = `UPDATE Stats SET ${drop} = ${drop} + 1 WHERE id = ${message.author.id}`;
+            connection.query(sql4);
         }
 
+        // create query to update monster kill stats
+        let sql3 = `UPDATE Stats SET ${name} = ${name} + 1 WHERE id = ${message.author.id}`;
+
         connection.query(sql);
+        connection.query(sql3);
     },
     // function to generate a random Integer between two numbers
     randomInteger: function(min, max) {

@@ -18,7 +18,7 @@ module.exports = {
         .setColor('#0a008c')
         .setTitle("Shop Stock")
         .addFields(
-            { name: 'Help', value: 'You can buy items by using `adv buy [item]`'},
+            { name: 'Help', value: 'You can buy items by using `adv buy <item> [quantity]`'},
             { name: 'Stock', value: shopMsg},
         );
 

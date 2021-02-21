@@ -80,7 +80,8 @@ module.exports={
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['maxgold'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['moves'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['drops']));
+                            MONSTERS[`area${rows[0].area}`]['battle'][m]['drops'],
+                            m));
                     }
 
                     //Determine which monster is encountered
@@ -94,6 +95,7 @@ module.exports={
                     // 6 = gold for winning
                     // 7 = moves. (not used in battle)
                     // 8 = Drop earned 
+                    // 9 = json name
                     let monster = monsterEncounterTable.determineHit();
                     // prep message to send, could directly send, want it to be sent right before embed
                     let encounterMsg = `A wild ${monster[4]} has appeared!`;
@@ -201,5 +203,5 @@ function battleFight(monster, rows, encounterEmbed, message){
     if(playerCurrentHp == 0)
         functions.playerDeath(message, rows[0].level, rows[0].area);
     else if(monsterCurrentHp == 0)
-        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6], monster[8]);
+        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6], monster[8], monster[9]);
 }

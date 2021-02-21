@@ -136,7 +136,8 @@
             "emoji": "<:cowhide:810982102987833344>",
             "description": "Item dropped from <:cowEro:810927764109787158> found in area 1. Used to make leather. Use `adv recipes items` for recipes.",
             "value": 275,
-            "type": "resource"
+            "type": "resource",
+            "droppable" : true
         },
         "leather":{
             "name": "Leather",
@@ -151,6 +152,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use health boost a` to gain +5 hp :heart:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "max_hp = max_hp + 5, hp = max_hp",
             "msg" : "gained +5 hp :heart:"
         },
@@ -160,6 +162,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use health boost b` to gain +10 hp :heart:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "max_hp = max_hp +10, hp = max_hp",
             "msg" : "gained +10 hp :heart:"
         },
@@ -169,6 +172,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use attack boost a` to gain +1 attack :crossed_swords:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "attack = attack + 1",
             "msg" : "gained +1 attack :crossed_swords:"
         },
@@ -178,6 +182,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use attack boost b` to gain +2 attack :crossed_swords:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "attack = attack + 2",
             "msg" : "gained +2 attack :crossed_swords:"
         },
@@ -187,6 +192,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use defence boost a` to gain +1 defence :shield:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "defence = defence + 1",
             "msg" : "gained +1 defence :shield:"
         },
@@ -196,6 +202,7 @@
             "description": "Rare drop obtained from fighting. Can be used with `adv use defence boost b` to gain +2 defence :shield:",
             "value": 1,
             "type": "consumable",
+            "droppable" : true,
             "use" : "defence = defence + 2",
             "msg" : "gained +2 defence :shield:"
         }

@@ -60,3 +60,26 @@ CREATE TABLE Skills (
     artisan INT NOT NULL DEFAULT 0,    
     FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE Stats (
+    id VARCHAR(20) NOT NULL PRIMARY KEY,
+    greensnake INT NOT NULL DEFAULT 0,
+    seagull INT NOT NULL DEFAULT 0,
+    wasp INT NOT NULL DEFAULT 0,
+    blackbat INT NOT NULL DEFAULT 0,
+    ghostly INT NOT NULL DEFAULT 0,
+    jelly INT NOT NULL DEFAULT 0,
+    goblin INT NOT NULL DEFAULT 0,
+    cow INT NOT NULL DEFAULT 0,
+    spider INT NOT NULL DEFAULT 0,
+    skeleton INT NOT NULL DEFAULT 0,
+    cowhide INT NOT NULL DEFAULT 0,
+    health_boost_a INT NOT NULL DEFAULT 0,
+    health_boost_b INT NOT NULL DEFAULT 0,
+    attack_boost_a INT NOT NULL DEFAULT 0,
+    attack_boost_b INT NOT NULL DEFAULT 0,
+    defence_boost_a INT NOT NULL DEFAULT 0,
+    defence_boost_b INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
+
+) engine = "innoDB";

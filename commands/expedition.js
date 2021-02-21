@@ -71,7 +71,8 @@ module.exports={
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['mingold'],
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxgold'],
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
-                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves']));
+                            MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves'],
+                            m));
                     }
 
                     //Determine which monster is encountered
@@ -84,6 +85,8 @@ module.exports={
                     // 5 = xp for winning
                     // 6 = gold for winning
                     // 7 = attacks in array form
+                    // 8 = drop obtained
+                    // 9 = json name
                     let monster = monsterEncounterTable.determineHit();
 
                     // call the combat function to initate the expedition battle
@@ -238,7 +241,7 @@ async function combat(player, monster, message){
                 if(playerCurrentHP == 0){
                     functions.playerDeath(message, player.level, player.area);
                 } else {
-                    functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6]);
+                    functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6], null, monster[9]);
                 }
             }
         })

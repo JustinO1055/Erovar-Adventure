@@ -191,7 +191,7 @@
                 ]
             },
             "cow": {
-                "name": "cow",
+                "name": "Cow",
                 "emoji": "<:cowEro:810927764109787158>",
                 "minattack": 6,
                 "maxattack": 10,
@@ -268,6 +268,5 @@
                 "defence": 10
             }
         }
-    },
-    "area2": {}
+    }
 }

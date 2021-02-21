@@ -165,6 +165,9 @@ client.on('message', message => {
                 } else if (command === 'use'){
                     // execute the command in the file use.js
                     client.commands.get('use').execute(message, args);
+                } else if (command === 'stats'){
+                    // execute the command in the file stats.js
+                    client.commands.get('stats').execute(message, args);
                 }
             }
         });

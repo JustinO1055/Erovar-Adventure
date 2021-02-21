@@ -19,7 +19,7 @@ module.exports={
                 .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item>\``)
                 .setColor('#FF69B4')
                 .addFields(
-                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`inventory\` | \`ready\` | \`profile\` | \`skills\` | \`sleep\``},
+                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`inventory\` | \`ready\` | \`profile\`| \`skills\` | \`sleep\` | \`stats\` `},
                     { name: `Combat Commands`, value: `\`battle\` | \`boss\` | \`expedition\` | \`heal\` | \`sleep\``},
                     { name: `Shop Commands`, value: `\`buy\` | \`use\` | \`sell\` | \`shop\``},
                     { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`disassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
@@ -296,6 +296,15 @@ module.exports={
                     .addFields(
                         { name: `Sleep`, value: `Used to fully heal yourself every 18 hours.`},
                         { name: `Usage:`, value: `\`adv heal\``}
+                    );
+    
+                break;
+            case 'stats':
+                //Create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Stats`, value: `Used to see how many monsters you have killed or how many drops you have recieved from monsters.`},
+                        { name: `Usage:`, value: `\`adv stats [player]\` | \`adv stats [player] monster [area]\` | \`adv stats [player] drops\``}
                     );
     
                 break;
