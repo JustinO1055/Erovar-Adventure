@@ -116,7 +116,7 @@ async function combat(player, monster, message){
     let percent = functions.threeRandomInteger();
 
     //Decalare player moves for readding to embed
-    encounterPlayerMoves = { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back."};
+    encounterPlayerMoves = { name: "Your Moves:", value: "What are you going to do?\n\`attack\` to recklessly attack the monster.\n\`block\` to block the monsters attack and then attack back.\n\`dodge\` to dodge the monsters attack and then attack back.\n\`run\` a last resort if you cannot beat the monster"};
 
     // create the embed to send
     const encounterEmbed = new Discord.MessageEmbed()
@@ -134,7 +134,7 @@ async function combat(player, monster, message){
     var monsterCurrentHP = monster[3];
 
     // set up listening for response
-    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'attack' || m.content.toLowerCase() == 'block' || m.content.toLowerCase() == 'dodge');
+    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'attack' || m.content.toLowerCase() == 'block' || m.content.toLowerCase() == 'dodge' || m.content.toLowerCase() == 'run');
 
     while(playerCurrentHP > 0 && monsterCurrentHP > 0) {
         message.channel.send(encounterEmbed)
@@ -162,7 +162,17 @@ async function combat(player, monster, message){
             }
 
             //Determine the outome of the turn
-            if((command == "attack" && attackIndex == 0) || (command == "block" && attackIndex == 1) || (command == "dodge" && attackIndex == 2)){
+            if(command == "run"){
+                message.channel.send("You were able to run away.\nYou got nothing from that fight and realize you lost half your HP.");
+                monsterCurrentHP = 0;
+
+                // create sql statement
+                let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${message.author.id}'`;
+                // query the db
+                connection.query(sql);
+                return;
+
+            }else if((command == "attack" && attackIndex == 0) || (command == "block" && attackIndex == 1) || (command == "dodge" && attackIndex == 2)){
                 //Calculate monsters new hp
                 monsterCurrentHP = functions.calculateDamage(player.attack, monster[2], monsterCurrentHP, 1);
 
