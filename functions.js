@@ -136,13 +136,21 @@ module.exports = {
         //Difference of Attackers attack stat and defenders defence stat multiplied by 5
         if(att > def){
             //Calculate the upper and lower bound of damage that use can do
-            damageUpper = Math.round((3 + att * 0.5) + 3);
-            damageLower = Math.round(((3 + att * 0.5) - 3 > 1) ? (3 + att) - 3 : 1);
+            damageUpper = Math.round(att * 0.5 + 3);
+            damageLower = Math.round(((att * 0.5 - 3) > 1) ? (att * 0.5 - 3): 1);
 
             //Determine the damage the user will do
-            attackDamage = (att - def) * this.randomInteger(damageLower, damageUpper);
-        } else
-            return hp;
+            attackDamage = (att - def) * 0.5 * this.randomInteger(damageLower, damageUpper);
+        } else {
+            //Calculate the upper and lower bound of damage that use can do
+            damageUpper = Math.round(att * 0.25 + 3);
+            damageLower = Math.round(((att * 0.25 - 3) > 1) ? (att * 0.25 - 3) : 1);
+
+            //Determine the damage the user will do
+            attackDamage = this.randomInteger(damageLower, damageUpper);
+        }
+
+        console.log(attackDamage);
 
         //Calculate attackDamage after percent
         attackDamage = Math.round(attackDamage *= percent);
