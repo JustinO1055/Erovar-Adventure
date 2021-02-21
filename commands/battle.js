@@ -159,14 +159,14 @@ module.exports={
 //Function for determining outcome of fighting in the battle
 function battleFight(monster, rows, encounterEmbed, message){
     //Calculate Monsters new hp
-    monsterCurrentHp = functions.calculateDamage(rows[0].attack, monster[2], monster[3], 1);
+    monsterCurrentHp = functions.calculateDamage(rows[0].attack, monster[2], monster[3], 2);
     
     //Update the Monsters stat on the embed
     encounterStats = `**HP**: ${monsterCurrentHp}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
     encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
 
     //Calculate players new hp
-    playerCurrentHp = functions.calculateDamage(monster[1], rows[0].defence, rows[0].hp, 1);
+    playerCurrentHp = functions.calculateDamage(monster[1], rows[0].defence, rows[0].hp, 2);
 
     //Update the Players stat on the embed
     userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
