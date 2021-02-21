@@ -143,6 +143,9 @@ async function combat(player, monster, message){
     while(playerCurrentHP > 0 && monsterCurrentHP > 0) {
         message.channel.send(encounterEmbed)
         await message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
+            //Store health for player and monster
+            tempHP = [playerCurrentHP, monsterCurrentHP];
+
             //Convert message to lowercase
             var command = mes.first().content.toLowerCase();
 
@@ -196,6 +199,10 @@ async function combat(player, monster, message){
                 playerCurrentHP = functions.calculateDamage(monster[1], player.defence, playerCurrentHP, 0.5);
             }
 
+            //Update the previous turns result
+            enounterResult = { name: `Previous Turn Result:`, value: `You used **${command.charAt(0).toUpperCase() + command.slice(1)}** and the ${monster[0]} used **${monster[7][attackIndex]}**\nYou were hit for ${tempHP[0] - playerCurrentHP} HP :hearts: and the ${monster[0]} was hit for ${tempHP[1] - monsterCurrentHP} HP :hearts:` };
+
+
             //If the player or monster isnt dead, output new health and move values in embed
             if(playerCurrentHP > 0 && monsterCurrentHP > 0) {
                 //set the stats for the user for the embed
@@ -212,10 +219,10 @@ async function combat(player, monster, message){
                 //Update the monster moves on the embed
                 encounterMonsterMove = { name: `${monster[0]}'s Moves:`, value: `What will the enemy do?\n\`${monster[7][0]}\` (${percent[0]}%)\n\`${monster[7][1]}\` (${percent[1]}%)\n\`${monster[7][2]}\` (${percent[2]}%)\n`};
 
-                encounter = [encounterPlayer, encounterMonster, encounterPlayerMoves, encounterMonsterMove]
+                encounter = [enounterResult, encounterPlayer, encounterMonster, encounterPlayerMoves, encounterMonsterMove]
 
                 //Update Embed
-                encounterEmbed.spliceFields(0, 4, encounter);
+                encounterEmbed.spliceFields(0, 5, encounter);
 
             } else {
                 //set the stats for the user for the embed
@@ -232,17 +239,16 @@ async function combat(player, monster, message){
                     encounterOver = { name: "Fight Over", value: `You beat the ${monster[0]}.\nYou got ${monster[5]} XP and ${monster[6]} Gold!`};
                 }
 
-                encounter = [encounterPlayer, encounterMonster, encounterOver]
+                encounter = [enounterResult, encounterPlayer, encounterMonster, encounterOver]
 
                 //Update Embed
-                encounterEmbed.spliceFields(0, 4, encounter);
+                encounterEmbed.spliceFields(0, 5, encounter);
 
                 message.channel.send(encounterEmbed);
 
                 if(playerCurrentHP == 0){
                     functions.playerDeath(message, player.level, player.area);
                 } else {
-                    console.log(monster[9]);
                     functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6], null, monster[9]);
                 }
             }

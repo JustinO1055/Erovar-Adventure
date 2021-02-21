@@ -158,8 +158,6 @@ module.exports = {
             attackDamage = this.randomInteger(damageLower, damageUpper);
         }
 
-        console.log(attackDamage);
-
         //Calculate attackDamage after percent
         attackDamage = Math.round(attackDamage *= percent);
 
