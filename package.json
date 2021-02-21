@@ -1,6 +1,6 @@
 {
   "name": "erovar-adventure",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Discord RPG game bot for Erovar Adventure.",
   "main": "main.js",
   "scripts": {
