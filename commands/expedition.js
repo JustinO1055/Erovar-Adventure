@@ -72,6 +72,7 @@ module.exports={
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['maxgold'],
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['emoji'],
                             MONSTERS[`area${rows[0].area}`]['expedition'][m]['moves'],
+                            null,
                             m));
                     }
 
@@ -241,6 +242,7 @@ async function combat(player, monster, message){
                 if(playerCurrentHP == 0){
                     functions.playerDeath(message, player.level, player.area);
                 } else {
+                    console.log(monster[9]);
                     functions.battleSuccess(message, player.level, player.xp, monster[5], playerCurrentHP, monster[6], null, monster[9]);
                 }
             }
