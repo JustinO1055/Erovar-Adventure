@@ -19,10 +19,12 @@ module.exports={
 			let sql3 = `INSERT INTO Inventory(id) VALUES ('${message.author.id}')`;
 			let sql4 = `INSERT INTO Cooldown(id) VALUES ('${message.author.id}')`;
             let sql5 = `INSERT INTO Skills(id) VALUES ('${message.author.id}')`;
+            let sql6 = `INSERT INTO Stats(id) VALUES ('${message.author.id}')`;
             connection.query(sql2);
 			connection.query(sql3);
 			connection.query(sql4);
             connection.query(sql5);
+            connection.query(sql6);
 
             //Create the embed to start message
             const startEmbed = new Discord.MessageEmbed()
