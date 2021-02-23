@@ -66,7 +66,7 @@ module.exports={
                         case "copper_pickaxe":
                             var pickaxe = 3;
                             break;
-                        case "tin_pickaxe":
+                        case "bronze_pickaxe":
                             var pickaxe = 5;
                             break;
                     }

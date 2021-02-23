@@ -21,6 +21,13 @@
 			"value": 250,
             "type": "resource"
         },
+        "mahogany_log":{
+            "name": "Mahogany Log",
+            "emoji": "<:mahoganylog:813650064215506954>",
+            "description": "Found in area 2 using `chop`. Used to create higher level equipment and higher tier wood materials.",
+			"value": 500,
+            "type": "resource"
+        },
         "pebble":{
             "name": "Pebble",
             "emoji": "<:pebble:801895841178451998>",

@@ -260,9 +260,9 @@
             }
         },
         "boss":{
-            "brownbear":{
-                "name": "Brown Bear",
-                "emoji": "<:brownbear:806229086153605150>",
+            "ogre":{
+                "name": "Ogre",
+                "emoji": "<:ogre:813485373878960189>",
                 "hp": 150,
                 "attack": 10,
                 "defence": 10
@@ -392,6 +392,26 @@
                     "Laser Eye",
                     "Tear Shot",
                     "Slap"
+                ]
+            },
+            "vespera":{
+                "name": "Vespera",
+                "emoji": "<:vespera:813828379656192030>",
+                "minattack": 20,
+                "maxattack": 30,
+                "mindefence": 17,
+                "maxdefence": 25,
+                "minhp": 50,
+                "maxhp": 80,
+                "minxp": 1500,
+                "maxxp": 2000,
+                "mingold": 1000,
+                "maxgold": 1500,
+                "encounter": 1,
+                "moves":[
+                    "Chomp",
+                    "Super Sonic Wave",
+                    "Whirlwind"
                 ]
             }
         },
