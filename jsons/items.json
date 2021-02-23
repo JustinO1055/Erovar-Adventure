@@ -49,6 +49,20 @@
             "value": 150,
             "type": "resource"
         },
+        "tin_ore":{
+            "name": "Tin Ore",
+            "emoji": "<:tinOre:813572436598587402>",
+            "description": "Found in area 2 using `mine`. Used to create higher level equipment and higher tier rock materials.",
+            "value": 75,
+            "type": "resource"
+        },
+        "bronze_ingot":{
+            "name": "Bronze Ingot",
+            "emoji": "<:bronzeIngot:813572436091994164>",
+            "description": "Crafted by using copper ore <:coppperore:810927764411646002>, tin ore <:tinOre:813572436598587402> and logs. Recipe found in `adv recipes items`. Used to create equipment.",
+            "value": 300,
+            "type": "resource"
+        },
         "basic_sword":{
             "name": "Basic Sword",
             "emoji": "<:basicsword:806232602491093013>",
