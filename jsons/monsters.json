@@ -268,5 +268,96 @@
                 "defence": 10
             }
         }
+    },
+    "area2": {
+        "battle": {
+            "shark": {
+                "name": "Shark",
+                "emoji": "<:sharkEro:813503548981510254>",
+                "minattack": 15,
+                "maxattack": 25,
+                "mindefence": 14,
+                "maxdefence": 20,
+                "minhp": 15,
+                "maxhp": 26,
+                "minxp": 200,
+                "maxxp": 315,
+                "mingold": 200,
+                "maxgold": 300,
+                "encounter": 3,
+                "moves" : null,
+                "drops":[
+                    ["shark_tooth", 50],
+                    [null, 941],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
+            "vampire": {
+                "name": "Vampire",
+                "emoji": "<:vampireEro:813496473446514728>",
+                "minattack": 15,
+                "maxattack": 20,
+                "mindefence": 18,
+                "maxdefence": 22,
+                "minhp": 15,
+                "maxhp": 26,
+                "minxp": 200,
+                "maxxp": 315,
+                "mingold": 200,
+                "maxgold": 300,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            }
+        },
+        "expedition": {
+            "eye":{
+                "name": "Eye",
+                "emoji": "<:eyeEro:813575429695995905>",
+                "minattack": 20,
+                "maxattack": 30,
+                "mindefence": 17,
+                "maxdefence": 25,
+                "minhp": 50,
+                "maxhp": 80,
+                "minxp": 1500,
+                "maxxp": 2000,
+                "mingold": 1000,
+                "maxgold": 1500,
+                "encounter": 1,
+                "moves":[
+                    "Laser Eye",
+                    "Tear Shot",
+                    "Slap"
+                ]
+            }
+        },
+        "boss":{
+
+        }
+    },
+    "area3": {
+        "battle": {
+
+        },
+        "expedition": {
+
+        },
+        "boss":{
+            
+        }
     }
 }

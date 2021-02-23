@@ -82,11 +82,11 @@ module.exports={
                     //Push resources into the drop table depending on players current area
                     switch(rowsUser[0].area){
                         case 1:
-                            findDropTable.addResource(new resourceDrop("copper_ore", 3 * pickaxe, 1 + Math.round(0.5 * gatherSkill[0]), 2 + Math.round(0.5 * gatherSkill[0])));
+                            findDropTable.addResource(new resourceDrop("copper_ore", 3 * pickaxe, 1 + Math.round(0.25 * gatherSkill[0]), 2 + Math.round(0.25 * gatherSkill[0])));
                             break;
                         case 2:
-                            findDropTable.addResource(new resourceDrop("copper_ore", 2 * pickaxe, 1 + Math.round(0.5 * gatherSkill[0]), 3 + Math.round(0.5 * gatherSkill[0])));
-                            findDropTable.addResource(new resourceDrop("tin_ore", 2 * pickaxe, 1 + Math.round(0.5 * gatherSkill[0]), 3 + Math.round(0.5 * gatherSkill[0])));
+                            findDropTable.addResource(new resourceDrop("copper_ore", 2 * pickaxe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addResource(new resourceDrop("tin_ore", 2 * pickaxe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
                             break;
                     }
 

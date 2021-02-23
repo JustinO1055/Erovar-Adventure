@@ -104,6 +104,15 @@
             "defence": 6,
             "type": "equipment"
         },
+        "bronze_shield":{
+            "name": "Bronze Shield",
+            "emoji": "<:bronzeShield:813623855619899392>",
+            "description": "Bronze shield that you can craft. Protects you from some more damage. Use `adv recipes equipment` for ingredients.",
+            "value": 2000,
+            "attack": 0,
+            "defence": 10,
+            "type": "equipment"
+        },
         "copper_sword":{
             "name": "Copper Sword",
             "emoji": "<:coppersword:811669116384968724>",
