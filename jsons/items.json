@@ -136,6 +136,20 @@
             "value": 1000,
             "type": "equipment"
         },
+        "bronze_pickaxe":{
+            "name": "Bronze Pickaxe",
+            "emoji": "<:bronze_pickaxe:813572251655471145>",
+            "description": "Third pickaxe that you can make. Craftable in area 2. Able to find more ore with this. Use `adv recipes equipment` for ingredients.",
+            "value": 2000,
+            "type": "equipment"
+        },
+        "bronze_axe":{
+            "name": "Bronze Axe",
+            "emoji": "<:bronzeAxe:813572251587837953>",
+            "description": "Third axe that you can make. Craftable in area 2. Able to find more logs with this. Use `adv recipes equipment` for ingredients.",
+            "value": 2000,
+            "type": "equipment"
+        },
         "copper_plated_leather_armor":{
             "name": "Copper Plated Leather Armor",
             "emoji": "<:copperplatedleatherarmor:812498329371803650>",

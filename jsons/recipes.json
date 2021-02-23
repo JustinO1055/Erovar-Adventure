@@ -25,6 +25,20 @@
             ],
             "xp" : 1
         },
+        "bronze_ingot":{
+            "items":[              
+                
+                ["log",
+                "2"],              
+                
+                ["copper_ore",
+                "2"],
+
+                ["tin_ore",
+                    "2"]
+            ],
+            "xp" : 1
+        },
         "leather":{
             "items":[
                 ["cowhide",
@@ -149,6 +163,45 @@
             
                 ["leather",
                 "3"]
+            ],
+            "xp" : 3
+        },
+        "bronze_pickaxe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["log",
+                "1"],
+                            
+                ["bronze_ingot",
+                "2"]
+            ],
+            "xp" : 2
+        },
+        "bronze_axe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["log",
+                "1"],
+                            
+                ["bronze_ingot",
+                "2"]
+            ],
+            "xp" : 2
+        },
+        "bronze_shield":{
+            "items":[
+                ["pine_log",
+                "2"],
+            
+                ["leather",
+                "1"],
+                            
+                ["bronze_ingot",
+                "4"]
             ],
             "xp" : 3
         }
