@@ -321,6 +321,56 @@
                     ["defence_boost_a", 2],
                     ["defence_boost_b", 1]
                 ]
+            },
+            "ent": {
+                "name": "Ent",
+                "emoji": "<:ent:813599064889360384>",
+                "minattack": 15,
+                "maxattack": 20,
+                "mindefence": 18,
+                "maxdefence": 22,
+                "minhp": 15,
+                "maxhp": 26,
+                "minxp": 200,
+                "maxxp": 315,
+                "mingold": 200,
+                "maxgold": 300,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
+            "werewolf": {
+                "name": "Werewolf",
+                "emoji": "<:werewolf:813589522993643530>",
+                "minattack": 15,
+                "maxattack": 20,
+                "mindefence": 18,
+                "maxdefence": 22,
+                "minhp": 15,
+                "maxhp": 26,
+                "minxp": 200,
+                "maxxp": 315,
+                "mingold": 200,
+                "maxgold": 300,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
             }
         },
         "expedition": {
