@@ -47,9 +47,9 @@ module.exports = {
 
             //Output Level Up message
             if(lvls > 1)
-                message.channel.send(`You have leveled up ${lvls} times!\n+${lvls * 5} HP :heart: +${lvls} Attack :crossed_swords: +${lvls} Defence :shield:`);
+                message.channel.send(`${message.author}, you have leveled up ${lvls} times!\n+${lvls * 5} HP :heart: +${lvls} Attack :crossed_swords: +${lvls} Defence :shield:`);
             else   
-                message.channel.send(`You have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
+                message.channel.send(`${message.author}, you have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
 
             //Create query to update users data, inlcuding a level up
             sql =`UPDATE Users SET hp = max_hp + 5 * ${lvls}, xp = xp + ${xpObtained}, gold = gold + ${gold}, level = level + 1 * ${lvls}, max_hp = max_hp + 5 * ${lvls}, attack = attack + 1 * ${lvls}, defence = defence + 1 * ${lvls} WHERE id = ${message.author.id}`;
@@ -155,7 +155,11 @@ module.exports = {
             damageLower = Math.round(((att * 0.25 - 3) > 1) ? (att * 0.25 - 3) : 1);
 
             //Determine the damage the user will do
-            attackDamage = this.randomInteger(damageLower, damageUpper);
+            attackDamage = this.randomInteger(damageLower, damageUpper) - Math.floor(0.25 * (def - att));
+
+            //If attackDamage drops below zero, set it to 0
+            if(attackDamage < 0)
+                attackDamage = 0;
         }
 
         //Calculate attackDamage after percent

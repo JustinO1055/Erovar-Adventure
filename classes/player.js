@@ -10,10 +10,6 @@ module.exports = class monsterStats {
     //Function to inflict damage to player
     playerHit(health){
         //Reduce health by damage
-        this.hp = health;
-
-        //If health drops below 0, set it to 0
-        if(this.hp < 0)
-            this.hp = 0;
+        this.hp[0] = health;
     }
 }

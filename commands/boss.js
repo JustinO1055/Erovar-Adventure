@@ -78,7 +78,7 @@ module.exports={
                 const User = client.users.cache.get(rows[p].id); // Getting the user by ID.
 
                 //Check if player is in the right area
-                if(rows[p].area != areaChallenge){
+                if(rows[p].area != areaChallenge || rows[p].max_area != areaChallenge){
                     message.reply(`Not all players are in the correct area. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
                 }
@@ -195,15 +195,20 @@ module.exports={
                 }
 
                 case 1:{
-                    //boss1(players, message);                    
+                    boss1(players, message);                    
+                    break;
+                }
+                default:{
+                    message.channel.send(`There is currently no boss for this area. Please check back later!`);
                     break;
                 }
             }
 
-
-            // update the cooldown in database
-            /* var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${message.author.id}'`;
-            connection.query(sql2); */
+            for(i = 0; i < players.length; i++){
+                // update the cooldown in database
+                var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${players[i].id}'`;
+                connection.query(sql2);
+            }
 
         });
 
@@ -245,7 +250,7 @@ async function boss0(player, message){
 
     //Declare variables to track current HP for player and monster
     var playerCurrentHP = player.hp[0];
-    var bossCurrentHP = boss.hp;
+    var bossCurrentHP = boss.hp * player.length;
 
     // set up listening for response
     let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'trap' || m.content.toLowerCase() == 'tomahawk' || m.content.toLowerCase() == 'climb' || m.content.toLowerCase() == 'block');
@@ -551,6 +556,7 @@ async function boss1(player, message){
 
     var fightBoss = true;
 
+    //Check if all players are ready to fight the boss
     while(playerIDS.length > 0 && fightBoss){
         var filter = m => playerIDS.includes(m.author.id) && (m.content.toLowerCase() == 'yes' || m.content.toLowerCase() == 'no');
         await message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
@@ -565,13 +571,17 @@ async function boss1(player, message){
             
         })
         .catch(collected => {
-            message.channel.send(`Boss fight canceled. ${message.author} has taken too long to respond.`);
+            message.channel.send(`Boss fight canceled. Not all people responded.`);
+            fightBoss = false;
         });
     }
 
     if(!fightBoss)
         return;
 
+    //Define array to store people that die durring fight
+    var deadPlayers = [];
+    
     // store boss into variable for easier access
     var boss;
     for(b in MONSTERS['area1']['boss']){
@@ -652,22 +662,32 @@ async function boss1(player, message){
                 }
 
                 //Calculate damage done to player
-                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp, 1));
+                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+
+                //Player died, add message that the player died
+                if(player[currentPlayer].hp[0] < 1)
+                    deathMessage = "You have died!";
+                else
+                    deathMessage = "";
 
                 //Check if player hit boss
                 if(functions.randomInteger(1, 100) > hitNumber){
                     bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, damagePercent);
-                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts:`};
+                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
                 } else {
-                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You missed!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts:`};
+                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You missed!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
                 }
                 //Increment to next player
                 currentPlayer++;
             })
             .catch(collected => {
-                message.channel.send(`Took too long!`);
+                var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
+                //Calculate damage done to player
+                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You took too long. The ${boss.name} hit you while you were thinking!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts:`};
             });
         }else{
+            deadPlayers.push(player[currentPlayer]);
             //If the player is dead, remove them from player array
             player.splice(currentPlayer, 1);
         }
@@ -681,8 +701,7 @@ async function boss1(player, message){
     // both players and boss die together
     if(player.length < 1 && bossCurrentHP <= 0){
 
-        // set hp of boss and player to 0
-        playerCurrentHP = 0;
+        // set hp of boss to 0
         bossCurrentHP = 0;
 
         let drawMsg = {name: 'Outcome', value:`Your party and the ${boss.name} ${boss.emoji} have both manged to kill each other at the exact same time... \nGet some rest, heal up and attempt this boss battle again once you are ready.`};
@@ -702,15 +721,14 @@ async function boss1(player, message){
         // send the embed
         message.channel.send(drawEmbed);
         // update the database to set the users hp to 1
-        //let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
-        //connection.query(sql);
+        for(i = 0; i < deadPlayers.length; i++){
+            let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
+            connection.query(sql);
+        }
         return;
 
     // boss kills player
     } else if (player.length < 1 && bossCurrentHP > 0) {
-
-        // set hp of player to 0
-        playerCurrentHP = 0;
 
         let defeatMsg = {name: 'Outcome', value: `The ${boss.name} ${boss.emoji} has managed to kill your entire party.\nGet some rest, heal up and attempt this boss battle again once you are ready.`};
 
@@ -725,12 +743,18 @@ async function boss1(player, message){
             bossStats, 
             defeatMsg    
         );
+
+        console.log(deadPlayers)
         
         // send the embed
         message.channel.send(defeatEmbed);
         // update the database to set the users hp to 1
-        //let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
-        //connection.query(sql);
+        for(i = 0; i < deadPlayers.length; i++){
+            let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
+            
+            connection.query(sql);
+        }
+        
         return;
 
     } else if (player.length > 0 && bossCurrentHP <= 0){
@@ -759,8 +783,15 @@ async function boss1(player, message){
         // send the embed
         message.channel.send(victoryEmbed);
         // update the database to set the users hp to their current hp, set their area to 1 and max area to 1
-        //let sql = `UPDATE Users SET hp = ${playerCurrentHP}, max_area = 1, area = 1 WHERE id = '${message.author.id}'`;
-        //connection.query(sql);
+        for(i = 0; i < player.length; i++){
+            let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = 2, area = 2 WHERE id = '${player[i].id}'`;
+            connection.query(sql);
+        }
+        for(i = 0; i < deadPlayers.length; i++){
+            let sql = `UPDATE Users SET hp = 1, max_area = 2, area = 2 WHERE id = '${deadPlayers[i].id}'`;
+            connection.query(sql);
+        }
+    
         return;
 
     }
