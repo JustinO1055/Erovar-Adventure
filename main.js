@@ -168,6 +168,12 @@ client.on('message', message => {
                 } else if (command === 'stats'){
                     // execute the command in the file stats.js
                     client.commands.get('stats').execute(message, args);
+                } else if (command === 'version'){
+                    // execute the command in the file version.js
+                    client.commands.get('version').execute(message, args);
+                } else if (command === 'invite'){
+                    // execute the command in the file invite.js
+                    client.commands.get('invite').execute(message, args);
                 }
             }
         });

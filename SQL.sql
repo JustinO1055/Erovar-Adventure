@@ -37,6 +37,9 @@ CREATE TABLE Inventory (
   defence_boost_b INT NOT NULL DEFAULT 0,
   attack_boost_a INT NOT NULL DEFAULT 0,
   attack_boost_b INT NOT NULL DEFAULT 0,
+  tin_ore INT NOT NULL DEFAULT 0,
+  bronze_ingot INT NOT NULL DEFAULT 0,
+  mahogany_log INT NOT NULL DEFAULT 0,
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE,
   CHECK(pebble >= 0 AND stone >=0 AND stick >= 0 AND log >= 0)
   
@@ -74,6 +77,13 @@ CREATE TABLE Stats (
     spider INT NOT NULL DEFAULT 0,
     skeleton INT NOT NULL DEFAULT 0,
     cowhide INT NOT NULL DEFAULT 0,
+    shark INT NOT NULL DEFAULT 0,
+    vampire INT NOT NULL DEFAULT 0,
+    ent INT NOT NULL DEFAULT 0,
+    werewolf INT NOT NULL DEFAULT 0,
+    eye INT NOT NULL DEFAULT 0,
+    vespera INT NOT NULL DEFAULT 0,
+    shark_tooth INT NOT NULL DEFAULT 0,
     health_boost_a INT NOT NULL DEFAULT 0,
     health_boost_b INT NOT NULL DEFAULT 0,
     attack_boost_a INT NOT NULL DEFAULT 0,

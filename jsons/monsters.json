@@ -376,7 +376,7 @@
         "expedition": {
             "eye":{
                 "name": "Eye",
-                "emoji": "<:eyeEro:813575429695995905>",
+                "emoji": "<a:eyeEro:813898212817240115>",
                 "minattack": 20,
                 "maxattack": 30,
                 "mindefence": 17,
@@ -392,6 +392,26 @@
                     "Laser Eye",
                     "Tear Shot",
                     "Slap"
+                ]
+            },
+            "vespera":{
+                "name": "Vespera",
+                "emoji": "<:vespera:813828379656192030>",
+                "minattack": 20,
+                "maxattack": 30,
+                "mindefence": 17,
+                "maxdefence": 25,
+                "minhp": 50,
+                "maxhp": 80,
+                "minxp": 1500,
+                "maxxp": 2000,
+                "mingold": 1000,
+                "maxgold": 1500,
+                "encounter": 1,
+                "moves":[
+                    "Chomp",
+                    "Super Sonic Wave",
+                    "Whirlwind"
                 ]
             }
         },

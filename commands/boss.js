@@ -217,6 +217,10 @@ module.exports={
 
 async function boss0(player, message){
 
+    // update the cooldown in database
+    var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${message.author.id}'`;
+    connection.query(sql2);
+
     // store boss into variable for easier access
     var boss;
     for(b in MONSTERS['area0']['boss']){
@@ -298,7 +302,7 @@ async function boss0(player, message){
                 } else if(attack == 'tomahawk'){        
                     // bad outcome, player loses 10 hp
                     playerCurrentHP -= 10;
-                    outcomeMsg = `You threw your ${functions.getEmoji('stone axe')} at the swinging ${boss.name}, he swats it away and scratches you anyway.\n-10 :heart: ${message.author.username}`;
+                    outcomeMsg = `You threw your ${functions.getEmoji('stone_axe')} at the swinging ${boss.name}, he swats it away and scratches you anyway.\n-10 :heart: ${message.author.username}`;
 
                 } else if(attack == 'climb'){
                     // bad outcome
@@ -324,7 +328,7 @@ async function boss0(player, message){
                 } else if(attack == 'tomahawk'){
                     // good outcome
                     bossCurrentHP -= 10;
-                    outcomeMsg = `You threw your ${functions.getEmoji('stone axe')} and the ready to bite ${boss.name}, he bites the tomahawk, cutting his mouth and and stopping him from biting you.\n-10 :heart: ${boss.emoji}`;
+                    outcomeMsg = `You threw your ${functions.getEmoji('stone_axe')} and the ready to bite ${boss.name}, he bites the tomahawk, cutting his mouth and and stopping him from biting you.\n-10 :heart: ${boss.emoji}`;
 
                 } else if(attack == 'climb'){
                     // okay outcome
@@ -351,7 +355,7 @@ async function boss0(player, message){
                 } else if(attack == 'tomahawk'){
                     // bad outcome
                     playerCurrentHP -= 10;
-                    outcomeMsg = `You threw your ${functions.getemoji('stone axe')} at the charging ${boss.name}, however you missed and the ${boss.name} stomps on you.\n-10 :heart: ${message.author.username}`;
+                    outcomeMsg = `You threw your ${functions.getemoji('stone_axe')} at the charging ${boss.name}, however you missed and the ${boss.name} stomps on you.\n-10 :heart: ${message.author.username}`;
 
                 } else if(attack == 'climb'){
                     // bad outcome
@@ -378,7 +382,7 @@ async function boss0(player, message){
                     // okay outcome
                     playerCurrentHP -= 5;
                     bossCurrentHP -= 5;
-                    outcomeMsg = `You got a good distance away from the ${boss.name} and threw the ${functions.getEmoji('stone axe')} hitting him in the head causing him to chase after you to attack.\n-5 :heart: ${message.author.username}, -5 :heart: ${boss.emoji}`;
+                    outcomeMsg = `You got a good distance away from the ${boss.name} and threw the ${functions.getEmoji('stone_axe')} hitting him in the head causing him to chase after you to attack.\n-5 :heart: ${message.author.username}, -5 :heart: ${boss.emoji}`;
                 } else if(attack == 'climb'){
                     // good outcome
                     bossCurrentHP -= 10;
