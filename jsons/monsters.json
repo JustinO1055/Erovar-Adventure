@@ -206,8 +206,8 @@
                 "encounter": 3,
                 "moves" : null,
                 "drops":[
-                    ["cowhide", 50],
-                    [null, 941],
+                    ["cowhide", 75],
+                    [null, 916],
                     ["health_boost_a", 2],
                     ["health_boost_a", 1],
                     ["attack_boost_a", 2],

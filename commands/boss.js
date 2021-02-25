@@ -187,6 +187,11 @@ module.exports={
                             var command = mes.first().content.toLowerCase();
                             if (command == 'yes') {
                                 boss0(players[0], message);
+                                for(i = 0; i < players.length; i++){
+                                    // update the cooldown in database
+                                    var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${players[i].id}'`;
+                                    connection.query(sql2);
+                                }
                             } else if (command == 'no') {
                                 message.channel.send("Boss fight canceled");
                             }
@@ -209,13 +214,6 @@ module.exports={
                     break;
                 }
             }
-
-            for(i = 0; i < players.length; i++){
-                // update the cooldown in database
-                var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${players[i].id}'`;
-                connection.query(sql2);
-            }
-
         });
 
     }
@@ -586,6 +584,12 @@ async function boss1(player, message){
 
     if(!fightBoss)
         return;
+
+    for(i = 0; i < player.length; i++){
+        // update the cooldown in database
+        var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${player[i].id}'`;
+        connection.query(sql2);
+    }
 
     //Define array to store people that die durring fight
     var deadPlayers = [];
