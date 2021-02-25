@@ -16,13 +16,13 @@ module.exports={
             // check to make sure they dont have an account
             // add the user to the various database tables
             let sql2 = `INSERT INTO Users(id) VALUES ('${message.author.id}')`;
-			let sql3 = `INSERT INTO Inventory(id) VALUES ('${message.author.id}')`;
-			let sql4 = `INSERT INTO Cooldown(id) VALUES ('${message.author.id}')`;
+            let sql3 = `INSERT INTO Inventory(id) VALUES ('${message.author.id}')`;
+            let sql4 = `INSERT INTO Cooldown(id) VALUES ('${message.author.id}')`;
             let sql5 = `INSERT INTO Skills(id) VALUES ('${message.author.id}')`;
             let sql6 = `INSERT INTO Stats(id) VALUES ('${message.author.id}')`;
             connection.query(sql2);
-			connection.query(sql3);
-			connection.query(sql4);
+            connection.query(sql3);
+            connection.query(sql4);
             connection.query(sql5);
             connection.query(sql6);
 
