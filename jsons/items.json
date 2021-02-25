@@ -138,6 +138,15 @@
             "defence": 0,
             "type": "equipment"
         },
+        "bronze_sword":{
+            "name": "Bronze Sword",
+            "emoji": "<:bronzeSword:813850585405194300>",
+            "description": "Stronger sword than the copper. You can do even more damage now! Use `adv recipes equipment` for ingredients.",
+            "value": 2500,
+            "attack": 10,
+            "defence": 0,
+            "type": "equipment"
+        },
         "copper_axe":{
             "name": "Copper Axe",
             "emoji": "<:copperaxe:811664166212862043>",
@@ -175,8 +184,8 @@
             "defence": 7,
             "type": "equipment"
         },
-        "wolf_line_bronze_armor":{
-            "name": "Wolf Line Bronze Armor",
+        "wolf_lined_bronze_armor":{
+            "name": "Wolf Lined Bronze Armor",
             "emoji": "<:wolfLinedBronzeArmor:813858513397743656>",
             "description": "Second set of armor that you can make. Craftable in area 2. Use `adv recipes equipment` for ingredients.",
             "value": 3000,

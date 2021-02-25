@@ -179,18 +179,18 @@
             "xp" : 3,
             "page": 1
         },
-        "bronze_pickaxe":{
+        "bronze_sword":{
             "items":[
                 ["stick",
                 "5"],
             
-                ["log",
-                "1"],
+                ["mahogany_log",
+                "3"],
                             
                 ["bronze_ingot",
-                "2"]
+                "4"]
             ],
-            "xp" : 2,
+            "xp" : 4,
             "page": 2
         },
         "bronze_shield":{
@@ -207,6 +207,23 @@
             "xp" : 3,
             "page": 2
         },
+        "shark_tooth_sheild":{
+            "items":[
+                ["mahogany_log",
+                "4"],
+            
+                ["leather",
+                "1"],
+                            
+                ["bronze_ingot",
+                "2"],
+
+                ["shark_tooth",
+                    "5"]
+            ],
+            "xp" : 3,
+            "page": 2
+        },
         "bronze_axe":{
             "items":[
                 ["stick",
@@ -219,6 +236,31 @@
                 "2"]
             ],
             "xp" : 2,
+            "page": 2
+        },
+        "bronze_pickaxe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["mahogany_log",
+                "2"],
+                            
+                ["bronze_ingot",
+                "2"]
+            ],
+            "xp" : 2,
+            "page": 2
+        },
+        "wolf_lined_bronze_armor":{
+            "items":[
+                ["bronze_ingot",
+                "4"],
+            
+                ["wolf_pelt",
+                "3"]
+            ],
+            "xp" : 5,
             "page": 2
         }
     }
