@@ -617,106 +617,118 @@ async function boss1(player, message){
     hitMiss = undefined;
 
     while(player.length > 0 && bossCurrentHP > 0) {
-        if(player[currentPlayer].hp[0] > 0){
-            // set up listening for response
-            let filter = m => m.author.id === player[currentPlayer].id && (m.content.toLowerCase() == 'stab' || m.content.toLowerCase() == 'slash' || m.content.toLowerCase() == 'barrage power' || m.content.toLowerCase() == 'omni bane');
+        // set up listening for response
+        let filter = m => m.author.id === player[currentPlayer].id && (m.content.toLowerCase() == 'stab' || m.content.toLowerCase() == 'slash' || m.content.toLowerCase() == 'barrage power' || m.content.toLowerCase() == 'omni bane');
 
-            // update the user moves
-            playerMoves = { name: `${player[currentPlayer].username} Turn:`, value: "What are you going to do?\n\`Stab\` 100% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 100% Chance\n\`Slash\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 80% Chance\n\`Barrage Power\` 200% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance\n\`Omni Bane\` 400% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 10% Chance"};
+        // update the user moves
+        playerMoves = { name: `${player[currentPlayer].username} Turn:`, value: "What are you going to do?\n\`Stab\` 100% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 100% Chance\n\`Slash\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 80% Chance\n\`Barrage Power\` 200% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance\n\`Omni Bane\` 400% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 10% Chance"};
 
-            // update the user stats
-            userStats = { name: `${player[currentPlayer].username}'s Stats:`, value: `**HP**: ${player[currentPlayer].hp[0]}/${player[currentPlayer].hp[1]}\n**Att**: ${player[currentPlayer].attack}\n**Def**: ${player[currentPlayer].defence}`, inline: true };
+        // update the user stats
+        userStats = { name: `${player[currentPlayer].username}'s Stats:`, value: `**HP**: ${player[currentPlayer].hp[0]}/${player[currentPlayer].hp[1]}\n**Att**: ${player[currentPlayer].attack}\n**Def**: ${player[currentPlayer].defence}`, inline: true };
 
-            // set the stats for the boss for the embed
-            bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
+        // set the stats for the boss for the embed
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
-            //Set array of all embed messages. If this is the first embed, hitMiss will not be defined yet, so exlcude that
-            if(typeof hitMiss != "undefined")
-                bossFight = [hitMiss, userStats, bossStats, playerMoves];
+        //Set array of all embed messages. If this is the first embed, hitMiss will not be defined yet, so exlcude that
+        if(typeof hitMiss != "undefined")
+            bossFight = [hitMiss, userStats, bossStats, playerMoves];
+        else
+            bossFight = [userStats, bossStats, playerMoves]
+
+        //Add new fields to embed
+        bossEmbed.spliceFields(0, bossFight.length, bossFight);
+
+        //Send Boss embed
+        message.channel.send(bossEmbed)
+
+        //Get users response
+        await message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
+            // get the attack choice from user
+            attack = mes.first().content.toLowerCase();
+
+            //Variables used for tracking turn outcome
+            var hitNumber;
+            var damagePercent;
+            var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
+
+            //Get the hit percent chance and hit damage percent based on players move
+            switch(attack){
+                case "stab":{
+                    hitNumber = 0;
+                    damagePercent = 1;
+                    break;
+                }
+                case "slash":{
+                    hitNumber = 20;
+                    damagePercent = 1.5;
+                    break;
+                }
+                case "barrage power":{
+                    hitNumber = 50;
+                    damagePercent = 2;
+                    break;
+                }
+                case "omni bane":{
+                    hitNumber = 90;
+                    damagePercent = 4;
+                    break;
+                }
+            }
+
+            //Calculate damage done to player
+            player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+
+            //Player died, add message that the player died
+            if(player[currentPlayer].hp[0] < 1)
+                deathMessage = "You have died!";
             else
-                bossFight = [userStats, bossStats, playerMoves]
+                deathMessage = "";
 
-            //Add new fields to embed
-            bossEmbed.spliceFields(0, bossFight.length, bossFight);
+            //Check if player hit boss
+            if(functions.randomInteger(1, 100) > hitNumber){
+                bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, damagePercent);
+                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
+            } else {
+                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You missed!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
+            }
 
-            //Send Boss embed
-            message.channel.send(bossEmbed)
-
-            //Get users response
-            await message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] }).then(mes => {
-                // get the attack choice from user
-                attack = mes.first().content.toLowerCase();
-
-                //Variables used for tracking turn outcome
-                var hitNumber;
-                var damagePercent;
-                var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
-
-                //Get the hit percent chance and hit damage percent based on players move
-                switch(attack){
-                    case "stab":{
-                        hitNumber = 0;
-                        damagePercent = 1;
-                        break;
-                    }
-                    case "slash":{
-                        hitNumber = 20;
-                        damagePercent = 1.5;
-                        break;
-                    }
-                    case "barrage power":{
-                        hitNumber = 50;
-                        damagePercent = 2;
-                        break;
-                    }
-                    case "omni bane":{
-                        hitNumber = 90;
-                        damagePercent = 4;
-                        break;
-                    }
-                }
-
-                //Calculate damage done to player
-                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
-
-                //Player died, add message that the player died
-                if(player[currentPlayer].hp[0] < 1)
-                    deathMessage = "You have died!";
-                else
-                    deathMessage = "";
-
-                //Check if player hit boss
-                if(functions.randomInteger(1, 100) > hitNumber){
-                    bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, damagePercent);
-                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
-                } else {
-                    hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You missed!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
-                }
+            //Player died, add message that the player died
+            if(player[currentPlayer].hp[0] < 1){
+                deadPlayers.push(player[currentPlayer]);
+                //If the player is dead, remove them from player array
+                player.splice(currentPlayer, 1);
+            } else{
                 //Increment to next player
                 currentPlayer++;
-            })
-            .catch(collected => {
-                var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
-                //Calculate damage done to player
-                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+            }
+            
+        })
+        .catch(collected => {
+            var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
+            //Calculate damage done to player
+            player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
 
-                //Player died, add message that the player died
-                if(player[currentPlayer].hp[0] < 1)
-                    deathMessage = "You have died!";
-                else
-                    deathMessage = "";
+            //Player died, add message that the player died
+            if(player[currentPlayer].hp[0] < 1)
+                deathMessage = "You have died!";
+            else
+                deathMessage = "";
 
-                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You took too long. The ${boss.name} hit you while you were thinking!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
+            hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You took too long. The ${boss.name} hit you while you were thinking!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
 
+
+            //Player died, add message that the player died
+            if(player[currentPlayer].hp[0] < 1){
+                deadPlayers.push(player[currentPlayer]);
+                //If the player is dead, remove them from player array
+                player.splice(currentPlayer, 1);
+            } else{
                 //Increment to next player
                 currentPlayer++;
+            }
+            
 
-            });
-        }else{
-            deadPlayers.push(player[currentPlayer]);
-            //If the player is dead, remove them from player array
-            player.splice(currentPlayer, 1);
-        }
+        });
 
         //If at the end of the player array, reset back to zero
         if(currentPlayer >= player.length)
@@ -725,7 +737,7 @@ async function boss1(player, message){
     }
     //  The battle is over, see who the winner is
     // both players and boss die together
-    if((player.length == 1 && player[0].hp[0] == 0) && bossCurrentHP <= 0){
+    if(player.length < 1 && bossCurrentHP <= 0){
 
         // set hp of boss to 0
         bossCurrentHP = 0;
