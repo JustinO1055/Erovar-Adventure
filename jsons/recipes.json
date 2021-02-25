@@ -5,7 +5,8 @@
                 ["stick",
                 "15"]
             ],
-            "xp" : 0.1
+            "xp" : 0.1,
+            "page": 1
         },
         "stone":{
             "items":[
@@ -23,7 +24,8 @@
                 ["copper_ore",
                 "2"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "bronze_ingot":{
             "items":[              
@@ -37,7 +39,8 @@
                 ["tin_ore",
                     "2"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "leather":{
             "items":[
@@ -50,7 +53,8 @@
                 ["stick",
                 "5"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         }
 
     },
@@ -66,7 +70,8 @@
                 ["stone",
                 "2"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "basic_shield":{
             "items":[
@@ -76,7 +81,8 @@
                 ["log",
                 "2"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "stone_axe":{
             "items":[
@@ -89,7 +95,8 @@
                 ["stone",
                 "1"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "stone_pickaxe":{
             "items":[
@@ -102,7 +109,8 @@
                 ["stone",
                 "1"]
             ],
-            "xp" : 1
+            "xp" : 1,
+            "page": 1
         },
         "copper_sword":{
             "items":[
@@ -115,7 +123,8 @@
                 ["copper_ingot",
                 "3"]
             ],
-            "xp" : 2
+            "xp" : 2,
+            "page": 1
         },
         "pine_shield":{
             "items":[
@@ -128,7 +137,8 @@
                 ["copper_ingot",
                 "1"]
             ],
-            "xp" : 3
+            "xp" : 3,
+            "page": 1
         },
         "copper_pickaxe":{
             "items":[
@@ -141,7 +151,8 @@
                 ["copper_ingot",
                 "2"]
             ],
-            "xp" : 2
+            "xp" : 2,
+            "page": 1
         },
         "copper_axe":{
             "items":[
@@ -154,7 +165,8 @@
                 ["copper_ingot",
                 "2"]
             ],
-            "xp" : 2
+            "xp" : 2,
+            "page": 1
         },
         "copper_plated_leather_armor":{
             "items":[
@@ -164,7 +176,8 @@
                 ["leather",
                 "3"]
             ],
-            "xp" : 3
+            "xp" : 3,
+            "page": 1
         },
         "bronze_pickaxe":{
             "items":[
@@ -177,25 +190,13 @@
                 ["bronze_ingot",
                 "2"]
             ],
-            "xp" : 2
-        },
-        "bronze_axe":{
-            "items":[
-                ["stick",
-                "5"],
-            
-                ["log",
-                "1"],
-                            
-                ["bronze_ingot",
-                "2"]
-            ],
-            "xp" : 2
+            "xp" : 2,
+            "page": 2
         },
         "bronze_shield":{
             "items":[
-                ["pine_log",
-                "2"],
+                ["mahogany_log",
+                "4"],
             
                 ["leather",
                 "1"],
@@ -203,7 +204,22 @@
                 ["bronze_ingot",
                 "4"]
             ],
-            "xp" : 3
+            "xp" : 3,
+            "page": 2
+        },
+        "bronze_axe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["mahogany_log",
+                "2"],
+                            
+                ["bronze_ingot",
+                "2"]
+            ],
+            "xp" : 2,
+            "page": 2
         }
     }
 }

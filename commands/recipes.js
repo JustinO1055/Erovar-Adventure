@@ -15,6 +15,14 @@ module.exports={
             return;
         }
 
+        if(category == "items" && args[1] != 1){
+            page = 1;
+        } else if(category == "equipment" && args[1] != 1 && args[1] != 2){
+            page = 1;
+        } else{
+            page = args[1];
+        }
+
         // Below is code for having the items on the right side of arrow
         /*//Generate the list of recipes
         var list = "";
@@ -31,21 +39,31 @@ module.exports={
         //Generate the list of recipes
         var list = "";
         for(r in RECIPES[category]){
-            list += `${items[r]['emoji']} ${items[r]['name']} ➜  `;
+            if(RECIPES[category][r]['page'] == page){
+                list += `${items[r]['emoji']} ${items[r]['name']} ➜  `;
 
-            // recipe items are stored in a 2d array with first element being the name, second element being the quantity
-            for(var i = 0; i < RECIPES[category][r]['items'].length; i++){
-                list += `${RECIPES[category][r]['items'][i][1]} ${items[RECIPES[category][r]['items'][i][0]]['emoji']} + `;
+                // recipe items are stored in a 2d array with first element being the name, second element being the quantity
+                for(var i = 0; i < RECIPES[category][r]['items'].length; i++){
+                    list += `${RECIPES[category][r]['items'][i][1]} ${items[RECIPES[category][r]['items'][i][0]]['emoji']} + `;
+                }
+                list = list.slice(0, -2);
+                list += "\n";
             }
-            list = list.slice(0, -2);
-            list += "\n";
+            
         }
+
+        //Create footer based off of category
+        if(category == "items")
+            var footer = `Page ${page}/1`;
+        else
+            var footer = `Page ${page}/2`;
 
         //Create the embed to output
         const recipesEmbed = new Discord.MessageEmbed()
             .setColor('#0a008c')
             .setAuthor(`${category.charAt(0).toUpperCase() + category.slice(1)} recipes`)
-            .setDescription(list);
+            .setDescription(list)
+            .setFooter(footer + "   |   use 'adv recipes <page>' to see a specific page");
 
         //Send Embed
         message.channel.send(recipesEmbed);

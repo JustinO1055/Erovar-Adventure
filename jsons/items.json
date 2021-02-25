@@ -120,6 +120,15 @@
             "defence": 10,
             "type": "equipment"
         },
+        "shark_tooth_sheild":{
+            "name": "Shark Tooth Shield",
+            "emoji": "<:sharkToothShield:813857780258832384>",
+            "description": "Mainly wooden sheild with bronze plates. Protects you from some damage while providing a bit of offence. Use `adv recipes equipment` for ingredients.",
+            "value": 2200,
+            "attack": 2,
+            "defence": 8,
+            "type": "equipment"
+        },
         "copper_sword":{
             "name": "Copper Sword",
             "emoji": "<:coppersword:811669116384968724>",
@@ -164,6 +173,15 @@
             "value": 1800,
             "attack": 2,
             "defence": 7,
+            "type": "equipment"
+        },
+        "wolf_line_bronze_armor":{
+            "name": "Wolf Line Bronze Armor",
+            "emoji": "<:wolfLinedBronzeArmor:813858513397743656>",
+            "description": "Second set of armor that you can make. Craftable in area 2. Use `adv recipes equipment` for ingredients.",
+            "value": 3000,
+            "attack": 2,
+            "defence": 12,
             "type": "equipment"
         },
         "health_potion":{
