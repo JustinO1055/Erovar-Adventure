@@ -258,7 +258,7 @@ async function boss0(player, message){
 
     //Declare variables to track current HP for player and monster
     var playerCurrentHP = player.hp[0];
-    var bossCurrentHP = boss.hp * player.length;
+    var bossCurrentHP = boss.hp;
 
     // set up listening for response
     let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'trap' || m.content.toLowerCase() == 'tomahawk' || m.content.toLowerCase() == 'climb' || m.content.toLowerCase() == 'block');
@@ -591,6 +591,9 @@ async function boss1(player, message){
         connection.query(sql2);
     }
 
+    //Declare variable for number of players in fight
+    var numberOfPlayers = player.length;
+
     //Define array to store people that die durring fight
     var deadPlayers = [];
     
@@ -606,7 +609,7 @@ async function boss1(player, message){
     .setTitle('Boss Fight')
 
     //Declare variable to track current HP for monster
-    var bossCurrentHP = boss.hp;
+    var bossCurrentHP = boss.hp * player.length;
 
     //Declare variable for tracking current players turn
     var currentPlayer = 0;
@@ -625,7 +628,7 @@ async function boss1(player, message){
             userStats = { name: `${player[currentPlayer].username}'s Stats:`, value: `**HP**: ${player[currentPlayer].hp[0]}/${player[currentPlayer].hp[1]}\n**Att**: ${player[currentPlayer].attack}\n**Def**: ${player[currentPlayer].defence}`, inline: true };
 
             // set the stats for the boss for the embed
-            bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+            bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
             //Set array of all embed messages. If this is the first embed, hitMiss will not be defined yet, so exlcude that
             if(typeof hitMiss != "undefined")
@@ -696,7 +699,18 @@ async function boss1(player, message){
                 var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
                 //Calculate damage done to player
                 player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
-                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You took too long. The ${boss.name} hit you while you were thinking!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts:`};
+
+                //Player died, add message that the player died
+                if(player[currentPlayer].hp[0] < 1)
+                    deathMessage = "You have died!";
+                else
+                    deathMessage = "";
+
+                hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You took too long. The ${boss.name} hit you while you were thinking!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
+
+                //Increment to next player
+                currentPlayer++;
+
             });
         }else{
             deadPlayers.push(player[currentPlayer]);
@@ -709,9 +723,9 @@ async function boss1(player, message){
             currentPlayer = 0;
 
     }
-    // one the battle is over, see who the winner is
+    //  The battle is over, see who the winner is
     // both players and boss die together
-    if(player.length < 1 && bossCurrentHP <= 0){
+    if((player.length == 1 && player[0].hp[0] == 0) && bossCurrentHP <= 0){
 
         // set hp of boss to 0
         bossCurrentHP = 0;
@@ -719,7 +733,7 @@ async function boss1(player, message){
         let drawMsg = {name: 'Outcome', value:`Your party and the ${boss.name} ${boss.emoji} have both manged to kill each other at the exact same time... \nGet some rest, heal up and attempt this boss battle again once you are ready.`};
 
         // set the stats for the boss for the embed
-        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
         // prep the outcome embed
         const drawEmbed = new Discord.MessageEmbed()
@@ -745,7 +759,7 @@ async function boss1(player, message){
         let defeatMsg = {name: 'Outcome', value: `The ${boss.name} ${boss.emoji} has managed to kill your entire party.\nGet some rest, heal up and attempt this boss battle again once you are ready.`};
 
         // set the stats for the boss for the embed
-        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
         // prep the outcome embed
         const defeatEmbed = new Discord.MessageEmbed()
@@ -755,8 +769,6 @@ async function boss1(player, message){
             bossStats, 
             defeatMsg    
         );
-
-        console.log(deadPlayers)
         
         // send the embed
         message.channel.send(defeatEmbed);
@@ -780,7 +792,7 @@ async function boss1(player, message){
         \n**Goodluck, and enjoy your adventure throughout Erovar!**`};
 
         // set the stats for the boss for the embed
-        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp}\n`, inline: true};
+        bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
         // prep the outcome embed
         const victoryEmbed = new Discord.MessageEmbed()
