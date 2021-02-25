@@ -40,11 +40,11 @@ module.exports={
 
                     // if the users hp is not full, let them sleep
                     if(rows[0].hp < rows[0].max_hp){
-                        message.channel.send('You have slept... You awake to find your HP fully healed');
+                        message.channel.send('You have slept... You awake to find your HP is a better than normal.');
                         // update the last time sent in DB
                         var sql2 = `UPDATE Cooldown SET cd_sleep = NOW() WHERE id = ${message.author.id}`;
                         // heal hp
-                        var sql3 = `UPDATE Users SET hp = max_hp WHERE id = ${message.author.id}`;
+                        var sql3 = `UPDATE Users SET hp = max_hp * 1.5  WHERE id = ${message.author.id}`;
                         connection.query(sql2);
                         connection.query(sql3);
                         return;
