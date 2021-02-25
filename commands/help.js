@@ -19,7 +19,7 @@ module.exports={
                 .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item>\``)
                 .setColor('#FF69B4')
                 .addFields(
-                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`inventory\` | \`ready\` | \`profile\`| \`skills\` | \`sleep\` | \`stats\` `},
+                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`give\` | \`invite\` | \`inventory\` | \`ready\` | \`profile\`| \`skills\` | \`sleep\` | \`stats\` | \`version\``},
                     { name: `Combat Commands`, value: `\`battle\` | \`boss\` | \`expedition\` | \`heal\` | \`sleep\``},
                     { name: `Shop Commands`, value: `\`buy\` | \`use\` | \`sell\` | \`shop\``},
                     { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`disassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
@@ -111,7 +111,7 @@ module.exports={
                 //Create the embed to output
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
-                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nEach boss will have a different different style. Use \`adv help boss [area]\` for more information on that areas boss.`},
                             { name: `Usage:`, value: `\`adv boss\``}
                         );
                 } 
@@ -300,8 +300,8 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Sleep`, value: `Used to fully heal yourself every 18 hours.`},
-                        { name: `Usage:`, value: `\`adv heal\``}
+                        { name: `Sleep`, value: `Used to fully heal yourself every 18 hours. Sleeping also allows you to gain an extra 50% of your hp on top of your max hp. (Ex. You have 100 max hp. Sleeping will set your hp to 150/100)`},
+                        { name: `Usage:`, value: `\`adv sleep\``}
                     );
     
                 break;
@@ -309,7 +309,7 @@ module.exports={
                 //Create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Stats`, value: `Used to see how many monsters you have killed or how many drops you have recieved from monsters.`},
+                        { name: `Stats`, value: `Used to see how many monsters you have killed or how many drops you have recieved from monsters. Defaults to showing stats for users current area. Use \`adv stats monster [area]\` for stats on another area.`},
                         { name: `Usage:`, value: `\`adv stats [player]\` | \`adv stats [player] monster [area]\` | \`adv stats [player] drops\``}
                     );
     

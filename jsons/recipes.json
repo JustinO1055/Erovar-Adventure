@@ -5,7 +5,7 @@
                 ["stick",
                 "15"]
             ],
-            "xp" : 0.1,
+            "xp" : 0.2,
             "page": 1
         },
         "stone":{
@@ -13,7 +13,8 @@
                 ["pebble",
                 "15"]
             ],
-            "xp" : 0.1
+            "xp" : 0.2,
+            "page": 1
         },
         "copper_ingot":{
             "items":[              
@@ -24,7 +25,7 @@
                 ["copper_ore",
                 "2"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         },
         "bronze_ingot":{
@@ -37,9 +38,9 @@
                 "2"],
 
                 ["tin_ore",
-                    "2"]
+                "2"]
             ],
-            "xp" : 1,
+            "xp" : 4,
             "page": 1
         },
         "leather":{
@@ -53,7 +54,7 @@
                 ["stick",
                 "5"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         }
 
@@ -70,7 +71,7 @@
                 ["stone",
                 "2"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         },
         "basic_shield":{
@@ -81,7 +82,7 @@
                 ["log",
                 "2"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         },
         "stone_axe":{
@@ -95,7 +96,7 @@
                 ["stone",
                 "1"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         },
         "stone_pickaxe":{
@@ -109,7 +110,7 @@
                 ["stone",
                 "1"]
             ],
-            "xp" : 1,
+            "xp" : 2,
             "page": 1
         },
         "copper_sword":{
@@ -123,7 +124,7 @@
                 ["copper_ingot",
                 "3"]
             ],
-            "xp" : 2,
+            "xp" : 4,
             "page": 1
         },
         "pine_shield":{
@@ -137,7 +138,7 @@
                 ["copper_ingot",
                 "1"]
             ],
-            "xp" : 3,
+            "xp" : 6,
             "page": 1
         },
         "copper_pickaxe":{
@@ -151,7 +152,7 @@
                 ["copper_ingot",
                 "2"]
             ],
-            "xp" : 2,
+            "xp" : 4,
             "page": 1
         },
         "copper_axe":{
@@ -165,7 +166,7 @@
                 ["copper_ingot",
                 "2"]
             ],
-            "xp" : 2,
+            "xp" : 4,
             "page": 1
         },
         "copper_plated_leather_armor":{
@@ -176,7 +177,7 @@
                 ["leather",
                 "3"]
             ],
-            "xp" : 3,
+            "xp" : 6,
             "page": 1
         },
         "bronze_sword":{
@@ -190,7 +191,7 @@
                 ["bronze_ingot",
                 "4"]
             ],
-            "xp" : 4,
+            "xp" : 8,
             "page": 2
         },
         "bronze_shield":{
@@ -204,7 +205,7 @@
                 ["bronze_ingot",
                 "4"]
             ],
-            "xp" : 3,
+            "xp" : 6,
             "page": 2
         },
         "shark_tooth_sheild":{
@@ -219,9 +220,9 @@
                 "2"],
 
                 ["shark_tooth",
-                    "5"]
+                "5"]
             ],
-            "xp" : 3,
+            "xp" : 10,
             "page": 2
         },
         "bronze_axe":{
@@ -235,7 +236,7 @@
                 ["bronze_ingot",
                 "2"]
             ],
-            "xp" : 2,
+            "xp" : 6,
             "page": 2
         },
         "bronze_pickaxe":{
@@ -249,7 +250,7 @@
                 ["bronze_ingot",
                 "2"]
             ],
-            "xp" : 2,
+            "xp" : 6,
             "page": 2
         },
         "wolf_lined_bronze_armor":{
@@ -260,7 +261,7 @@
                 ["wolf_pelt",
                 "3"]
             ],
-            "xp" : 5,
+            "xp" : 10,
             "page": 2
         }
     }
