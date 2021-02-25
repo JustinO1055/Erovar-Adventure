@@ -94,7 +94,7 @@ module.exports={
                     resource = findDropTable.determineHit();
                     // sql code to input the items into the database
                     let sql = `UPDATE Inventory SET ${resource[0]} = ${resource[0]} + ${resource[1]} WHERE id = '${message.author.id}'`;
-                    let sqlSkillUpdate = `UPDATE Skills SET gathering = gathering + 1 WHERE id = '${message.author.id}'`;
+                    let sqlSkillUpdate = `UPDATE Skills SET gathering = gathering + ${items[resource[0]].xp} WHERE id = '${message.author.id}'`;
                     connection.query(sqlSkillUpdate);
                     // query the database
                     connection.query(sql, (err, rows) =>{
