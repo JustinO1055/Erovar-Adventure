@@ -72,6 +72,11 @@ module.exports={
                     message.reply(`This boss can only be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
                 }
+            } else if(areaChallenge == 1){
+                if(rows.length == 1){
+                    message.reply(`This boss cannot be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
+                    return;
+                }
             }
 
             for(p in rows){
@@ -543,12 +548,10 @@ async function boss1(player, message){
     .setColor('#0A008C')
     .setTitle('Boss Fight')
     .addFields(
-        { name: `Description`, value: `Welcome to the first of many boss fights you will encounter throughout your journey through Erovar.\n
-        Upon defeating the boss, you will be granted access to the greater areas in area 2.`},
+        { name: `Description`, value: `Welcome to the second boss in Erovar.\n
+        Upon defeating the boss, you will be granted access to area 2.`},
         { name: "Ready", value: `If you are ready, type \`yes\` to begin the fight. If you need more time to prepare, type \`no\` to cancel.`}
     );
-
-    
 
     //Generate an array of all the players id's
     var playerIDS = [];
