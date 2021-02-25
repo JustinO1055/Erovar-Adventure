@@ -190,6 +190,22 @@
             "value": 400,
             "type": "resource"
         },
+        "wolf_pelt":{
+            "name": "Wolf Pelt",
+            "emoji": "<:wolfPelt:813851583774588940>",
+            "description": "Item dropped from <:werewolf:813589522993643530>. Used to create armor.",
+            "value": 800,
+            "type": "resource",
+            "droppable" : true
+        },
+        "shark_tooth":{
+            "name": "Shark Tooth",
+            "emoji": "<:sharkTooth:813853981343350815>",
+            "description": "Item dropped from <:sharkEro:813503548981510254>. Used to create shield.",
+            "value": 800,
+            "type": "resource",
+            "droppable" : true
+        },
         "health_boost_a":{   
             "name": "Health Boost A",
             "emoji": "<:hpboostA:812093131892850718> ",
