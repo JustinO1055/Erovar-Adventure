@@ -244,7 +244,7 @@ module.exports = {
     //Function to check if a player mentioned someone else. Returns the user information for who the command will look up
     checkMention: function(message){
         //Check if the user mentioned someone else, meaning they want to check another players information
-        if(message.mentions.members.size > 0)
+        if(message.guild != null && message.mentions.members.size > 0)
             return message.mentions.users.first();
         else
             return message.author
