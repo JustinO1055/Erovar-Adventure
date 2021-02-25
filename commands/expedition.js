@@ -162,7 +162,7 @@ async function combat(player, monster, message){
             while(attackIndex < 3){
                 runningValue += percent[attackIndex];
 
-                if(randomNum < runningValue)
+                if(randomNum <= runningValue)
                     break;
 
                 attackIndex++;

@@ -29,7 +29,7 @@ module.exports = class dropTable {
         //Find which resource is found
         for(let element of this.resources){
             runningValue += element.probability;
-            if(randomNum < runningValue){
+            if(randomNum <= runningValue){
                 resource = element.name;
                 resourceAmount = functions.randomInteger(element.quantity[0], element.quantity[1]);
                 break;
