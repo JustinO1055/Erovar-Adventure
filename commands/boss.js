@@ -200,6 +200,7 @@ module.exports={
                 }
 
                 case 1:{
+                    //Call boss 1 function
                     boss1(players, message);                    
                     break;
                 }
