@@ -93,19 +93,25 @@ module.exports={
                 if(modifer == 0){
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
-                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
-                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
                             { name: `Requirements`, value: `Level 3\nBasic Sword ${functions.getEmoji('basic_sword')}\nBasic Shield ${functions.getEmoji('basic_shield')}\nStone axe ${functions.getEmoji('stone_axe')}\nStone Pickaxe ${functions.getEmoji('stone_pickaxe')}\n`},
                             { name: `Tips`, value: `This boss has a 'tell' that hints to what the boss is going to do. Each move has 1 good counter, 1 okay counter, and 2 bad counters. You will have to figure out what is good against each move in order to defeat this boss`},
                             { name: `Usage:`, value: `\`adv boss\``}
-                        );
+                        )
+                }else if(modifer == 1){
+                    var helpEmbed = new Discord.MessageEmbed()
+                        .addFields(
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis fight is mostly random. Choose between attacks with varying damage and hit chance.`},
+                            { name: `Recommendation`, value: `Level 10-15`},
+                            { name: `Tips`, value: `While higher damage moves may seem best, the low chance of hitting may make them a last resort.`},
+                            { name: `Usage:`, value: `\`adv boss\``}
+                )
                 // if generic boss help print generic message
                 } else {
                 //Create the embed to output
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
-                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n
-                                This is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis is a completely strategic fight, so experiment and learn what moves to use to counter the monster.`},
                             { name: `Usage:`, value: `\`adv boss\``}
                         );
                 } 
