@@ -63,7 +63,7 @@ module.exports={
             .setColor('#0a008c')
             .setAuthor(`${category.charAt(0).toUpperCase() + category.slice(1)} recipes`)
             .setDescription(list)
-            .setFooter(footer + "   |   use 'adv recipes <page>' to see a specific page");
+            .setFooter(footer + "   |   use 'adv recipes <category> <page>' to see a specific page");
 
         //Send Embed
         message.channel.send(recipesEmbed);
