@@ -364,7 +364,7 @@
                 "moves" : null,
                 "drops":[
                     [null, 941],
-                    ["wolf_pelt", 50000000],
+                    ["wolf_pelt", 50],
                     ["health_boost_a", 2],
                     ["health_boost_a", 1],
                     ["attack_boost_a", 2],
