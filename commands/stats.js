@@ -25,7 +25,7 @@ module.exports={
         }
 
         // if args[0] is not monster or drops. print generic stats
-        if(args[0] != 'monster' && args[0] != 'drops')
+        if(args[0] != 'monster' && args[0] != 'drops' && args[0] != 'monsters')
             args[0] = null, args[1] = null;
 
         // set up the base embed.
@@ -79,7 +79,7 @@ module.exports={
                 // add the message to the embed
                 statsEmbed.addFields({ name: "Monster Kill Stats", value: monsterStatsMsg, inline: true });
                 //add footer to tell user to use adv stats monsters [area]
-                statsEmbed.setFooter(`For information on other areas use \`adv stats [area]\``);
+                statsEmbed.setFooter(`For information on other areas use \`adv stats monster [area]\``);
             }
 
             if(args[0] == 'drops' || args[0] == null){

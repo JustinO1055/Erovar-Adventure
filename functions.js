@@ -25,8 +25,8 @@ module.exports = {
     },
     xpCurrentNext: function(level) {
         //Get the xp values for the players current level and the next level
-        var xpCurrent = Math.round(4408417000 + (109.1345 - 4408417000)/(1 + Math.pow(((level- 1)/457.4632),3.390761)));
-        var xpNext = Math.round(4408417000 + (109.1345 - 4408417000)/(1 + Math.pow((level/457.4632),3.390761)));
+        var xpCurrent = Math.floor((154.964 * Math.exp(0.222846 * level)) - 193.011);
+        var xpNext = Math.floor((154.964 * Math.exp(0.222846 * (level+1))) - 193.011);
 
         return [xpCurrent, xpNext];
     },
