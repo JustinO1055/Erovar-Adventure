@@ -353,7 +353,7 @@
                 "minattack": 18,
                 "maxattack": 23,
                 "mindefence": 18,
-                "maxdefence": 0,
+                "maxdefence": 24,
                 "minhp": 15,
                 "maxhp": 26,
                 "minxp": 200,
