@@ -25,8 +25,17 @@ module.exports={
         }
 
         // if args[0] is not monster or drops. print generic stats
-        if(args[0] != 'monster' && args[0] != 'drops' && args[0] != 'monsters')
-            args[0] = null, args[1] = null;
+        if(args[0] != 'monster' && args[0] != 'drops' && args[0] != 'monsters'){
+
+            // if first arg is an area
+            if (Number.isInteger(parseInt(args[0]))){
+                args[1] = args[0];
+                args[0] = null;
+
+            } else {
+                args[0] = null, args[1] = null;
+            }
+        }
 
         // set up the base embed.
         const statsEmbed = new Discord.MessageEmbed()
@@ -79,7 +88,7 @@ module.exports={
                 // add the message to the embed
                 statsEmbed.addFields({ name: "Monster Kill Stats", value: monsterStatsMsg, inline: true });
                 //add footer to tell user to use adv stats monsters [area]
-                statsEmbed.setFooter(`For information on other areas use \`adv stats monster [area]\``);
+                statsEmbed.setFooter(`For information on other areas use \`adv stats [area]\``);
             }
 
             if(args[0] == 'drops' || args[0] == null){
