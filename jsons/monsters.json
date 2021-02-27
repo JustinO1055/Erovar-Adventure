@@ -263,8 +263,8 @@
             "ogre":{
                 "name": "Ogre",
                 "emoji": "<:ogre:813485373878960189>",
-                "hp": 150,
-                "attack": 33,
+                "hp": 175,
+                "attack": 34,
                 "defence": 26
             }
         }
