@@ -32,10 +32,12 @@ module.exports = class monsterEncounter {
         var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp, monsterMoves, monsterGold, monsterJson;
         var monsterDrop = [null, null];
 
+        console.log(randomNum);
+
         //Find which monster is encountered
         for(let element of this.monsters){
             runningValue += element.encounter;
-            if(randomNum <= runningValue){
+            if(randomNum < runningValue){
                 monster = element.name;
                 // compute the stats for the encountered monster by finding a random number within its stats range
                 monsterAtt = functions.randomInteger(element.attack[0], element.attack[1]);
