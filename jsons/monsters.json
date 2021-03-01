@@ -417,17 +417,169 @@
             }
         },
         "boss":{
+            "golem":{
+                "name": "Rock Golem",
+                "emoji": "<:golem:815747218035966013>",
+                "hp": 5000,
+                "attack": 50000,
+                "defence": 50000
+            }
 
         }
     },
     "area3": {
         "battle": {
-
+            "narwhal": {
+                "name": "Narwhal",
+                "emoji": "<:narwhal:815747217939890226>",
+                "minattack": 50,
+                "maxattack": 65,
+                "mindefence": 40,
+                "maxdefence": 50,
+                "minhp": 35,
+                "maxhp": 60,
+                "minxp": 600,
+                "maxxp": 1000,
+                "mingold": 500,
+                "maxgold": 600,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
+            "mushroom": {
+                "name": "Poisonous Mushroom",
+                "emoji": "<:mushroomEro:815747217637244939>",
+                "minattack": 52,
+                "maxattack": 62,
+                "mindefence": 38,
+                "maxdefence": 49,
+                "minhp": 40,
+                "maxhp": 60,
+                "minxp": 650,
+                "maxxp": 1050,
+                "mingold": 400,
+                "maxgold": 600,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
+            "mimic": {
+                "name": "Mimic",
+                "emoji": "<:mimic:815747217893228554>",
+                "minattack": 52,
+                "maxattack": 60,
+                "mindefence": 40,
+                "maxdefence": 50,
+                "minhp": 30,
+                "maxhp": 55,
+                "minxp": 700,
+                "maxxp": 1100,
+                "mingold": 800,
+                "maxgold": 10100,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            },
+            "imp": {
+                "name": "Imp",
+                "emoji": "<:impEro:815747217986027530>",
+                "minattack": 45,
+                "maxattack": 60,
+                "mindefence": 45,
+                "maxdefence": 57,
+                "minhp": 40,
+                "maxhp": 68,
+                "minxp": 375,
+                "maxxp": 490,
+                "mingold": 400,
+                "maxgold": 620,
+                "encounter": 1,
+                "moves" : null,
+                "drops":[
+                    [null, 991],
+                    ["health_boost_a", 2],
+                    ["health_boost_a", 1],
+                    ["attack_boost_a", 2],
+                    ["attack_boost_b", 1],
+                    ["defence_boost_a", 2],
+                    ["defence_boost_b", 1]
+                ]
+            }
         },
         "expedition": {
-
+            "skullbat":{
+                "name": "Skull Bat",
+                "emoji": "<a:skullbat:815747217667129346>",
+                "minattack": 60,
+                "maxattack": 72,
+                "mindefence": 53,
+                "maxdefence": 65,
+                "minhp": 75,
+                "maxhp": 110,
+                "minxp": 2100,
+                "maxxp": 3000,
+                "mingold": 2000,
+                "maxgold": 2500,
+                "encounter": 1,
+                "moves":[
+                    "Flame Shot",
+                    "Pounce",
+                    "Hypnotize"
+                ]
+            },
+            "wizard":{
+                "name": "Wizard",
+                "emoji": "<:wizard:815755384764497922>",
+                "minattack": 55,
+                "maxattack": 68,
+                "mindefence": 55,
+                "maxdefence": 70,
+                "minhp": 80,
+                "maxhp": 115,
+                "minxp": 1950,
+                "maxxp": 2800,
+                "mingold": 2000,
+                "maxgold": 2500,
+                "encounter": 1,
+                "moves":[
+                    "Levitate",
+                    "Daze",
+                    "Telekinesis"
+                ]
+            }
         },
         "boss":{
+            "minotaur":{
+                "name": "Minotaur",
+                "emoji": "<:minotaur:815747217896767488>",
+                "hp": 5000,
+                "attack": 50000,
+                "defence": 50000
+            }
             
         }
     }
