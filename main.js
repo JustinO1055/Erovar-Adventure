@@ -174,6 +174,9 @@ client.on('message', message => {
                 } else if (command === 'invite'){
                     // execute the command in the file invite.js
                     client.commands.get('invite').execute(message, args);
+                } else if (command === 'training' || command === 'tr'){
+                    // execute the command in the file training.js
+                    client.commands.get('training').execute(message, args);
                 }
             }
         });
