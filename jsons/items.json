@@ -128,7 +128,7 @@
             "defence": 10,
             "type": "equipment"
         },
-        "shark_tooth_sheild":{
+        "shark_tooth_shield":{
             "name": "Shark Tooth Shield",
             "emoji": "<:sharkToothShield:813857780258832384>",
             "description": "Mainly wooden sheild with bronze plates. Protects you from some damage while providing a bit of offence. Use `adv recipes equipment` for ingredients.",
