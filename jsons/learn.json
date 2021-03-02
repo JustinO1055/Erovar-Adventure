@@ -1,91 +1,97 @@
-[
-	{
-		"question": "What area can you find a Werewolf <:werewolf:813589522993643530>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-		"answers": "2"
-	},
-	{
-		"question": "What area can you find a Blue Jelly <:jelly:810738535740080128>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-		"answers": "1"
-	},
-	{
-		"question": "In what area can you first find <:tinOre:813572436598587402>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-		"answers": "2"
-	},
-	{
-		"question": "What is the name of the first sword you can make?",
-		"answers": ["basic sword", "basicsword"]
-	},
-	{
-		"question": "What item is this? <:log:806232602703822899> \n**1:** Maple Log \n**2:** Wooden Log \n**3:** Stick \n**4:** Log",
-		"answers": "4"
-	},
-	{
-		"question": "Is this an enemy you encounter in a battle? <:wasp:805520776311865465>? **yes** or **no**",
-		"answers": ["yes", "y", "ye"]
-	},
-	{
-		"question": "Is this an enemy you encounter in a battle? <:vampireEro:813496473446514728>? **yes** or **no**",
-		"answers": ["yes", "y", "ye"]
-	},
-	{
-		"question": "Is leather required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
-		"answers": ["yes", "y", "ye"]
-	},
-	{
-		"question": "Are sticks required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
-		"answers": ["no", "n"]
-	},
-	{
-		"question": "Is leather required to make a <:basicshield:803356283188150324>? **yes** or **no**",
-		"answers": ["no", "n"]
-	},
-	{
-		"question": "Is this an enemy you encounter in a battle? <a:eyeEro:813898212817240115> **yes** or **no**",
-		"answers": ["no", "n"]
-	},
-	{
-		"question": "How much extra attack does this give you? <:attackboostA:812093131826659348> ",
-		"answers": "1"
-	},
-	{
-		"question": "How much extra defence does this give you? <:defenceboostB:812093132128649247>",
-		"answers": "2"
-	},
-	{
-		"question": "How much extra hp does this give you? <:hpboostB:812093133856702464>",
-		"answers": "10"
-	},
-	{
-		"question": "What was the type of enemy fought in boss 0? (The Tutorial)",
-		"answers": ["bear", "brown bear", "brownbear"]
-	},
-	{
-		"question": "Are you able to mine in area 0? **yes** or **no**",
-		"answers": ["no", "n"]
-	},
-	{
-		"question": "What area is the earlier you can craft a <:bronzeAxe:813572251587837953> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-		"answers": "2"
-	},
-	{
-		"question": "What area is the earlier you can craft a <:copperplatedleatherarmor:812498329371803650> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-		"answers": "1"
-	},
-	{
-		"question": "randomLogs",
-		"items": ["<:stick:801885407129370625>", "<:log:806232602703822899>", "<:mahoganylog:813650064215506954>", "<:pinelog:811035395319267348>"]
-	},
-	{
-		"question": "randomOre",
-		"items": ["<:pebble:801895841178451998>", "<:stone:801902761335586848>", "<:coppperore:810927764411646002>", "<:tinOre:813572436598587402>"]
-	},
-	{
-		"question": "randomIngots",
-		"items": ["<:copperingot:811659792447832104>", "<:bronzeIngot:813572436091994164>"]
-	},
-	{
-		"question": "randomLetter",
-		"items": [["Copper Ingot", "<:copperingot:811659792447832104>"], ["Bronze Ingot", "<:bronzeIngot:813572436091994164>"], ["Mahogany Log", "<:mahoganylog:813650064215506954>"], ["Tin Ore", "<:tinOre:813572436598587402>"], ["Stick", "<:stick:801885407129370625>"]]
-	}
-
-]
+{
+	"xp": [
+		{
+			"question": "What area can you find a Werewolf <:werewolf:813589522993643530>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
+			"answers": "2"
+		},
+		{
+			"question": "What area can you find a Blue Jelly <:jelly:810738535740080128>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
+			"answers": "1"
+		},
+		{
+			"question": "In what area can you first find <:tinOre:813572436598587402>? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
+			"answers": "2"
+		},
+		{
+			"question": "What is the name of the first sword you can make?",
+			"answers": ["basic sword", "basicsword"]
+		},
+		{
+			"question": "What item is this? <:log:806232602703822899> \n**1:** Maple Log \n**2:** Wooden Log \n**3:** Stick \n**4:** Log",
+			"answers": "4"
+		},
+		{
+			"question": "Is this an enemy you encounter in a battle? <:wasp:805520776311865465>? **yes** or **no**",
+			"answers": ["yes", "y", "ye"]
+		},
+		{
+			"question": "Is this an enemy you encounter in a battle? <:vampireEro:813496473446514728>? **yes** or **no**",
+			"answers": ["yes", "y", "ye"]
+		},
+		{
+			"question": "Is leather required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
+			"answers": ["yes", "y", "ye"]
+		},
+		{
+			"question": "Are sticks required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
+			"answers": ["no", "n"]
+		},
+		{
+			"question": "Is leather required to make a <:basicshield:803356283188150324>? **yes** or **no**",
+			"answers": ["no", "n"]
+		},
+		{
+			"question": "Is this an enemy you encounter in a battle? <a:eyeEro:813898212817240115> **yes** or **no**",
+			"answers": ["no", "n"]
+		},
+		{
+			"question": "How much extra hp does this give you? <:hpboostB:812093133856702464>",
+			"answers": "10"
+		},
+		{
+			"question": "What was the type of enemy fought in boss 0? (The Tutorial)",
+			"answers": ["bear", "brown bear", "brownbear"]
+		},
+		{
+			"question": "Are you able to mine in area 0? **yes** or **no**",
+			"answers": ["no", "n"]
+		},
+		{
+			"question": "What area is the earlier you can craft a <:bronzeAxe:813572251587837953> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
+			"answers": "2"
+		},
+		{
+			"question": "What area is the earlier you can craft a <:copperplatedleatherarmor:812498329371803650> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
+			"answers": "1"
+		}
+		
+	],
+	"gathering": [
+		{
+			"question": "randomLogs",
+			"items": ["<:stick:801885407129370625>", "<:log:806232602703822899>", "<:mahoganylog:813650064215506954>", "<:pinelog:811035395319267348>"]
+		},
+		{
+			"question": "randomOre",
+			"items": ["<:pebble:801895841178451998>", "<:stone:801902761335586848>", "<:coppperore:810927764411646002>", "<:tinOre:813572436598587402>"]
+		},
+		{
+			"question": "randomIngots",
+			"items": ["<:copperingot:811659792447832104>", "<:bronzeIngot:813572436091994164>"]
+		},
+		{
+			"question": "randomLetter",
+			"items": [["Copper Ingot", "<:copperingot:811659792447832104>"], ["Bronze Ingot", "<:bronzeIngot:813572436091994164>"], ["Mahogany Log", "<:mahoganylog:813650064215506954>"], ["Tin Ore", "<:tinOre:813572436598587402>"], ["Stick", "<:stick:801885407129370625>"]]
+		}
+	],
+	"artisan": [
+		{
+			"question": "How much extra attack does this give you? <:attackboostA:812093131826659348> ",
+			"answers": "1"
+		},
+		{
+			"question": "How much extra defence does this give you? <:defenceboostB:812093132128649247>",
+			"answers": "2"
+		}
+	]
+}

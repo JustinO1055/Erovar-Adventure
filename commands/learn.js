@@ -7,19 +7,18 @@ module.exports={
     name: 'learn',
     description: "Use to get xp for the player or their skills.",
     execute(message, args){
-
         // variables for time cooldown
         // Change these values to change the cooldown
         var seconds = 0;
         var minutes = 20;
         var hours = 0;
         //check to ensure that the user is not on cooldown
-        var sqlCooldown = `SELECT C.cd_learn, U.admin FROM Cooldown C, Users U WHERE U.id = C.id AND C.id = '${message.author.id}'`;
-        connection.query(sqlCooldown, (err2, rowsCD) =>{
+        var sqlCooldown = `SELECT C.cd_learn, U.admin, U.max_area, U.xp, U.level FROM Cooldown C JOIN Users U ON U.id = C.id WHERE C.id = '${message.author.id}'`;
+        connection.query(sqlCooldown, (err2, rows) =>{
             if(err2) throw err2;
 
             // get the last command time
-            var last = rowsCD[0]['cd_learn'];
+            var last = rows[0]['cd_learn'];
             // get current time
             var today = new Date();
             // get difference in time from now to last sent
@@ -28,7 +27,7 @@ module.exports={
             var cooldown = ((((hours * 60) + minutes) * 60) + seconds)* 1000;
 
             // if the time is less than the cooldown
-            if(diff < cooldown && rowsCD[0].admin != 1){
+            if(diff < cooldown && rows[0].admin != 1){
                 // convert to seconds
                 var cooldownL = (cooldown - diff)/ 1000;
                 var minL = Math.floor(cooldownL / 60);
@@ -36,10 +35,46 @@ module.exports={
                 message.reply(`Please wait ${minutes} minutes before sending this command again. You have ${minL}:${secL} left`);
                 return;
             // if no longer on cooldown
-            } else if(diff >= cooldown || rowsCD[0].admin == 1){
+            } else if(diff >= cooldown || rows[0].admin == 1){
 
-                // pick a question to ask
-                item = quiz[Math.floor(Math.random() * quiz.length)];
+                //Check the arguments to see what the player wants to improve
+                //Get the question from the proper category that the player wants to improve
+                if(args.length < 1){
+                    //Output the proper format for the command
+                    message.channel.send("Please specify a category to improve. The proper use of the command is: \`adv learn <category>\`");
+                    return;
+                } else if(args[0] == "xp"){
+                    // pick a question to ask
+                    item = quiz['xp'][Math.floor(Math.random() * quiz['xp'].length)];
+                    //Get the amount of xp the user is going to get
+                    var xpGained = 200 * rows[0]['max_area'];
+                    var category = "your player level";
+                    // declare sql statement for players reward
+                    var sqlReward = `UPDATE Users SET xp = xp + ${xpGained}`;
+                } else if(args[0] == "artisan" || args[0] == "a"){
+                    // pick a question to ask
+                    item = quiz['artisan'][Math.floor(Math.random() * quiz['artisan'].length)];
+                    //Get the amount of xp the user is going to get
+                    var xpGained = 5 * rows[0]['max_area'];;
+                    var category = "Artisan";
+                    // declare sql statement for players reward
+                    var sqlReward = `UPDATE Skills SET artisan = artisan + ${xpGained}`;
+                } else if(args[0] == "gathering" || args[0] == "g"){
+                    // pick a question to ask
+                    item = quiz['gathering'][Math.floor(Math.random() * quiz['gathering'].length)];
+                    //Get the amount of xp the user is going to get
+                    var xpGained = 5 * rows[0]['max_area'];;
+                    var category = "Gathering";
+                    // declare sql statement for players reward
+                    var sqlReward = `UPDATE Skills SET gathering = gathering + ${xpGained}`;
+                } else {
+                    //Output the proper format for the command
+                    message.channel.send("Invalid category to improve. The proper use of the command is: \`adv learn <category>\`");
+                    return;
+                }
+
+                
+                
 
                 // if the question is a predetermined one for random generalization, set up the random question
                 if(item.question == "randomLogs" || item.question == "randomOre" || item.question == "randomIngots"){
@@ -74,16 +109,45 @@ module.exports={
                             //Check if player got the correct answer
                             if(answers.includes(collected.first().content)){
                                 //Output what the user gained
-                                message.channel.send("That is correct!");
+                                message.channel.send(`That is correct! \nYou have gained ${xpGained} experience towards ${category}!`);
+                                //Check if player leveled up
+                                /********************* Make this into a function call ************************/
+                                if(args[0] == "xp"){
+                                    //Get how much xp for player to level up
+                                    xpValues = functions.xpCurrentNext(rows[0]['level']);
+
+                                    //Determine if the player leveled up
+                                    if(rows[0]['xp'] + xpGained > xpValues[1]){
+                                        //Variable to track number of times a player leveled up
+                                        lvls = 0;
+
+                                        //Find out how many times the player leveled up
+                                        while(rows[0]['xp'] + xpGained > xpValues[1]) {
+                                            lvls++;
+                                            xpValues = functions.xpCurrentNext(rows[0]['level'] + lvls);
+                                        }
+
+                                        //Output Level Up message
+                                        if(lvls > 1)
+                                            message.channel.send(`${message.author}, you have leveled up ${lvls} times!\n+${lvls * 5} HP :heart: +${lvls} Attack :crossed_swords: +${lvls} Defence :shield:`);
+                                        else   
+                                            message.channel.send(`${message.author}, you have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
+                                    }
+                                    sqlReward += `, level = level + 1`;
+                                }
+                                //Add last part to sql query
+                                sqlReward += ` WHERE id = ${message.author.id}`;
+
                                 //Give the user their reward
+                                connection.query(sqlReward);
                             } else {
                                 //Output that the user is wrong
                                 message.channel.send(`That is incorrect. Better luck next time!\nThe correct answer was **${answers[0]}**`);
                             }
                         })
-                        .catch(collected => {
+                        /* .catch(collected => {
                             message.channel.send('**Times up!** Better luck next time.');
-                        });
+                        }); */
                 });
 
                 // add the cooldown to the database
