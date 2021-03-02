@@ -39,8 +39,7 @@ module.exports={
             } else if(diff >= cooldown || rowsCD[0].admin == 1){
 
                 // pick a question to ask
-                //item = quiz[Math.floor(Math.random() * quiz.length)];
-                item = quiz[quiz.length - 1];
+                item = quiz[Math.floor(Math.random() * quiz.length)];
 
                 // if the question is a predetermined one for random generalization, set up the random question
                 if(item.question == "randomLogs" || item.question == "randomOre" || item.question == "randomIngots"){
@@ -79,7 +78,7 @@ module.exports={
                                 //Give the user their reward
                             } else {
                                 //Output that the user is wrong
-                                message.channel.send("That is incorrect. Better luck next time!");
+                                message.channel.send(`That is incorrect. Better luck next time!\nThe correct answer was **${answers[0]}**`);
                             }
                         })
                         .catch(collected => {
