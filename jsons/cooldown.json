@@ -23,6 +23,11 @@
                 "message": "`Find` | `Chop` | `Mine`",
                 "cooldown": 2
             },
+            "learn":{
+                "name": "cd_learn",
+                "message": "`Learn`",
+                "cooldown": 20
+            },
             "sleep":{
                 "name": "cd_sleep",
                 "message": "`Sleep`",

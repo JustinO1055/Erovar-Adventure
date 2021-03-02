@@ -105,7 +105,7 @@ module.exports={
                     var hourL = Math.floor(cooldownL / 3600);
                     var minL = Math.floor((cooldownL % 3600) / 60);
                     var secL = Math.floor((cooldownL % 60) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-                    message.channel.send(`${User} please wait ${hours} hours before sending this command again. You have ${hourL} : ${minL} : ${secL} left`);
+                    message.channel.send(`${User} please wait ${hours} hours before sending this command again. You have ${hourL}:${minL}:${secL} left`);
                     return;
                 }
 
