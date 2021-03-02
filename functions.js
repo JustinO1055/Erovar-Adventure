@@ -248,5 +248,22 @@ module.exports = {
             return message.mentions.users.first();
         else
             return message.author
+    },
+
+    // function to add the ordinal suffix to a given number
+    addOrdinal: function(number){
+        // if it ends in 11, 12, 13
+        var endOnes = number % 10;
+        var endTens = 1 % 100;
+        // check the rules and add the proper suffix
+        if(endOnes == 1 && endTens != 11){
+            return number + "st";
+        } else if(endOnes == 2 && endTens != 12){
+            return number + "nd";
+        } else if(endOnes == 3 && endTens != 13){
+            return number + "rd";
+        } else {
+            return number + "th"
+        }
     }
 }

@@ -20,14 +20,6 @@
 		"answers": "4"
 	},
 	{
-		"question": "What is the 6th letter of this? <:mahoganylog:813650064215506954>",
-		"answers": "a"
-	},
-	{
-		"question": "What is the 3rd letter of this? <:log:806232602703822899>",
-		"answers": "g"
-	},
-	{
 		"question": "Is this an enemy you encounter in a battle? <:wasp:805520776311865465>? **yes** or **no**",
 		"answers": ["yes", "y", "ye"]
 	},
@@ -90,6 +82,10 @@
 	{
 		"question": "randomIngots",
 		"items": ["<:copperingot:811659792447832104>", "<:bronzeIngot:813572436091994164>"]
+	},
+	{
+		"question": "randomLetter",
+		"items": [["Copper Ingot", "<:copperingot:811659792447832104>"], ["Bronze Ingot", "<:bronzeIngot:813572436091994164>"], ["Mahogany Log", "<:mahoganylog:813650064215506954>"], ["Tin Ore", "<:tinOre:813572436598587402>"], ["Stick", "<:stick:801885407129370625>"]]
 	}
 
 ]

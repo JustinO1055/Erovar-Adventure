@@ -39,7 +39,8 @@ module.exports={
             } else if(diff >= cooldown || rowsCD[0].admin == 1){
 
                 // pick a question to ask
-                item = quiz[Math.floor(Math.random() * quiz.length)];
+                //item = quiz[Math.floor(Math.random() * quiz.length)];
+                item = quiz[quiz.length - 1];
 
                 // if the question is a predetermined one for random generalization, set up the random question
                 if(item.question == "randomLogs" || item.question == "randomOre" || item.question == "randomIngots"){
@@ -50,6 +51,15 @@ module.exports={
                     // set up the question and answers
                     question = `How many ${itemList[questionBuild[0]]} do you see?\n${questionBuild[1]}`;
                     answers = `${questionBuild[2]}`;
+                } else if(item.question == "randomLetter"){
+                    // get the list of items
+                    itemList = item.items;
+                    // 0 = position
+                    // 1 = letter (answer)
+                    // 2 = emoji
+                    let questionBuild = randomLetter(itemList);
+                    question = `What is the ${questionBuild[0]} letter of ${questionBuild[2]}?`;
+                    answers = `${questionBuild[1]}`; 
                 } else {
                     // otherwise use the default question and answers
                     question = item.question;
@@ -101,4 +111,28 @@ function randomItemsCount(items){
 
     // return the random item, the string and the count of item
     return [random, string, count];
+}
+
+// function to pick a random letter from the string and return it to ask the user to answer
+function randomLetter(items){
+
+     // 0 is name, 1 is emoji
+    // pick a random item
+    let random = Math.floor(Math.random() * items.length);
+    // select a word and remove the space
+    let word = items[random][0].replaceAll(" ", "");
+    // pick a random letter
+    let randomLetterNumber = Math.floor(Math.random() * word.length);
+    // pick a latter
+    randomLetterChosen = word.charAt(randomLetterNumber);
+
+    // add one to randomLetterNumber in order for it to make sense for a human to read
+    // starting index at 1
+    randomLetterNumber++;
+    // put random letter to lowercase
+    randomLetterChosen = randomLetterChosen.toLowerCase();
+
+    // return the position, the letter, the emoji
+    return[(functions.addOrdinal(randomLetterNumber)), randomLetterChosen, items[random][1]]; 
+
 }
