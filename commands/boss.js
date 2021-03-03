@@ -8,8 +8,11 @@ const MONSTERS = require('../jsons/monsters.json');
 //Include the js file with functions, that includes the playerDeath function
 var functions = require('../functions.js');
 
-//Include the js file that contains the resourceDrop class
+//Include the js file that contains the player class
 var playerClass = require('../classes/player.js');
+
+//Include the js file that contains the playerMoves class
+var playerMoveClass = require('../classes/playerMoves.js');
 
 module.exports={
     name: 'boss',
@@ -72,7 +75,7 @@ module.exports={
                     message.reply(`This boss can only be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
                 }
-            } else if(areaChallenge == 1){
+            } else if(areaChallenge == 1 || areaChallenge == 2){
                 if(rows.length == 1){
                     message.reply(`This boss cannot be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
@@ -203,10 +206,10 @@ module.exports={
                     });
                     break;
                 }
-
-                case 1:{
+                case 1:
+                case 2:{
                     //Call boss 1 function
-                    boss1(players, message);                    
+                    damageTestBoss(players, message, areaChallenge);                    
                     break;
                 }
                 default:{
@@ -215,7 +218,6 @@ module.exports={
                 }
             }
         });
-
     }
 }
 
@@ -539,7 +541,48 @@ async function boss0(player, message){
 
 }
 
-async function boss1(player, message){
+async function damageTestBoss(player, message, area){
+
+    if(area == 1){
+        //Declare prompt message for boss
+        var promtMessage = `Welcome to the second boss in Erovar.\n Upon defeating the boss, you will be granted access to area 2.`;
+
+        // store boss into variable for easier access
+        var boss;
+        for(b in MONSTERS['area1']['boss']){
+            boss = MONSTERS['area1']['boss'][b];        
+        }
+
+        //Create players move options
+        var playerMoves = [];
+        playerMoves.push(new playerMoveClass("Stab", 0, 1));
+        playerMoves.push(new playerMoveClass("Slash", 20, 1.5));
+        playerMoves.push(new playerMoveClass("Barrage Power", 50, 2));
+        playerMoves.push(new playerMoveClass("Omni Bane", 85, 4));
+
+        // update the user moves
+        embedPlayerMoves = { name: `${player[0].username} Turn:`, value: 'What are you going to do?\n\`Stab\` 100% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 100% Chance\n\`Slash\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 80% Chance\n\`Barrage Power\` 200% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance\n\`Omni Bane\` 400% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 15% Chance'};
+
+    } else if(area == 2){
+        //Declare prompt message for boss
+        var promtMessage = `Welcome to the third boss in Erovar.\n Upon defeating the boss, you will be granted access to area 3.`;
+
+        // store boss into variable for easier access
+        var boss;
+        for(b in MONSTERS['area2']['boss']){
+            boss = MONSTERS['area2']['boss'][b];        
+        }
+
+        //Create players move options
+        var playerMoves = [];
+        playerMoves.push(new playerMoveClass("Willow Clap", 0, 1));
+        playerMoves.push(new playerMoveClass("Earth Knock", 20, 1.5));
+        playerMoves.push(new playerMoveClass("Serpent Volley", 50, 2));
+        playerMoves.push(new playerMoveClass("Dodge", 50, 1.5));
+
+        // update the user moves
+        embedPlayerMoves = { name: `${player[0].username} Turn:`, value: 'What are you going to do?\n\`Willow Clap\` 100% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 100% Chance\n\`Earth Knock\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 80% Chance\n\`Serpent Volley\` 200% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance\n\`Dodge\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance'};
+    }
 
     // if the player is prepared, prompt user if they are ready to start the boss fight
     // create the embed to send
@@ -547,8 +590,7 @@ async function boss1(player, message){
     .setColor('#0A008C')
     .setTitle('Boss Fight')
     .addFields(
-        { name: `Description`, value: `Welcome to the second boss in Erovar.\n
-        Upon defeating the boss, you will be granted access to area 2.`},
+        { name: `Description`, value: promtMessage},
         { name: "Ready", value: `If you are ready, type \`yes\` to begin the fight. If you need more time to prepare, type \`no\` to cancel.`}
     );
 
@@ -590,18 +632,17 @@ async function boss1(player, message){
         var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${player[i].id}'`;
         connection.query(sql2);
     }
+    
+    damageTestBossFight(message, player, boss, playerMoves, embedPlayerMoves, area);
+}
 
+
+async function damageTestBossFight(message, player, boss, playerMoves, embedPlayerMoves, area){
     //Declare variable for number of players in fight
     var numberOfPlayers = player.length;
 
     //Define array to store people that die durring fight
     var deadPlayers = [];
-    
-    // store boss into variable for easier access
-    var boss;
-    for(b in MONSTERS['area1']['boss']){
-        boss = MONSTERS['area1']['boss'][b];        
-    }
 
     // create the embed to send
     const bossEmbed = new Discord.MessageEmbed()
@@ -618,11 +659,8 @@ async function boss1(player, message){
 
     while(player.length > 0 && bossCurrentHP > 0) {
         // set up listening for response
-        let filter = m => m.author.id === player[currentPlayer].id && (m.content.toLowerCase() == 'stab' || m.content.toLowerCase() == 'slash' || m.content.toLowerCase() == 'barrage power' || m.content.toLowerCase() == 'omni bane');
-
-        // update the user moves
-        playerMoves = { name: `${player[currentPlayer].username} Turn:`, value: "What are you going to do?\n\`Stab\` 100% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 100% Chance\n\`Slash\` 150% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 80% Chance\n\`Barrage Power\` 200% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 50% Chance\n\`Omni Bane\` 400% Attack \xa0\xa0\xa0|\xa0\xa0\xa0 10% Chance"};
-
+        let filter = m => m.author.id === player[currentPlayer].id && (m.content.toLowerCase() == playerMoves[0].mName.toLowerCase() || m.content.toLowerCase() == playerMoves[1].mName.toLowerCase() || m.content.toLowerCase() == playerMoves[2].mName.toLowerCase() || m.content.toLowerCase() == playerMoves[3].mName.toLowerCase());
+        
         // update the user stats
         userStats = { name: `${player[currentPlayer].username}'s Stats:`, value: `**HP**: ${player[currentPlayer].hp[0]}/${player[currentPlayer].hp[1]}\n**Att**: ${player[currentPlayer].attack}\n**Def**: ${player[currentPlayer].defence}`, inline: true };
 
@@ -631,9 +669,9 @@ async function boss1(player, message){
 
         //Set array of all embed messages. If this is the first embed, hitMiss will not be defined yet, so exlcude that
         if(typeof hitMiss != "undefined")
-            bossFight = [hitMiss, userStats, bossStats, playerMoves];
+            bossFight = [hitMiss, userStats, bossStats, embedPlayerMoves];
         else
-            bossFight = [userStats, bossStats, playerMoves]
+            bossFight = [userStats, bossStats, embedPlayerMoves]
 
         //Add new fields to embed
         bossEmbed.spliceFields(0, bossFight.length, bossFight);
@@ -646,49 +684,46 @@ async function boss1(player, message){
             // get the attack choice from user
             attack = mes.first().content.toLowerCase();
 
-            //Variables used for tracking turn outcome
-            var hitNumber;
-            var damagePercent;
+            //Variable used for tracking players lost hp
             var tempHP = [player[currentPlayer].hp[0], bossCurrentHP];
 
+            //Players move converted to index
+            var playersMove;
+
             //Get the hit percent chance and hit damage percent based on players move
-            switch(attack){
-                case "stab":{
-                    hitNumber = 0;
-                    damagePercent = 1;
-                    break;
-                }
-                case "slash":{
-                    hitNumber = 20;
-                    damagePercent = 1.5;
-                    break;
-                }
-                case "barrage power":{
-                    hitNumber = 50;
-                    damagePercent = 2;
-                    break;
-                }
-                case "omni bane":{
-                    hitNumber = 90;
-                    damagePercent = 4;
-                    break;
-                }
-            }
-
-            //Calculate damage done to player
-            player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
-
-            //Player died, add message that the player died
-            if(player[currentPlayer].hp[0] < 1)
-                deathMessage = "You have died!";
-            else
-                deathMessage = "";
+            if(attack == playerMoves[0].mName.toLowerCase())
+                playersMove = 0;
+            else if(attack == playerMoves[1].mName.toLowerCase())
+                playersMove = 1;
+            else if(attack == playerMoves[2].mName.toLowerCase())
+                playersMove = 2;
+            else if(attack == playerMoves[3].mName.toLowerCase())
+                playersMove = 3;
 
             //Check if player hit boss
-            if(functions.randomInteger(1, 100) > hitNumber){
-                bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, damagePercent);
+            if(functions.randomInteger(1, 100) > playerMoves[playersMove].chance){
+                if(playerMoves[playersMove].mName != "Dodge"){
+                    //Calculate damage done to player
+                    player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+
+                    //Player died, add message that the player died
+                    if(player[currentPlayer].hp[0] < 1)
+                        deathMessage = "You have died!";
+                    else
+                        deathMessage = "";
+                }
+                bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, playerMoves[playersMove].damage);
                 hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
             } else {
+                //Calculate damage done to player
+                player[currentPlayer].playerHit(functions.calculateDamage(boss.attack, player[currentPlayer].defence, player[currentPlayer].hp[0], 1));
+
+                //Player died, add message that the player died
+                if(player[currentPlayer].hp[0] < 1)
+                    deathMessage = "You have died!";
+                else
+                    deathMessage = "";
+
                 hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You missed!\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};
             }
 
@@ -726,8 +761,6 @@ async function boss1(player, message){
                 //Increment to next player
                 currentPlayer++;
             }
-            
-
         });
 
         //If at the end of the player array, reset back to zero
@@ -799,7 +832,7 @@ async function boss1(player, message){
         bossCurrentHP = 0;
 
         let victoryMsg = {name: 'Outcome', value: `You have managed to slay the ${boss.name} ${boss.emoji}, the path to the next area is now open. Upon entering the unknown of the new area, a sense of danger is in the air... You then realize that there will be new monsters to fight, and a new boss to defeat.`};
-        let welcome = {name: 'Welcome', value: `Welcome to area 2!
+        let welcome = {name: 'Welcome', value: `Welcome to area ${area}!
         \nUse \`adv help\` for to see any new commands availble
         \n**Goodluck, and enjoy your adventure throughout Erovar!**`};
 
@@ -820,11 +853,11 @@ async function boss1(player, message){
         message.channel.send(victoryEmbed);
         // update the database to set the users hp to their current hp, set their area to 1 and max area to 1
         for(i = 0; i < player.length; i++){
-            let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = 2, area = 2 WHERE id = '${player[i].id}'`;
+            let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${player[i].id}'`;
             connection.query(sql);
         }
         for(i = 0; i < deadPlayers.length; i++){
-            let sql = `UPDATE Users SET hp = 1, max_area = 2, area = 2 WHERE id = '${deadPlayers[i].id}'`;
+            let sql = `UPDATE Users SET hp = 1, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${deadPlayers[i].id}'`;
             connection.query(sql);
         }
     

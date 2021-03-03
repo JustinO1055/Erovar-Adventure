@@ -421,8 +421,8 @@
                 "name": "Rock Golem",
                 "emoji": "<:golem:815747218035966013>",
                 "hp": 5000,
-                "attack": 50000,
-                "defence": 50000
+                "attack": 40,
+                "defence": 40
             }
 
         }

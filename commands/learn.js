@@ -132,8 +132,9 @@ module.exports={
                                             message.channel.send(`${message.author}, you have leveled up ${lvls} times!\n+${lvls * 5} HP :heart: +${lvls} Attack :crossed_swords: +${lvls} Defence :shield:`);
                                         else   
                                             message.channel.send(`${message.author}, you have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
+                                        
+                                        sqlReward += `, level = level + 1`;
                                     }
-                                    sqlReward += `, level = level + 1`;
                                 }
                                 //Add last part to sql query
                                 sqlReward += ` WHERE id = ${message.author.id}`;
@@ -145,9 +146,9 @@ module.exports={
                                 message.channel.send(`That is incorrect. Better luck next time!\nThe correct answer was **${answers[0]}**`);
                             }
                         })
-                        /* .catch(collected => {
+                        .catch(collected => {
                             message.channel.send('**Times up!** Better luck next time.');
-                        }); */
+                        });
                 });
 
                 // add the cooldown to the database
