@@ -29,21 +29,9 @@
 			"answers": ["yes", "y", "ye"]
 		},
 		{
-			"question": "Is leather required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
-			"answers": ["yes", "y", "ye"]
-		},
-		{
-			"question": "Are sticks required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
-			"answers": ["no", "n"]
-		},
-		{
-			"question": "Is leather required to make a <:basicshield:803356283188150324>? **yes** or **no**",
-			"answers": ["no", "n"]
-		},
-		{
 			"question": "Is this an enemy you encounter in a battle? <a:eyeEro:813898212817240115> **yes** or **no**",
 			"answers": ["no", "n"]
-		},
+		},		
 		{
 			"question": "How much extra hp does this give you? <:hpboostB:812093133856702464>",
 			"answers": "10"
@@ -92,6 +80,18 @@
 		{
 			"question": "How much extra defence does this give you? <:defenceboostB:812093132128649247>",
 			"answers": "2"
+		},
+		{
+			"question": "Is leather required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
+			"answers": ["yes", "y", "ye"]
+		},
+		{
+			"question": "Are sticks required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
+			"answers": ["no", "n"]
+		},
+		{
+			"question": "Is leather required to make a <:basicshield:803356283188150324>? **yes** or **no**",
+			"answers": ["no", "n"]
 		}
 	]
 }
