@@ -265,5 +265,33 @@ module.exports = {
         } else {
             return number + "th"
         }
+    },
+    // a function to check if a user has leveled up given current xp and level
+     levelUpCheck: function(xp, level, message){
+        // get the xp for the levels
+        var xpValues = this.xpCurrentNext(level);
+    
+        //Determine if the player leveled up
+        if(xp > xpValues[1]){
+            //Variable to track number of times a player leveled up
+            lvls = 0;
+    
+            //Find out how many times the player leveled up
+            while(xp > xpValues[1]) {
+                lvls++;
+                xpValues = this.xpCurrentNext(level + lvls);
+            }
+    
+            //Output Level Up message
+            if(lvls > 1)
+                message.channel.send(`${message.author}, you have leveled up ${lvls} times!\n+${lvls * 5} HP :heart: +${lvls} Attack :crossed_swords: +${lvls} Defence :shield:`);
+            else   
+                message.channel.send(`${message.author}, you have leveled up!\n+5 HP :heart: +1 Attack :crossed_swords: +1 Defence :shield:`);
+    
+            //Create query to update users data, inlcuding a level up
+            sqlLevelUp =`UPDATE Users SET hp = max_hp + 5 * ${lvls}, level = level + 1 * ${lvls}, max_hp = max_hp + 5 * ${lvls}, attack = attack + 1 * ${lvls}, defence = defence + 1 * ${lvls} WHERE id = ${message.author.id}`;
+            connection.query(sqlLevelUp);
+        }
+    
     }
 }
