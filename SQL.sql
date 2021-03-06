@@ -31,6 +31,7 @@ CREATE TABLE Inventory (
   copper_ingot INT NOT NULL DEFAULT 0,
   cowhide INT NOT NULL DEFAULT 0,
   leather INT NOT NULL DEFAULT 0,
+  narwhal_horn INT NOT NULL DEFAULT 0,
   health_boost_a INT NOT NULL DEFAULT 0,
   health_boost_b INT NOT NULL DEFAULT 0,
   defence_boost_a INT NOT NULL DEFAULT 0,
@@ -40,6 +41,9 @@ CREATE TABLE Inventory (
   tin_ore INT NOT NULL DEFAULT 0,
   bronze_ingot INT NOT NULL DEFAULT 0,
   mahogany_log INT NOT NULL DEFAULT 0,
+  iron_ore INT NOT NULL DEFAULT 0,
+  iron_ingot INT NOT NULL DEFAULT 0,
+  redwood_log INT NOT NULL DEFAULT 0,
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE,
   CHECK(pebble >= 0 AND stone >=0 AND stick >= 0 AND log >= 0)
   
@@ -53,7 +57,7 @@ CREATE TABLE Cooldown(
   cd_battle DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
   cd_expedition DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
   cd_boss DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
-  cd_boss DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
+  cd_learn DATETIME NOT NULL DEFAULT '2020-12-01 00:00:00',
   FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
 
 ) engine = "innoDB";
@@ -91,6 +95,7 @@ CREATE TABLE Stats (
     skullbat INT NOT NULL DEFAULT 0,
     wizard INT NOT NULL DEFAULT 0,
     shark_tooth INT NOT NULL DEFAULT 0,
+    narwhal_horn INT NOT NULL DEFAULT 0,
     health_boost_a INT NOT NULL DEFAULT 0,
     health_boost_b INT NOT NULL DEFAULT 0,
     attack_boost_a INT NOT NULL DEFAULT 0,

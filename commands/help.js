@@ -225,7 +225,7 @@ module.exports={
                 // create the embed to output
                 var helpEmbed = new Discord.MessageEmbed()
                     .addFields(
-                        { name: `Learn`, value: `Used to learn and gain experience. User picks what category they want experience in, player xp, gatherer, or artisan. A question is then given to the user, if they answer correctly, they gain experience in the chosen category.`},
+                        { name: `Learn`, value: `Command unlocked in area 2 used to learn and gain experience. User picks what category they want experience in, player xp, gatherer, or artisan. A question is then given to the user, if they answer correctly, they gain experience in the chosen category.`},
                         { name: `Usage:`, value: `\`adv learn [category]\``},
                         { name: `Alias`, value:  `\`learn\` \`tr\` `}
                     );
