@@ -34,6 +34,10 @@ module.exports={
                 var secL = Math.floor(cooldownL % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
                 message.reply(`Please wait ${minutes} minutes before sending this command again. You have ${minL}:${secL} left`);
                 return;
+            //if not yet reached area 2
+            } else if (rows[0].max_area < 2){
+                message.reply(`This command is unlocked in area 2.\nUse \`adv h\` for more information.`);
+                return;
             // if no longer on cooldown
             } else if(diff >= cooldown || rows[0].admin == 1){
 

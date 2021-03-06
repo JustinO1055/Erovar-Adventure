@@ -32,6 +32,14 @@
             "xp": 6,
             "type": "resource"
         },
+        "redwood_log":{
+            "name": "Redwood Log",
+            "emoji": "<:redwoodLog:817818167832608811>",
+            "description": "Found in area 3 using `chop`. Used to create higher level equipment and higher tier wood materials.",
+			"value": 500,
+            "xp": 12,
+            "type": "resource"
+        },
         "pebble":{
             "name": "Pebble",
             "emoji": "<:pebble:801895841178451998>",
@@ -76,6 +84,21 @@
             "emoji": "<:bronzeIngot:813572436091994164>",
             "description": "Crafted by using copper ore <:coppperore:810927764411646002>, tin ore <:tinOre:813572436598587402> and logs. Recipe found in `adv recipes items`. Used to create equipment.",
             "value": 300,
+            "type": "resource"
+        },
+        "iron_ore":{
+            "name": "Iron Ore",
+            "emoji": "<:iron_ore:817845185571454976>",
+            "description": "Found in area 3 using `mine`. Used to create higher level equipment and higher tier rock materials.",
+            "value": 150,
+            "xp": 6,
+            "type": "resource"
+        },
+        "iron_ingot":{
+            "name": "Iron Ingot",
+            "emoji": "<:iron_ingot:817845115196145694>",
+            "description": "Crafted by using iron ore <:iron_ore:817845185571454976> and logs. Recipe found in `adv recipes items`. Used to create equipment.",
+            "value": 500,
             "type": "resource"
         },
         "basic_sword":{
@@ -201,6 +224,47 @@
             "defence": 12,
             "type": "equipment"
         },
+        "iron_pickaxe":{
+            "name": "Iron Pickaxe",
+            "emoji": "<:iron_pickaxe:817845115216461865>",
+            "description": "Fourth pickaxe that you can make. Craftable in area 3. Able to find more ore with this. Use `adv recipes equipment` for ingredients.",
+            "value": 3000,
+            "type": "equipment"
+        },
+        "iron_axe":{
+            "name": "Bronze Axe",
+            "emoji": "<:iron_axe:817845115099283496>",
+            "description": "Fourth axe that you can make. Craftable in area 3. Able to find more logs with this. Use `adv recipes equipment` for ingredients.",
+            "value": 3000,
+            "type": "equipment"
+        },
+        "narwhal_horn_sword":{
+            "name": "Narwhal Horn Sword",
+            "emoji": "<:narwhalHornSword:817843544688558081>",
+            "description": "A new pokey sword. Stronger than the last. Use `adv recipes equipment` for ingredients.",
+            "value": 4500,
+            "attack": 15,
+            "defence": 0,
+            "type": "equipment"
+        },
+        "iron_armor":{
+            "name": "Iron Armor",
+            "emoji": "<:iron_armor:817845115099414538>",
+            "description": "Fancy new set of armor. Stronger than the last. Use `adv recipes equipment` for ingredients.",
+            "value": 4500,
+            "attack": 3,
+            "defence": 16,
+            "type": "equipment"
+        },
+        "iron_shield":{
+            "name": "Iron Shield",
+            "emoji": "<:ironShield:817554011183906826>",
+            "description": "A shiny new shield. Stronger than the last. Use `adv recipes equipment` for ingredients.",
+            "value": 4500,
+            "attack": 0,
+            "defence": 15,
+            "type": "equipment"
+        },
         "health_potion":{
             "name": "Health Potion",
             "emoji": "<:healthpotion:808098747585658921>",
@@ -238,6 +302,14 @@
             "emoji": "<:sharkTooth:813853981343350815>",
             "description": "Item dropped from <:sharkEro:813503548981510254>. Used to create shield.",
             "value": 800,
+            "type": "resource",
+            "droppable" : true
+        },
+        "narwhal_horn":{
+            "name": "Narwhal Horn",
+            "emoji": "<:narwhalHorn:817843544647401512>",
+            "description": "Item dropped from <:narwhal:815747217939890226>. Used to create sword.",
+            "value": 1600,
             "type": "resource",
             "droppable" : true
         },

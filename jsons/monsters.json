@@ -445,7 +445,8 @@
                 "encounter": 1,
                 "moves" : null,
                 "drops":[
-                    [null, 991],
+                    [null, 941],
+                    ["narwhal_horn", 50],
                     ["health_boost_a", 2],
                     ["health_boost_a", 1],
                     ["attack_boost_a", 2],

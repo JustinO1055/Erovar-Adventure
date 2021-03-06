@@ -19,10 +19,10 @@ module.exports={
                 .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item>\``)
                 .setColor('#FF69B4')
                 .addFields(
-                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`give\` | \`invite\` | \`inventory\` | \`ready\` | \`profile\`| \`skills\` | \`sleep\` | \`stats\` | \`version\``},
+                    { name: `General Commands`, value: `\`area\` | \`cooldown\` | \`heal\` | \`help\` | \`give\` | \`invite\` | \`inventory\` | \`learn\` | \`ready\` | \`profile\`| \`skills\` | \`sleep\` | \`stats\` | \`version\``},
                     { name: `Combat Commands`, value: `\`battle\` | \`boss\` | \`expedition\` | \`heal\` | \`sleep\``},
                     { name: `Shop Commands`, value: `\`buy\` | \`use\` | \`sell\` | \`shop\``},
-                    { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`disassemble\` | \`mine\` | \`inventory\` | \`recipes\``}
+                    { name: `Artisan & Gathering Commands`, value: `\`chop\` | \`craft\` | \`disassemble\` | \`learn\` | \`mine\` | \`inventory\` | \`recipes\``}
                 );
 
                 // later will need to update this with the commands we add in higher areas
@@ -220,6 +220,16 @@ module.exports={
                         { name: `Alias`, value:  `\`inventory\` \`i\` `}
                     );
     
+                break;
+            case 'learn':
+                // create the embed to output
+                var helpEmbed = new Discord.MessageEmbed()
+                    .addFields(
+                        { name: `Learn`, value: `Used to learn and gain experience. User picks what category they want experience in, player xp, gatherer, or artisan. A question is then given to the user, if they answer correctly, they gain experience in the chosen category.`},
+                        { name: `Usage:`, value: `\`adv learn [category]\``},
+                        { name: `Alias`, value:  `\`learn\` \`tr\` `}
+                    );
+
                 break;
             case 'mine':
                 //Create the embed to output

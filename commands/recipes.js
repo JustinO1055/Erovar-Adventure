@@ -17,7 +17,7 @@ module.exports={
 
         if(category == "items" && args[1] != 1){
             page = 1;
-        } else if(category == "equipment" && args[1] != 1 && args[1] != 2){
+        } else if(category == "equipment" && args[1] != 1 && args[1] != 2 && args[1] != 3){
             page = 1;
         } else{
             page = args[1];
@@ -56,7 +56,7 @@ module.exports={
         if(category == "items")
             var footer = `Page ${page}/1`;
         else
-            var footer = `Page ${page}/2`;
+            var footer = `Page ${page}/3`;
 
         //Create the embed to output
         const recipesEmbed = new Discord.MessageEmbed()

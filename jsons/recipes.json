@@ -43,6 +43,18 @@
             "xp" : 4,
             "page": 1
         },
+        "iron_ingot":{
+            "items":[              
+                
+                ["log",
+                "2"],              
+                
+                ["iron_ore",
+                "6"]
+            ],
+            "xp" : 8,
+            "page": 1
+        },
         "leather":{
             "items":[
                 ["cowhide",
@@ -263,6 +275,73 @@
             ],
             "xp" : 10,
             "page": 2
+        },
+        "narwhal_horn_sword":{
+            "items":[
+                ["narwhal_horn",
+                "3"],
+            
+                ["iron_ingot",
+                "3"],
+
+                ["redwood_log",
+                "3"]
+            ],
+            "xp" : 15,
+            "page": 2
+        },
+        "iron_axe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["redwood_log",
+                "3"],
+                            
+                ["iron_ingot",
+                "2"]
+            ],
+            "xp" : 9,
+            "page": 2
+        },
+        "iron_pickaxe":{
+            "items":[
+                ["stick",
+                "5"],
+            
+                ["redwood_log",
+                "2"],
+                            
+                ["iron_ingot",
+                "2"]
+            ],
+            "xp" : 9,
+            "page": 2
+        },
+        "iron_armor":{
+            "items":[
+            
+                ["redwood_log",
+                "2"],
+                            
+                ["iron_ingot",
+                "7"]
+            ],
+            "xp" : 14,
+            "page": 3
+        },
+        "iron_shield":{
+            "items":[
+            
+                ["redwood_log",
+                "3"],
+                            
+                ["iron_ingot",
+                "5"]
+            ],
+            "xp" : 12,
+            "page": 3
         }
+
     }
 }
