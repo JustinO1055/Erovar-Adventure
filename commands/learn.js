@@ -182,7 +182,7 @@ function learnAsk(command, message, rows){
         message.channel.awaitMessages(filter, { max: 1, time: 20000, errors: ['time'] })
             .then(collected => {
                 //Check if player got the correct answer
-                if(answers.includes(collected.first().content)){
+                if(answers.includes(collected.first().content.toLowerCase())){
                     //Output what the user gained
                     message.channel.send(`That is correct! \nYou have gained ${xpGained} experience towards ${category}!`);
                     //Add last part to sql query
