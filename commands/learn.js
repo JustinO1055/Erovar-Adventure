@@ -41,15 +41,15 @@ module.exports={
             // if no longer on cooldown
             } else if(diff >= cooldown || rows[0].admin == 1){
 
-                if(args[0] === "xp" || args[0] === "artisan" || args[0] === "a" || args[0] === "gatherer" || args[0] === "g")
+                if(args[0] === "xp" || args[0] === "artisan" || args[0] === "a" || args[0] === "gathering" || args[0] === "g")
                     var argCheck = true;
                 else
                     var argCheck = false;
 
                 if(!argCheck){
                     //set up listening for response
-                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'xp' || m.content.toLowerCase() == 'artisatn'|| m.content.toLowerCase()  === "a" || m.content.toLowerCase()  === "gatherer" || m.content.toLowerCase()  === "g");
-                    message.channel.send(`What category do you want to learn? \`xp\` | \`gatherer\` | \`artisan\``).then(() => {
+                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'xp' || m.content.toLowerCase() == 'artisatn'|| m.content.toLowerCase()  === "a" || m.content.toLowerCase()  === "gathering" || m.content.toLowerCase()  === "g");
+                    message.channel.send(`What category do you want to learn? \`xp\` | \`gathering\` | \`artisan\``).then(() => {
                         message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] })
                             .then(mes => {
                                 //Convert message to lowercase
@@ -191,7 +191,6 @@ function learnAsk(command, message, rows){
                     //Give the user their reward
                     connection.query(sqlReward);
                     //Check if player leveled up
-                    /********************* Make this into a function call ************************/
                     if(command == "xp"){
                         //Determine if the player leveled up
                         functions.levelUpCheck((rows[0].xp + xpGained), rows[0].level, message);                        
@@ -201,9 +200,9 @@ function learnAsk(command, message, rows){
                     message.channel.send(`That is incorrect. Better luck next time!\nThe correct answer was **${answers[0]}**`);
                 }
             })
-            /*.catch(collected => {
+            .catch(collected => {
                 message.channel.send('**Times up!** Better luck next time.');
-            });*/
+            });
     });
 
     // add the cooldown to the database
