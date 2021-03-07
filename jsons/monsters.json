@@ -206,8 +206,8 @@
                 "encounter": 3,
                 "moves" : null,
                 "drops":[
-                    ["cowhide", 75],
-                    [null, 916],
+                    ["cowhide", 50],
+                    [null, 941],
                     ["health_boost_a", 2],
                     ["health_boost_a", 1],
                     ["attack_boost_a", 2],
@@ -420,9 +420,9 @@
             "golem":{
                 "name": "Rock Golem",
                 "emoji": "<:golem:815747218035966013>",
-                "hp": 5000,
-                "attack": 40,
-                "defence": 40
+                "hp": 500,
+                "attack": 52,
+                "defence": 37
             }
 
         }

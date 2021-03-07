@@ -76,7 +76,7 @@ module.exports={
                     return;
                 }
             } else if(areaChallenge == 1 || areaChallenge == 2){
-                if(rows.length == 1){
+                if(rows.length == 0){
                     message.reply(`This boss cannot be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
                 }
@@ -667,6 +667,9 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         // set the stats for the boss for the embed
         bossStats = { name: `Boss ${boss.name} ${boss.emoji} Stats:`, value: `**HP**: ${bossCurrentHP}/${boss.hp * numberOfPlayers}\n`, inline: true};
 
+        //Set players turn in embed
+        embedPlayerMoves.name = `${player[currentPlayer].username} Turn:`;
+
         //Set array of all embed messages. If this is the first embed, hitMiss will not be defined yet, so exlcude that
         if(typeof hitMiss != "undefined")
             bossFight = [hitMiss, userStats, bossStats, embedPlayerMoves];
@@ -711,6 +714,8 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
                         deathMessage = "You have died!";
                     else
                         deathMessage = "";
+                } else{
+                    deathMessage = "";
                 }
                 bossCurrentHP = functions.calculateDamage(player[currentPlayer].attack, boss.defence, bossCurrentHP, playerMoves[playersMove].damage);
                 hitMiss = { name: `${player[currentPlayer].username}'s Attack`, value: `You hit ${boss.name} ${boss.emoji} for ${tempHP[1] - bossCurrentHP} HP :hearts:\nYou were hit for ${tempHP[0] - player[currentPlayer].hp[0]} HP :hearts: ${deathMessage}`};

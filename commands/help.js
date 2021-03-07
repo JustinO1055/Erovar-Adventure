@@ -102,10 +102,18 @@ module.exports={
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
                             { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis fight is mostly random. Choose between attacks with varying damage and hit chance.`},
-                            { name: `Recommendation`, value: `Level 10-15`},
+                            { name: `Recommendation`, value: `Level 20-23`},
                             { name: `Tips`, value: `While higher damage moves may seem best, the low chance of hitting may make them a last resort.`},
                             { name: `Usage:`, value: `\`adv boss\``}
-                )
+                        )
+                }else if(modifer == 2){
+                    var helpEmbed = new Discord.MessageEmbed()
+                        .addFields(
+                            { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis fight is mostly random. Choose between attacks with varying damage and hit chance.`},
+                            { name: `Recommendation`, value: `Level 30-33`},
+                            { name: `Tips`, value: `While higher damage moves may seem best, the low chance of hitting may make them a last resort.`},
+                            { name: `Usage:`, value: `\`adv boss\``}
+                        )
                 // if generic boss help print generic message
                 } else {
                 //Create the embed to output

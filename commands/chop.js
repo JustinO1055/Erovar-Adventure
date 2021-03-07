@@ -69,6 +69,9 @@ module.exports={
                         case "bronze_axe":
                             var axe = 4;
                             break;
+                        case "iron_axe":
+                            var axe = 6;
+                            break;
                     }
 
                     //Get players gathering skill level
@@ -87,6 +90,11 @@ module.exports={
                         case 2:
                             findDropTable.addResource(new resourceDrop("pine_log", 4 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
                             findDropTable.addResource(new resourceDrop("mahogany_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            break;
+                        case 3:
+                            findDropTable.addResource(new resourceDrop("pine_log", 5 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addResource(new resourceDrop("mahogany_log", 3 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addResource(new resourceDrop("redwood_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
                             break;
                     }
 
