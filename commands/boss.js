@@ -56,9 +56,7 @@ module.exports={
                 } */
             });
 
-        } else if(args.length == 0){
-
-        } else{
+        } else if(args.length > 3){
             message.reply(`Bosses can not be done with more than 4 people. Please try again with at most 4`);
             return;
         }
@@ -76,7 +74,7 @@ module.exports={
                     return;
                 }
             } else if(areaChallenge == 1 || areaChallenge == 2){
-                if(rows.length == 0){
+                if(rows.length == 1){
                     message.reply(`This boss cannot be challenged alone. \nPlease check \`adv help boss <area #>\` for more information.`);
                     return;
                 }
@@ -837,7 +835,7 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         bossCurrentHP = 0;
 
         let victoryMsg = {name: 'Outcome', value: `You have managed to slay the ${boss.name} ${boss.emoji}, the path to the next area is now open. Upon entering the unknown of the new area, a sense of danger is in the air... You then realize that there will be new monsters to fight, and a new boss to defeat.`};
-        let welcome = {name: 'Welcome', value: `Welcome to area ${area}!
+        let welcome = {name: 'Welcome', value: `Welcome to area ${area + 1}!
         \nUse \`adv help\` for to see any new commands availble
         \n**Goodluck, and enjoy your adventure throughout Erovar!**`};
 
