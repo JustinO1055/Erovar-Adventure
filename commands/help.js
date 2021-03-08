@@ -102,6 +102,7 @@ module.exports={
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
                             { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis fight is mostly random. Choose between attacks with varying damage and hit chance.`},
+                            { name: `Requirements`, value: `2-4 People`},
                             { name: `Recommendation`, value: `Level 20-23`},
                             { name: `Tips`, value: `While higher damage moves may seem best, the low chance of hitting may make them a last resort.`},
                             { name: `Usage:`, value: `\`adv boss\``}
@@ -110,6 +111,7 @@ module.exports={
                     var helpEmbed = new Discord.MessageEmbed()
                         .addFields(
                             { name: `Boss`, value: `Once you have prepared enough, use this to challenge the boss of the area so you can progress to the next area.\n\nThis fight is mostly random. Choose between attacks with varying damage and hit chance.`},
+                            { name: `Requirements`, value: `2-4 People`},
                             { name: `Recommendation`, value: `Level 30-33`},
                             { name: `Tips`, value: `While higher damage moves may seem best, the low chance of hitting may make them a last resort.`},
                             { name: `Usage:`, value: `\`adv boss\``}
