@@ -48,8 +48,8 @@ module.exports={
 
                 if(!argCheck){
                     //set up listening for response
-                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'xp' || m.content.toLowerCase() == 'artisatn'|| m.content.toLowerCase()  === "a" || m.content.toLowerCase()  === "gathering" || m.content.toLowerCase()  === "g");
-                    message.channel.send(`What category do you want to learn? \`xp\` | \`gathering\` | \`artisan\``).then(() => {
+                    let filter = m => m.author.id === message.author.id && (m.content.toLowerCase() == 'xp' || m.content.toLowerCase() == 'artisan'|| m.content.toLowerCase()  === "a" || m.content.toLowerCase()  === "gathering" || m.content.toLowerCase()  === "g");
+                    message.channel.send(`What category do you want to learn? \`xp\` | \`gathering\` | \`artisan\`\nReply with your choice:`).then(() => {
                         message.channel.awaitMessages(filter, {max: 1, time: 30000, errors: ['time'] })
                             .then(mes => {
                                 //Convert message to lowercase
