@@ -34,7 +34,7 @@
 		},		
 		{
 			"question": "How much extra hp does this give you? <:hpboostB:812093133856702464>",
-			"answers": "10"
+			"answers": ["10", "ten"]
 		},
 		{
 			"question": "What was the type of enemy fought in boss 0? (The Tutorial)",
@@ -46,11 +46,11 @@
 		},
 		{
 			"question": "What area is the earlier you can craft a <:bronzeAxe:813572251587837953> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-			"answers": "2"
+			"answers": ["2", "two"]
 		},
 		{
 			"question": "What area is the earlier you can craft a <:copperplatedleatherarmor:812498329371803650> on your own? \n**1:** Area 1 \n**2:** Area 2 \n**3:** Area 3 \n**4:** Area 4",
-			"answers": "1"
+			"answers": ["1", "one"]
 		}
 		
 	],
@@ -75,11 +75,11 @@
 	"artisan": [
 		{
 			"question": "How much extra attack does this give you? <:attackboostA:812093131826659348> ",
-			"answers": "1"
+			"answers": ["1", "one"]
 		},
 		{
 			"question": "How much extra defence does this give you? <:defenceboostB:812093132128649247>",
-			"answers": "2"
+			"answers": ["2", "two"]
 		},
 		{
 			"question": "Is leather required to make a <:pineshield:811813315701374996>?  **yes** or **no**",
