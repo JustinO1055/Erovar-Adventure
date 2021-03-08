@@ -232,7 +232,7 @@
             "type": "equipment"
         },
         "iron_axe":{
-            "name": "Bronze Axe",
+            "name": "Iron Axe",
             "emoji": "<:iron_axe:817845115099283496>",
             "description": "Fourth axe that you can make. Craftable in area 3. Able to find more logs with this. Use `adv recipes equipment` for ingredients.",
             "value": 3000,
