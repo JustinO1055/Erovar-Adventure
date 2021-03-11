@@ -65,7 +65,7 @@ module.exports={
                     // Go through the monstors list for the users area under the battle section.
                     for(m in MONSTERS[`area${rows[0].area}`]['battle']){
                         // add the information for that monster to the encounter table.
-                        monsterEncounterTable.addMonster(new monsterStats(
+                        monsterEncounterTable.addEntity(new monsterStats(
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['name'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['encounter'],
                             MONSTERS[`area${rows[0].area}`]['battle'][m]['minattack'],

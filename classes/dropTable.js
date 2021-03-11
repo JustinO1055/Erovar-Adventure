@@ -1,23 +1,11 @@
 //Include the js file with functions, that includes the playerDeath function
 var functions = require('../functions.js');
 
+//Include parent class
+const entityTable = require('./entityTable.js');
+
 //Class for a drop table that used the resourceDrop
-module.exports = class dropTable {
-    resources = [];
-
-    // adds the resource to the drop table list
-    addResource(resourceDrop) {
-        this.resources.push(resourceDrop);
-    } 
-
-    // function to compute the sum of the probability chance of each resource in the list
-    probabilitySum() {
-        var probSum = 0;
-        this.resources.forEach(element => {
-            probSum += element.probability;
-        });
-        return probSum;
-    }
+module.exports = class dropTable extends entityTable {
 
     determineHit() {
         //Generate random number for determining which item will be recieved
@@ -27,7 +15,7 @@ module.exports = class dropTable {
         var runningValue = 1, resource, resourceAmount;
 
         //Find which resource is found
-        for(let element of this.resources){
+        for(let element of this.entities){
             runningValue += element.probability;
             if(randomNum < runningValue){
                 resource = element.name;

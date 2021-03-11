@@ -79,22 +79,22 @@ module.exports={
 
                     //Push default resources into the new drop table
                     //(name, probability, quantity min, quantity max)
-                    findDropTable.addResource(new resourceDrop("stick", 25, 10, 15));
-                    findDropTable.addResource(new resourceDrop("log", 20, 2, 4));
+                    findDropTable.addEntity(new resourceDrop("stick", 25, 10, 15));
+                    findDropTable.addEntity(new resourceDrop("log", 20, 2, 4));
                     
                     //Push resources into the drop table depending on players current area
                     switch(rowsUser[0].area){
                         case 1:
-                            findDropTable.addResource(new resourceDrop("pine_log", 3 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 2 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("pine_log", 3 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 2 + Math.round(0.25 * gatherSkill[0])));
                             break;
                         case 2:
-                            findDropTable.addResource(new resourceDrop("pine_log", 4 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
-                            findDropTable.addResource(new resourceDrop("mahogany_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("pine_log", 4 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("mahogany_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
                             break;
                         case 3:
-                            findDropTable.addResource(new resourceDrop("pine_log", 5 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
-                            findDropTable.addResource(new resourceDrop("mahogany_log", 3 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
-                            findDropTable.addResource(new resourceDrop("redwood_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("pine_log", 5 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("mahogany_log", 3 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
+                            findDropTable.addEntity(new resourceDrop("redwood_log", 2 * axe, 1 + Math.round(0.25 * gatherSkill[0]), 3 + Math.round(0.25 * gatherSkill[0])));
                             break;
                     }
 
