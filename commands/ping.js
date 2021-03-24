@@ -10,10 +10,5 @@ module.exports={
     description: "Ping Pong :). Used to ensure bot is online",
     execute(message, args){
         message.channel.send('pong. :)');
-        var test = factoryMonster.createMonster("expedition", "1");
-        console.log(test.name);
-        console.log(test.hp);
-        console.log(test.attack);
-        console.log(test.moves);
     }
 }
