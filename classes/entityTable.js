@@ -1,6 +1,3 @@
-//Include the js file with functions, that includes the playerDeath function
-var functions = require('../functions.js');
-
 //Abstract class for mosnter and recourses
 module.exports = class entityTable {
     entities = [];
@@ -18,5 +15,11 @@ module.exports = class entityTable {
         });
         return probSum;
     }
+
+    /* Abstract method for determining a hit
+    * Needs to be implemented in subclasses */
+    determineHit() {
+        throw new Error('You have to implement the method determineHit in sub-class');
+     }
 
 };
