@@ -1,16 +1,9 @@
 //Class for each monster that can be encountered
 module.exports = class monsterStats {
-    constructor(name, probability, minattack, maxattack, mindefence, maxdefence, minhp, maxhp, minxp, maxxp, mingold, maxgold, emoji, moves, drops, json) {
-        this.name = name;
+    constructor(probability,json, type, area) {
         this.probability = probability;
-        this.attack = [minattack, maxattack];
-        this.defence = [mindefence, maxdefence];
-        this.hp = [minhp, maxhp];
-        this.xp = [minxp, maxxp];
-        this.gold = [mingold, maxgold];
-        this.emoji = emoji;
-        this.moves = moves;
-        this.drops = drops;
         this.json = json;
+        this.type = type;
+        this.area = area;
     }
 };

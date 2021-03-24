@@ -4,12 +4,9 @@ const Discord = require('discord.js');
 // include the json file that holds all of the items names and emoji codes
 const {items} = require('../jsons/items.json');
 
-// include the json file that holds all of the monsters names, emoji codes and information
-const MONSTERS = require('../jsons/monsters.json');
+// include classes to create monster
+const factoryMonster = require('../classes/monsterFactory.js');
 
-//Include the js file that contains the resourceDrop class
-var monsterStats = require('../classes/monsterStats.js');
-var monsterEncounter = require('../classes/monsterEncounter.js');
 
 //Include the js file with functions, that includes the playerDeath function
 var functions = require('../functions.js');
@@ -59,53 +56,19 @@ module.exports={
                 let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
                 connection.query(sql1, (err, rows) =>{
 
-                    // create a new monster encounter table
-                    let monsterEncounterTable = new monsterEncounter;
+                    // create the new monster
+                    // returns the object for the monster
+                    var monster = factoryMonster.createMonster("battle", rows[0].area);
 
-                    // Go through the monstors list for the users area under the battle section.
-                    for(m in MONSTERS[`area${rows[0].area}`]['battle']){
-                        // add the information for that monster to the encounter table.
-                        monsterEncounterTable.addEntity(new monsterStats(
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['name'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['encounter'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['minattack'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['maxattack'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['mindefence'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['maxdefence'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['minhp'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['maxhp'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['minxp'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['maxxp'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['mingold'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['maxgold'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['emoji'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['moves'],
-                            MONSTERS[`area${rows[0].area}`]['battle'][m]['drops'],
-                            m));
-                    }
-
-                    //Determine which monster is encountered
-                    // returns as array
-                    // 0 = name
-                    // 1 = attack
-                    // 2 = defence
-                    // 3 = hp
-                    // 4 = emoji code
-                    // 5 = xp for winning
-                    // 6 = gold for winning
-                    // 7 = moves. (not used in battle)
-                    // 8 = Drop earned 
-                    // 9 = json name
-                    let monster = monsterEncounterTable.determineHit();
                     // prep message to send, could directly send, want it to be sent right before embed
-                    let encounterMsg = `A wild ${monster[4]} has appeared!`;
+                    let encounterMsg = `A wild ${monster.emoji} has appeared!`;
                     message.channel.send(encounterMsg);
 
                     //set the stats for the user for the embed
                     let userStats = `**HP**: ${rows[0].hp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
 
                     // set the stats for the monster for the embed
-                    let encounterStats = `**HP**: ${monster[3]}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
+                    let encounterStats = `**HP**: ${monster.hp}/${monster.hp}\n**Att**: ${monster.attack}\n**Def**: ${monster.defence}`;
                     
                     // create the embed to send
                     const encounterEmbed = new Discord.MessageEmbed()
@@ -113,7 +76,7 @@ module.exports={
                     .setTitle('Battle')
                     .addFields(
                         { name: `${message.author.username}'s Stats:`, value: userStats, inline: true },
-                        { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true},
+                        { name: `Wild ${monster.name}'s ${monster.emoji} Stats:`, value: encounterStats, inline: true},
                         { name: "Action:", value: "What are you going to do?\n\`fight\` to fight the monster.\n\`run\` to run away from the monster."}
                     );
                     
@@ -129,7 +92,7 @@ module.exports={
                                     if(command == "fight"){
                                         battleFight(monster, rows, encounterEmbed, message);
                                     } else {
-                                        functions.failEscape(monster[4], message.author.id, message.channel.id);
+                                        functions.failEscape(monster.emoji, message.author.id, message.channel.id);
                                     }
     
     
@@ -137,7 +100,7 @@ module.exports={
                                 //If the user doesnt enter a valid response, monster attacks
                                 .catch(collected => {
                                     message.channel.send(`After staring at the moster for a while, you decide to try and run away.`);
-                                    functions.failEscape(monster[4], message.author.id, message.channel.id);
+                                    functions.failEscape(monster.emoji, message.author.id, message.channel.id);
                                 });
                             });
     
@@ -159,14 +122,14 @@ module.exports={
 //Function for determining outcome of fighting in the battle
 function battleFight(monster, rows, encounterEmbed, message){
     //Calculate Monsters new hp
-    monsterCurrentHp = functions.calculateDamage(rows[0].attack, monster[2], monster[3], 2);
+    monsterCurrentHp = functions.calculateDamage(rows[0].attack, monster.defence, monster.hp, 2);
     
     //Update the Monsters stat on the embed
-    encounterStats = `**HP**: ${monsterCurrentHp}/${monster[3]}\n**Att**: ${monster[1]}\n**Def**: ${monster[2]}`;
-    encounterMonster = { name: `Wild ${monster[0]}'s ${monster[4]} Stats:`, value: encounterStats, inline: true}
+    encounterStats = `**HP**: ${monsterCurrentHp}/${monster.hp}\n**Att**: ${monster.attack}\n**Def**: ${monster.defence}`;
+    encounterMonster = { name: `Wild ${monster.name}'s ${monster.emoji} Stats:`, value: encounterStats, inline: true}
 
     //Calculate players new hp
-    playerCurrentHp = functions.calculateDamage(monster[1], rows[0].defence, rows[0].hp, 2);
+    playerCurrentHp = functions.calculateDamage(monster.attack, rows[0].defence, rows[0].hp, 2);
 
     //Update the Players stat on the embed
     userStats = `**HP**: ${playerCurrentHp}/${rows[0].max_hp}\n**Att**: ${rows[0].attack}\n**Def**: ${rows[0].defence}`;
@@ -174,15 +137,15 @@ function battleFight(monster, rows, encounterEmbed, message){
 
     //Determine result
     if(playerCurrentHp == 0){
-        result = `The wild ${monster[0]} ${monster[4]} has beat you.`
+        result = `The wild ${monster.name} ${monster.emoji} has beat you.`
     } else if(monsterCurrentHp == 0){
-        result = `You beat the wild ${monster[0]} ${monster[4]}!\nYou got ${monster[5]} XP and ${monster[6]} Gold! from the battle!`;
+        result = `You beat the wild ${monster.name} ${monster.emoji}!\nYou got ${monster.xp} XP and ${monster.gold} Gold! from the battle!`;
         // if the drop is not null, drop was obtained, append it to the message
-        if(monster[8] != null){
-            result += `\nYou have gathered a ${items[monster[8]]['name']} ${items[monster[8]]['emoji']} after defeating the ${monster[0]}.`;
+        if(monster.drop != null){
+            result += `\nYou have gathered a ${items[monster.drop]['name']} ${items[monster.drop]['emoji']} after defeating the ${monster.name}.`;
         }
     } else{
-        result = `You were unable to beat the wild ${monster[0]} ${monster[4]} and it got away.`
+        result = `You were unable to beat the wild ${monster.name} ${monster.emoji} and it got away.`
         sqlEncounterResult = `UPDATE Users SET hp = ${playerCurrentHp} WHERE id = '${message.author.id}'`;
         connection.query(sqlEncounterResult);
     }
@@ -203,5 +166,5 @@ function battleFight(monster, rows, encounterEmbed, message){
     if(playerCurrentHp == 0)
         functions.playerDeath(message, rows[0].level, rows[0].area);
     else if(monsterCurrentHp == 0)
-        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster[5], playerCurrentHp, monster[6], monster[8], monster[9]);
+        functions.battleSuccess(message, rows[0].level, rows[0].xp, monster.xp, playerCurrentHp, monster.gold, monster.drop, monster.json);
 }

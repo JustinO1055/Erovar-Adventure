@@ -1,9 +1,16 @@
 //Include the js file with functions, that includes the random function
 var functions = require('../functions.js');
 
+// include monsters json
+const MONSTERS = require('../jsons/monsters.json');
+
 //Include the js file that contains the resourceDrop class
 var resourceDrop = require('../classes/resourceDrop.js');
 var dropTable = require('../classes/dropTable.js');
+
+// include monster classes
+const monsterBattle = require('../classes/monsterBattle.js');
+const monsterExpedition = require('../classes/monsterExpedition.js');
 
 //Include parent class
 const entityTable = require('./entityTable.js');
@@ -17,34 +24,41 @@ module.exports = class monsterTable extends entityTable {
         var randomNum  = functions.randomInteger(1, this.probabilitySum());
 
         //Used while going through each probability
-        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterxp, monsterMoves, monsterGold, monsterJson;
+        var runningValue = 1, monster, monsterHP, monsterAtt, monsterDef, monsterEmoji, monsterXP, monsterMoves, monsterGold;
+        var area, type, json;
         var monsterDrop = [null, null];
 
         //Find which monster is encountered
         for(let element of this.entities){
             runningValue += element.probability;
             if(randomNum < runningValue){
-                monster = element.name;
+                area = element.area;
+                type = element.type;
+                json = element.json;
+                
+                monster = MONSTERS[`area${area}`][`${type}`][`${json}`].name;
                 // compute the stats for the encountered monster by finding a random number within its stats range
-                monsterAtt = functions.randomInteger(element.attack[0], element.attack[1]);
-                monsterDef = functions.randomInteger(element.defence[0], element.defence[1]);
-                monsterHP = functions.randomInteger(element.hp[0], element.hp[1]);
-                monsterEmoji = element.emoji;
-                monsterxp = functions.randomInteger(element.xp[0], element.xp[1]);
-                monsterGold = functions.randomInteger(element.gold[0], element.gold[1]);
-                monsterJson = element.json;
-                if(typeof(element.moves)!='undefined' && (element.moves) != null)
-                    monsterMoves = element.moves;
+                monsterAtt = functions.randomInteger(MONSTERS[`area${area}`][`${type}`][`${json}`].minattack, MONSTERS[`area${area}`][`${type}`][`${json}`].maxattack);
+                monsterDef = functions.randomInteger(MONSTERS[`area${area}`][`${type}`][`${json}`].mindefence, MONSTERS[`area${area}`][`${type}`][`${json}`].maxdefence);
+                monsterHP = functions.randomInteger(MONSTERS[`area${area}`][`${type}`][`${json}`].minhp, MONSTERS[`area${area}`][`${type}`][`${json}`].maxhp);
+                monsterEmoji = MONSTERS[`area${area}`][`${type}`][`${json}`].emoji;
+                monsterXP = functions.randomInteger(MONSTERS[`area${area}`][`${type}`][`${json}`].minxp, MONSTERS[`area${area}`][`${type}`][`${json}`].maxxp);
+                monsterGold = functions.randomInteger(MONSTERS[`area${area}`][`${type}`][`${json}`].mingold, MONSTERS[`area${area}`][`${type}`][`${json}`].maxgold);
+
+                // if its expedition, set moves
+                if(type == "expedition")
+                    monsterMoves = MONSTERS[`area${area}`][`${type}`][`${json}`].moves;
                 else
                     monsterMoves = null;
-                
-                if(typeof(element.drops)!='undefined' && (element.drops) != null){
+
+                // if its battle set drop
+                if(type == "battle"){
                     // create monster item drop table
                     var monsterDropTable = new dropTable;
                     
                     // push all the possible drops into table
-                    for(var i = 0; i < element.drops.length; i++){
-                        monsterDropTable.addEntity(new resourceDrop(element.drops[i][0], element.drops[i][1], 1, 1));
+                    for(var i = 0; i < MONSTERS[`area${area}`][`${type}`][`${json}`].drops.length; i++){
+                        monsterDropTable.addEntity(new resourceDrop(MONSTERS[`area${area}`][`${type}`][`${json}`].drops[i][0], MONSTERS[`area${area}`][`${type}`][`${json}`].drops[i][1], 1, 1));
                     }
                     monsterDrop = monsterDropTable.determineHit();
 
@@ -52,8 +66,14 @@ module.exports = class monsterTable extends entityTable {
                 break;
             }
         }
-        // return the monster and its stats
-        return [monster, monsterAtt, monsterDef, monsterHP, monsterEmoji, monsterxp, monsterGold, monsterMoves, monsterDrop[0], monsterJson];
+        // return the monster object specific to the type
+        if(type == "battle"){
+            return new monsterBattle(monster, monsterAtt, monsterDef, monsterHP, monsterXP, monsterGold, json, monsterEmoji, monsterDrop[0]);
+        } else if (type == "expedition"){
+            return new monsterExpedition(monster, monsterAtt, monsterDef, monsterHP, monsterXP, monsterGold, json, monsterEmoji, monsterMoves);
+        } else {
+            return "error";
+        }
     }
 
 };
