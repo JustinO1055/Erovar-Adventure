@@ -267,7 +267,7 @@ module.exports = {
         }
     },
     // a function to check if a user has leveled up given current xp and level
-     levelUpCheck: function(xp, level, message){
+    levelUpCheck: function(xp, level, message){
         // get the xp for the levels
         var xpValues = this.xpCurrentNext(level);
     

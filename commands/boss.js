@@ -5,6 +5,9 @@ const Client  = new Discord.Client();
 // include the json file that holds all of the monsters names, emoji codes and information
 const MONSTERS = require('../jsons/monsters.json');
 
+// include classes to create monster
+const factoryMonster = require('../classes/monsterFactory.js');
+
 //Include the js file with functions, that includes the playerDeath function
 var functions = require('../functions.js');
 
@@ -206,7 +209,7 @@ module.exports={
                 }
                 case 1:
                 case 2:{
-                    //Call boss 1 function
+                    //Call boss damage function
                     damageTestBoss(players, message, areaChallenge);                    
                     break;
                 }
@@ -225,11 +228,9 @@ async function boss0(player, message){
     var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${message.author.id}'`;
     connection.query(sql2);
 
-    // store boss into variable for easier access
-    var boss;
-    for(b in MONSTERS['area0']['boss']){
-        boss = MONSTERS['area0']['boss'][b];        
-    }
+    // use factory pattern to get the boss
+    var boss = factoryMonster.createMonster("tutorial", 0);
+
 
     // update the user stats
     userStats = { name: `${message.author.username}'s Stats:`, value: `**HP**: ${player.hp[0]}/${player.hp[1]}\n**Att**: ${player.attack}\n**Def**: ${player.defence}`, inline: true };
@@ -541,15 +542,12 @@ async function boss0(player, message){
 
 async function damageTestBoss(player, message, area){
 
+    // create the boss object using factory
+    var boss = factoryMonster.createMonster("damage", area);
+
     if(area == 1){
         //Declare prompt message for boss
         var promtMessage = `Welcome to the second boss in Erovar.\n Upon defeating the boss, you will be granted access to area 2.`;
-
-        // store boss into variable for easier access
-        var boss;
-        for(b in MONSTERS['area1']['boss']){
-            boss = MONSTERS['area1']['boss'][b];        
-        }
 
         //Create players move options
         var playerMoves = [];
@@ -564,12 +562,6 @@ async function damageTestBoss(player, message, area){
     } else if(area == 2){
         //Declare prompt message for boss
         var promtMessage = `Welcome to the third boss in Erovar.\n Upon defeating the boss, you will be granted access to area 3.`;
-
-        // store boss into variable for easier access
-        var boss;
-        for(b in MONSTERS['area2']['boss']){
-            boss = MONSTERS['area2']['boss'][b];        
-        }
 
         //Create players move options
         var playerMoves = [];
