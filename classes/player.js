@@ -1,4 +1,4 @@
-module.exports = class monsterStats {
+module.exports = class player {
     constructor(id, name, health = 0, max_health = 0, attack = 0, defence = 0){
         this.id = id;
         this.username = name;
