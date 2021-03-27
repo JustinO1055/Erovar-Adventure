@@ -228,6 +228,9 @@ async function boss0(player, message){
     var sql2 = `UPDATE Cooldown SET cd_boss = NOW() WHERE id = '${message.author.id}'`;
     connection.query(sql2);
 
+    // add user to active command
+    activeCommand.add(message.author.id);
+    
     // use factory pattern to get the boss
     var boss = factoryMonster.createMonster("tutorial", 0);
 
@@ -360,7 +363,7 @@ async function boss0(player, message){
                 } else if(attack == 'tomahawk'){
                     // bad outcome
                     playerCurrentHP -= 10;
-                    outcomeMsg = `You threw your ${functions.getemoji('stone_axe')} at the charging ${boss.name}, however you missed and the ${boss.name} stomps on you.\n-10 :heart: ${message.author.username}`;
+                    outcomeMsg = `You threw your ${functions.getEmoji('stone_axe')} at the charging ${boss.name}, however you missed and the ${boss.name} stomps on you.\n-10 :heart: ${message.author.username}`;
 
                 } else if(attack == 'climb'){
                     // bad outcome
@@ -435,7 +438,7 @@ async function boss0(player, message){
             bossFight = [userStats, bossStats, playerMoves, outcome, bossMoveMsg]
             // update the embed
             bossEmbed.spliceFields(0, 5, bossFight);
-        });
+        }); 
     }
 
     // one the battle is over, see who the winner is
@@ -468,6 +471,11 @@ async function boss0(player, message){
         // update the database to set the users hp to 1
         let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
         connection.query(sql);
+
+        // delete the set for activeCommand for current player
+        // allow them to use commands again
+        activeCommand.delete(message.author.id);
+
         return;
 
     // boss kills player
@@ -497,7 +505,10 @@ async function boss0(player, message){
         message.channel.send(defeatEmbed);
         // update the database to set the users hp to 1
         let sql = `UPDATE Users SET hp = 1 WHERE id = '${message.author.id}'`;
-        connection.query(sql);
+        connection.query(sql);    
+        // delete the set for activeCommand for current player
+        // allow them to use commands again
+        activeCommand.delete(message.author.id);
         return;
 
     } else if (playerCurrentHP > 0 && bossCurrentHP <= 0){
@@ -532,7 +543,10 @@ async function boss0(player, message){
         message.channel.send(victoryEmbed);
         // update the database to set the users hp to their current hp, set their area to 1 and max area to 1
         let sql = `UPDATE Users SET hp = ${playerCurrentHP}, max_area = 1, area = 1 WHERE id = '${message.author.id}'`;
-        connection.query(sql);
+        connection.query(sql);    
+        // delete the set for activeCommand for current player
+        // allow them to use commands again
+        activeCommand.delete(message.author.id);
         return;
 
     }
@@ -541,6 +555,8 @@ async function boss0(player, message){
 }
 
 async function damageTestBoss(player, message, area){
+
+    // add all players to current
 
     // create the boss object using factory
     var boss = factoryMonster.createMonster("damage", area);
@@ -628,6 +644,11 @@ async function damageTestBoss(player, message, area){
 
 
 async function damageTestBossFight(message, player, boss, playerMoves, embedPlayerMoves, area){
+
+    // add all players to active list
+    for(p in player)
+        activeCommand.add(player.id);
+
     //Declare variable for number of players in fight
     var numberOfPlayers = player.length;
 
@@ -788,6 +809,9 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         message.channel.send(drawEmbed);
         // update the database to set the users hp to 1
         for(i = 0; i < deadPlayers.length; i++){
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
             let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
             connection.query(sql);
         }
@@ -814,6 +838,9 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         message.channel.send(defeatEmbed);
         // update the database to set the users hp to 1
         for(i = 0; i < deadPlayers.length; i++){
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
             let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
             
             connection.query(sql);
@@ -848,10 +875,16 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         message.channel.send(victoryEmbed);
         // update the database to set the users hp to their current hp, set their area to 1 and max area to 1
         for(i = 0; i < player.length; i++){
-            let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${player[i].id}'`;
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
+            let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${player[i].id}'`;    
             connection.query(sql);
         }
         for(i = 0; i < deadPlayers.length; i++){
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
             let sql = `UPDATE Users SET hp = 1, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${deadPlayers[i].id}'`;
             connection.query(sql);
         }

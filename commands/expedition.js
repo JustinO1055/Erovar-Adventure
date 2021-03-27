@@ -43,6 +43,9 @@ module.exports={
             // time has passed
             } else if (diff >= cooldown || rowsCD[0].admin == 1){
 
+                // add user to active command
+                activeCommand.add(message.author.id);
+
                 // get the users area
                 let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
                 connection.query(sql1, (err, rows) =>{
@@ -213,6 +216,10 @@ async function combat(player, monster, message){
                     functions.battleSuccess(message, player.level, player.xp, monster.xp, playerCurrentHP, monster.gold, null, monster.json);
                 }
             }
+
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
         })
         //If the user doesnt enter a valid response, monster attacks
         .catch(collected => {

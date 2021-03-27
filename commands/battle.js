@@ -51,6 +51,8 @@ module.exports={
             // if no longer on cooldown
             // time has passed
             } else if (diff >= cooldown || rowsCD[0].admin == 1){
+                // add user to active command
+                activeCommand.add(message.author.id);
 
                 // get the users area
                 let sql1 = `SELECT area, hp, max_hp, attack, defence, level, xp FROM Users WHERE id = '${message.author.id}'`;
@@ -167,4 +169,8 @@ function battleFight(monster, rows, encounterEmbed, message){
         functions.playerDeath(message, rows[0].level, rows[0].area);
     else if(monsterCurrentHp == 0)
         functions.battleSuccess(message, rows[0].level, rows[0].xp, monster.xp, playerCurrentHp, monster.gold, monster.drop, monster.json);
+        
+    // delete the set for activeCommand for current player
+    // allow them to use commands again
+    activeCommand.delete(message.author.id);
 }

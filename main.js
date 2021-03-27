@@ -12,6 +12,10 @@ const regExPrefix = /^[a][d][v] /i;
 let cooldown = new Set();
 let cooldownS = 1;
 
+// create global value for activeCommand to prevent players from using commands simultainously 
+var activeCommand = new Set();
+global.activeCommand = activeCommand;
+
 // set up searching for commands in seperate files
 const fs = require('fs');
 client.commands = new Discord.Collection();
@@ -54,8 +58,6 @@ client.on('message', message => {
         const args = message.content.substring(4).split(/ +/).map(a => a.toLowerCase());
         const command = args.shift();
 
-
-
         // preform SQL query to see if user exists
         let sql = `SELECT admin FROM Users WHERE id = '${message.author.id}'`;
         // query the database
@@ -66,6 +68,10 @@ client.on('message', message => {
             // allow admin to bypass
             if(cooldown.has(message.author.id) && rows[0].admin != 1){
                 return message.reply("You must wait 1 second between commands. Please Stop Spamming");
+            }
+            
+            if(activeCommand.has(message.author.id)){
+                return message.reply("You are already doing a command. Finish that command first.");
             }
 
             // Check to see if the user has already started the bot

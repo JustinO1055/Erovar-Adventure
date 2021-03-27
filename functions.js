@@ -196,6 +196,11 @@ module.exports = {
             // print message 
             channel.send(`You were able to run away successfully.`);
         }
+    
+        // delete the set for activeCommand for current player
+        // allow them to use commands again
+        activeCommand.delete(author);
+
     },
     //Function to capitalize the first letter of a string
     capFirstLetter: function(string) {

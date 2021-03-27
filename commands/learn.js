@@ -3,6 +3,9 @@ var functions = require('../functions.js');
 
 const quiz = require('../jsons/learn.json');
 
+// setting a value for the prefix for the bot to look for at the start of a message
+const regExPrefix = /^[a][d][v] /i;
+
 module.exports={
     name: 'learn',
     description: "Use to get xp for the player or their skills.",
@@ -40,6 +43,9 @@ module.exports={
                 return;
             // if no longer on cooldown
             } else if(diff >= cooldown || rows[0].admin == 1){
+
+                // add user to active command
+                activeCommand.add(message.author.id);
 
                 if(args[0] === "xp" || args[0] === "artisan" || args[0] === "a" || args[0] === "gathering" || args[0] === "g")
                     var argCheck = true;
@@ -176,7 +182,7 @@ function learnAsk(command, message, rows){
     }
 
     // set up the filter to only allow for the correct person to respond
-    const filter = m => m.author.id === message.author.id;
+    const filter = m => m.author.id === message.author.id && !(regExPrefix.test(m.content));
 
     message.channel.send(`**${message.author.username}** is attempting to learn.\nThink fast, you have 20 seconds to answer.\n${question}`).then(() => {
         message.channel.awaitMessages(filter, { max: 1, time: 20000, errors: ['time'] })
@@ -199,10 +205,18 @@ function learnAsk(command, message, rows){
                     //Output that the user is wrong
                     message.channel.send(`That is incorrect. Better luck next time!\nThe correct answer was **${answers[0]}**`);
                 }
+                    
+                // delete the set for activeCommand for current player
+                // allow them to use commands again
+                activeCommand.delete(message.author.id);
             })
             .catch(collected => {
                 message.channel.send('**Times up!** Better luck next time.');
+                // delete the set for activeCommand for current player
+                // allow them to use commands again
+                activeCommand.delete(message.author.id);
             });
+        
     });
 
     // add the cooldown to the database
