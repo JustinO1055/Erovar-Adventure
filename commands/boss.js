@@ -2,9 +2,6 @@
 const Discord = require('discord.js');
 const Client  = new Discord.Client();
 
-// include the json file that holds all of the monsters names, emoji codes and information
-const MONSTERS = require('../jsons/monsters.json');
-
 // include classes to create monster
 const factoryMonster = require('../classes/monsterFactory.js');
 

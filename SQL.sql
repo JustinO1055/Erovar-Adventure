@@ -13,7 +13,8 @@ CREATE TABLE Users (
   max_hp INT DEFAULT 100,
   hp INT DEFAULT 100,
   attack INT DEFAULT 1,
-  DEFENCE INT DEFAULT 1,
+  defence INT DEFAULT 1,
+  level INT DEFAULT 1,
   PRIMARY KEY (id),
   CHECK(area >= 0 AND gold >= 0) 
 ) engine = 'innoDB';
@@ -31,6 +32,8 @@ CREATE TABLE Inventory (
   copper_ingot INT NOT NULL DEFAULT 0,
   cowhide INT NOT NULL DEFAULT 0,
   leather INT NOT NULL DEFAULT 0,
+  shark_tooth INT NOT NULL DEFAULT 0,
+  wolf_pelt INT NOT NULL DEFAULT 0
   narwhal_horn INT NOT NULL DEFAULT 0,
   health_boost_a INT NOT NULL DEFAULT 0,
   health_boost_b INT NOT NULL DEFAULT 0,
@@ -94,6 +97,7 @@ CREATE TABLE Stats (
     imp INT NOT NULL DEFAULT 0,
     skullbat INT NOT NULL DEFAULT 0,
     wizard INT NOT NULL DEFAULT 0,
+    wolf_pelt INT NOT NULL DEFAULT 0,
     shark_tooth INT NOT NULL DEFAULT 0,
     narwhal_horn INT NOT NULL DEFAULT 0,
     health_boost_a INT NOT NULL DEFAULT 0,
