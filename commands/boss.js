@@ -643,8 +643,9 @@ async function damageTestBoss(player, message, area){
 async function damageTestBossFight(message, player, boss, playerMoves, embedPlayerMoves, area){
 
     // add all players to active list
-    for(p in player)
-        activeCommand.add(player.id);
+    for(var i = 0; i < player.length; i++){
+        activeCommand.add(player[i].id);
+    }
 
     //Declare variable for number of players in fight
     var numberOfPlayers = player.length;
@@ -808,7 +809,7 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         for(i = 0; i < deadPlayers.length; i++){
             // delete the set for activeCommand for current player
             // allow them to use commands again
-            activeCommand.delete(message.author.id);
+            activeCommand.delete(player[i].id);
             let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
             connection.query(sql);
         }
@@ -837,7 +838,7 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         for(i = 0; i < deadPlayers.length; i++){
             // delete the set for activeCommand for current player
             // allow them to use commands again
-            activeCommand.delete(message.author.id);
+            activeCommand.delete(deadPlayers[i].id);
             let sql = `UPDATE Users SET hp = 1 WHERE id = '${deadPlayers[i].id}'`;
             
             connection.query(sql);
@@ -874,14 +875,14 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         for(i = 0; i < player.length; i++){
             // delete the set for activeCommand for current player
             // allow them to use commands again
-            activeCommand.delete(message.author.id);
+            activeCommand.delete(player[i].id);
             let sql = `UPDATE Users SET hp = ${player[i].hp[0]}, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${player[i].id}'`;    
             connection.query(sql);
         }
         for(i = 0; i < deadPlayers.length; i++){
             // delete the set for activeCommand for current player
             // allow them to use commands again
-            activeCommand.delete(message.author.id);
+            activeCommand.delete(deadPlayers[i].id);
             let sql = `UPDATE Users SET hp = 1, max_area = ${area + 1}, area = ${area + 1} WHERE id = '${deadPlayers[i].id}'`;
             connection.query(sql);
         }
