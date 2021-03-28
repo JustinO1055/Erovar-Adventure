@@ -372,6 +372,13 @@
             "droppable" : true,
             "use" : "defence = defence + 2",
             "msg" : "gained +2 defence :shield:"
+        },
+        "logo":{   
+            "name": "Defence Boost B",
+            "emoji": "<:ErovarAdventure:810276183202856990>",
+            "description": "Logo for the game.",
+            "value": 0,
+            "type": "logo"
         }
     },
     "shop":{

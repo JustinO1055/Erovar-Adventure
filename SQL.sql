@@ -33,7 +33,7 @@ CREATE TABLE Inventory (
   cowhide INT NOT NULL DEFAULT 0,
   leather INT NOT NULL DEFAULT 0,
   shark_tooth INT NOT NULL DEFAULT 0,
-  wolf_pelt INT NOT NULL DEFAULT 0
+  wolf_pelt INT NOT NULL DEFAULT 0,
   narwhal_horn INT NOT NULL DEFAULT 0,
   health_boost_a INT NOT NULL DEFAULT 0,
   health_boost_b INT NOT NULL DEFAULT 0,

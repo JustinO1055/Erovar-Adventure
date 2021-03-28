@@ -15,7 +15,7 @@ module.exports={
             
             //Create the embed to output
             var helpEmbed = new Discord.MessageEmbed()
-                .setTitle(`<:ErovarAdventure:810276183202856990> Help`)
+                .setTitle(`${functions.getEmoji('logo')} Help`)
                 .setDescription(`Start all commands with \`adv\` in order for it to work.\nFor more information on any command or item, use \`adv help <command | item>\``)
                 .setColor('#FF69B4')
                 .addFields(

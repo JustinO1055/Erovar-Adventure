@@ -1,7 +1,7 @@
 //Include parent class
 const monster = require('./monster.js');
 
-// class for monsters encounted in battle, 
+// class for monsters encountered  in battle, 
 
 //adds the attack, defence, xp, gold and drops that they have
 module.exports = class monsterBattle extends monster{
