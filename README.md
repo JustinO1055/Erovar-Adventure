@@ -1,3 +1,14 @@
+# Erovar Adventure - Text Based Discord RPG Bot
+Erovar Adventure lets you expand what you do within Discord. Along with being able to talk with friends, this bot allows you to play a game within the same server that you would use to talk to friends. Erovar Adventure is a simple RPG game that includes combat, gathering materials, boss battles and much more. In this game you will progress your character through various areas fighting various enemies all in an attempt to defeat the final boss. 
+
+Discord prefix: adv
+
+This game was created for CS 476 final project.
+
+Name(s): Justin Ottenbreit & Patrick LeBlanc
+
+Student ID(s): 200251932 & 200374786
+
 ## Setup
 In order to use this Discord bot, you can either invite the already hosted bot to your server of choosing, or you can download the source code, host the bot yourself and then invite it to the server fo your choosing.
 
