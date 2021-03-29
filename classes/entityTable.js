@@ -1,4 +1,4 @@
-//Abstract class for mosnter and recourses
+//Abstract class for monster and resources
 module.exports = class entityTable {
     entities = [];
 
