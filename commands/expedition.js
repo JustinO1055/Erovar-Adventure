@@ -141,6 +141,11 @@ async function combat(player, monster, message){
                 let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${message.author.id}'`;
                 // query the db
                 connection.query(sql);
+                    
+                // delete the set for activeCommand for current player
+                // allow them to use commands again
+                activeCommand.delete(message.author.id);
+
                 return;
 
             }else if((command == "attack" && attackIndex == 0) || (command == "block" && attackIndex == 1) || (command == "dodge" && attackIndex == 2)){
@@ -230,6 +235,10 @@ async function combat(player, monster, message){
             let sql = `UPDATE Users SET hp = hp / 2 WHERE id = '${message.author.id}'`;
             // query the db
             connection.query(sql);
+
+            // delete the set for activeCommand for current player
+            // allow them to use commands again
+            activeCommand.delete(message.author.id);
         });
     }
 
