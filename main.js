@@ -183,6 +183,9 @@ client.on('message', message => {
                 } else if (command === 'learn' || command === 'tr'){
                     // execute the command in the file learn.js
                     client.commands.get('learn').execute(message, args);
+                } else if (command === 'presentation'){
+                    // execute the command in the file learn.js
+                    client.commands.get('presentation').execute(message, args);
                 }
             }
         });

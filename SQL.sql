@@ -70,7 +70,7 @@ CREATE TABLE Skills (
     gathering INT NOT NULL DEFAULT 0,
     artisan INT NOT NULL DEFAULT 0,    
     FOREIGN KEY (id) REFERENCES Users(id) ON DELETE CASCADE
-);
+) engine = "innoDB";
 
 CREATE TABLE Stats (
     id VARCHAR(20) NOT NULL PRIMARY KEY,
