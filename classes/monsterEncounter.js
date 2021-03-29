@@ -75,6 +75,5 @@ module.exports = class monsterTable extends entityTable {
             return "error";
         }
     }
-
 };
 
