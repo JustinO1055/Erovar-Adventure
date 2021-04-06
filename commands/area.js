@@ -1,6 +1,6 @@
 module.exports={
     name: 'area',
-    description: "Used to go between",
+    description: "Used to go between areas",
     execute(message, args){
 
         // regex to ensure that the user has inputted a number

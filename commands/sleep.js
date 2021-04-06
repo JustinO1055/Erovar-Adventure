@@ -1,6 +1,6 @@
 module.exports={
     name: 'sleep',
-    description: "Allow the user to sleep once every 16 hours for a free heal of health",
+    description: "Allow the user to sleep once every 16 hours for a free heal of health and gain some bonus hp",
     execute(message, args){
 
         // variables for time cooldown

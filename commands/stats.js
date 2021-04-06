@@ -9,7 +9,6 @@ const MONSTERS = require('../jsons/monsters.json');
 
 //Include the js file with functions, that includes the playerDeath function
 var functions = require('../functions.js');
-const { createConnection } = require('net');
 
 module.exports={
     name: 'stats',
@@ -108,11 +107,4 @@ module.exports={
         });
 
     }
-}
-
-function addSpace(str){
-
-    var checkDigit = /[^0-9](?=[0-9])/g; 
-    return (str.replace(checkDigit, '$& '));
-
 }

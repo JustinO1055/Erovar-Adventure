@@ -4,6 +4,11 @@ const bossDamage = require('./bossDamage.js');
 const MONSTERS = require('../jsons/monsters.json');
 const monsterEncounter = require('./monsterEncounter.js');
 
+// class for the monsterFactory
+// provide the required arguments for a monster
+// this factory automatically creates the correct monster for the given information
+// will automatically select a random monster for battle/ expedition
+
 module.exports = class monsterFactory{
 
     static createMonster(type, area){

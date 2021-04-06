@@ -46,14 +46,6 @@ module.exports={
 
             message.mentions.users.forEach(member =>{
                 sql += ` OR C.id = '${member.id}'`;
-                // get id of first argument
-                // if it is not a person. print error message
-                /* try{
-                    
-                } catch(err) {
-                    message.reply(`Unable to get player information. Please ensure that you are mentioning the people you want to fight the boss with.`);
-                    return;
-                } */
             });
 
         } else if(args.length > 3){
@@ -846,6 +838,7 @@ async function damageTestBossFight(message, player, boss, playerMoves, embedPlay
         
         return;
 
+    // players kill boss
     } else if (player.length > 0 && bossCurrentHP <= 0){
 
         // set hp of boss to 0
